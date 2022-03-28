@@ -35,12 +35,13 @@ FormField.propTypes = {
 const Registration = props => {
   const history = useHistory();
   const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
   const doRegister = async () => {
     try {
       // post the new user to the server
-      const requestBody = JSON.stringify({username, password});
+      const requestBody = JSON.stringify({username, name, password});
       const response = await api.post('/users', requestBody);
 
       // Get the returned user and update a new object.
@@ -74,6 +75,11 @@ const Registration = props => {
             label="Username"
             value={username}
             onChange={un => setUsername(un)}
+          />
+        <FormField
+            label="Name"
+            value={name}
+            onChange={na => setName(na)}
           />
           <FormField
               label="Password"
