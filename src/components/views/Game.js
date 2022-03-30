@@ -31,6 +31,9 @@ const Game = () => {
   const [users, setUsers] = useState(null);
 
   const logout = () => {
+    const requestBody = ""
+    // TODO: API with userID, needed? authorization with token
+    api.put('/logout', requestBody, {headers:{authorization: localStorage.getItem("token")}});
     localStorage.removeItem('token');
     history.push('/login');
   }

@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {api, handleError} from 'helpers/api';
-import User from 'models/User';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import 'styles/views/Login.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
+import User from 'models/User';
 
 /*
 It is possible to add multiple components inside a single file,
@@ -15,17 +15,17 @@ specific components that belong to the main one in the same file.
  */
 const FormField = props => {
   return (
-    <div className="login field">
-      <label className="login label">
-        {props.label}
-      </label>
-      <input
-        className="login input"
-        placeholder="enter here.."
-        value={props.value}
-        onChange={e => props.onChange(e.target.value)}
-      />
-    </div>
+      <div className="login field">
+        <label className="login label">
+          {props.label}
+        </label>
+        <input
+            className="login input"
+            placeholder="enter here.."
+            value={props.value}
+            onChange={e => props.onChange(e.target.value)}
+        />
+      </div>
   );
 };
 
@@ -37,53 +37,72 @@ FormField.propTypes = {
 
 const Login = props => {
   const history = useHistory();
-  const [name, setName] = useState(null);
-  const [username, setUsername] = useState(null);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const doLogin = async () => {
     try {
-      const requestBody = JSON.stringify({username, name});
-      const response = await api.post('/users', requestBody);
+      const requestBody = JSON.stringify({username, password});
+      const response = await api.post('/login', requestBody);
 
       // Get the returned user and update a new object.
       const user = new User(response.data);
 
+
       // Store the token into the local storage.
-      localStorage.setItem('token', user.token);
+      localStorage.setItem('token', response.headers.token);
 
       // Login successfully worked --> navigate to the route /game in the GameRouter
-      history.push(`/game`);
+      history.push(`/game/dashboard`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
   };
 
+  const doRegistration = async () => {
+    // do Registration instead of login
+    try{
+      history.push('/registration')
+    } catch (error){
+      alert(`Something went wrong when chancing to Registration: \n${handleError(error)}`);
+    }
+  };
+
   return (
-    <BaseContainer>
-      <div className="login container">
-        <div className="login form">
-          <FormField
-            label="Username"
-            value={username}
-            onChange={un => setUsername(un)}
-          />
-          <FormField
-            label="Name"
-            value={name}
-            onChange={n => setName(n)}
-          />
-          <div className="login button-container">
-            <Button
-              disabled={!username || !name}
-              width="100%"
-              onClick={() => doLogin()}
-            >
-              Login
-            </Button>
+      <BaseContainer>
+        <div className="login container">
+          <div className="login form">
+          <h2> Login </h2>
+            <FormField
+                label="Username"
+                value={username}
+                onChange={un => setUsername(un)}
+            />
+            <FormField
+                label="Password"
+                value={password}
+                onChange={pw => setPassword(pw)}
+            />
+            <div className="login button-container">
+              <Button
+                  disabled={!username || !password}
+                  width="100%"
+                  onClick={() => doLogin()}
+              >
+                Login
+              </Button>
+            </div>
+            <div className="login button-container">
+              <Button
+                  width="100%"
+                  onClick={() => doRegistration()}
+              >
+                You do not have a login? register...
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
-    </BaseContainer>
+      </BaseContainer>
   );
 };
 
