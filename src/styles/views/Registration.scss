@@ -11,15 +11,14 @@
   &.form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     width: 60%;
-    max-width: 30em;
-    height: 35em;
-    font-size: 16px;
+    max-width: 25em;
+    height: 40em;
+    font-size: 18px;
     font-weight: 300;
     padding-left: 37px;
     padding-right: 37px;
-    border-radius: 0.75em;
+    border-radius: 1.2em;
     background-color: $background;
     transition: opacity 0.5s ease, transform 0.5s ease;
     box-shadow: $dropShadow;
@@ -30,24 +29,33 @@
     justify-content: center;
   }
   &.input {
+    background-color: transparent;
     height: 35px;
     padding-left: 15px;
     margin-left: -4px;
     border: none;
-    border-radius: 0.75em;
     margin-bottom: 20px;
-    background: transparentize(white, 0.85);
     color: $textColor;
+    border-bottom: 1px solid #FFFFFF;
   }
   &.label {
     color: $textColor;
     margin-bottom: 10px;
-    text-transform: lowercase;
     font-weight: 300;
+    font-size: 30px;
   }
   &.button-container {
+    position: relative;
+    bottom: -140px;
     display: flex;
     justify-content: center;
     margin-top: 2em;
+    background-color: transparent;
+
+  }
+  &.title{
+    position: relative;
+    font-size: 64px;
+    top:-20px;
   }
 }
