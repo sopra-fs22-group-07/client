@@ -1,13 +1,15 @@
-@import 'styles/theme';
+@import 'src/styles/theme';
 
 .header {
   &.container {
     @include center;
+    background-color: $accentDark;
   }
 
   &.title {
+
     font-weight: bold;
-    color: $background;
+    color: $textColor;
     text-align: center;
   }
 }
