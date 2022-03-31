@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {api, handleError} from 'helpers/api';
-import User from 'models/User';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import 'styles/views/Registration.scss';
@@ -45,7 +44,7 @@ const Registration = props => {
       const response = await api.post('/users', requestBody);
 
       // Get the returned user and update a new object.
-      const user = new User(response.data);
+      //const user = new User(response.data);
 
       // Store the token into the local storage.
       localStorage.setItem('token', response.headers.token);
@@ -70,7 +69,7 @@ const Registration = props => {
     <BaseContainer>
       <div className="registration container">
         <div className="registration form">
-        <h2> Registration </h2>
+        <h2 className="registration title"> Registration </h2>
           <FormField
             label="Username"
             value={username}
