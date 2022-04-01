@@ -7,9 +7,16 @@
   }
 
   &.title {
-
     font-weight: bold;
     color: $textColor;
     text-align: center;
   }
+
+  &.button-container{
+    position: relative;
+    display: flex;
+    margin-top: 0em;
+    size:200px;
+  }
+
 }
