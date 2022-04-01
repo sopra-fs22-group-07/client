@@ -61,7 +61,7 @@ const Registration = props => {
 
   return (
       <React.Fragment>
-        <Header height="100" view="register"/>
+        <Header view="register"/>
     <BaseContainer>
       <div className="registration container">
         <div className="registration form">

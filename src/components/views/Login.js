@@ -63,7 +63,7 @@ const Login = props => {
 
   return (
       <React.Fragment>
-        <Header height="100" view="login"/>
+        <Header view="login"/>
       <BaseContainer>
         <div className="login container">
           <div className="login form">

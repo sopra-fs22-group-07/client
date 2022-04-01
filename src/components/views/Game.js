@@ -98,7 +98,7 @@ const Game = () => {
 
   return (
       <React.Fragment>
-          <Header heigh="100"/>
+          <Header view="game"/>
     <BaseContainer className="game container">
       <h2>Happy Coding!</h2>
       <p className="game paragraph">
