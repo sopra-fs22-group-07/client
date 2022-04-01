@@ -5,7 +5,7 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/Login.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import User from 'models/User';
+import Header from "./Header";
 
 /*
 It is possible to add multiple components inside a single file,
@@ -46,7 +46,7 @@ const Login = props => {
       const response = await api.post('/login', requestBody);
 
       // Get the returned user and update a new object.
-      const user = new User(response.data);
+      //const user = new User(response.data);
 
 
       // Store the token into the local storage.
@@ -59,27 +59,22 @@ const Login = props => {
     }
   };
 
-  const doRegistration = async () => {
-    // do Registration instead of login
-    try{
-      history.push('/registration')
-    } catch (error){
-      alert(`Something went wrong when chancing to Registration: \n${handleError(error)}`);
-    }
-  };
+
 
   return (
+      <React.Fragment>
+        <Header height="100" view="login"/>
       <BaseContainer>
         <div className="login container">
           <div className="login form">
             <h2 className = "login title"> Login </h2>
             <FormField
-                label="Username:"
+                label="Username"
                 value={username}
                 onChange={un => setUsername(un)}
             />
             <FormField
-                label="Password:"
+                label="Password"
                 value={password}
                 onChange={pw => setPassword(pw)}
             />
@@ -93,16 +88,12 @@ const Login = props => {
               </Button>
             </div>
             <div className="login button-container">
-              <Button
-                  width="100%"
-                  onClick={() => doRegistration()}
-              >
-                You do not have a login? register...
-              </Button>
+
             </div>
           </div>
         </div>
       </BaseContainer>
+      </React.Fragment>
   );
 };
 

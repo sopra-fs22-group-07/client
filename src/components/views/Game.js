@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {Button} from 'components/ui/Button';
@@ -6,6 +6,7 @@ import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Game.scss";
+import Header from "./Header";
 
 const Player = ({user}) => (
   <div className="player container">
@@ -96,6 +97,8 @@ const Game = () => {
   }
 
   return (
+      <React.Fragment>
+          <Header heigh="100"/>
     <BaseContainer className="game container">
       <h2>Happy Coding!</h2>
       <p className="game paragraph">
@@ -103,6 +106,7 @@ const Game = () => {
       </p>
       {content}
     </BaseContainer>
+      </React.Fragment>
   );
 }
 
