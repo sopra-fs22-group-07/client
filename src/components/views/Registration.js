@@ -51,8 +51,10 @@ const Registration = props => {
 
   const doRegister = async () => {
     try {
+      console.log("gendertype", typeof(gender))
+      console.log("gender", gender)
       // post the new user to the server
-      const requestBody = JSON.stringify({username, name, password, birthday});
+      const requestBody = JSON.stringify({username, name, password, birthday, gender});
       const response = await api.post('/users', requestBody);
 
       // Get the returned user and update a new object.
@@ -105,7 +107,6 @@ const Registration = props => {
             <Select
                 options={genderOptions}
                 onChange={(genders)=>setGender(genders.value)}
-
             />
           </div>
           <div className="registration button-container">
