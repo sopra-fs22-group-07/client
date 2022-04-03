@@ -1,12 +1,12 @@
 import React from 'react';
 
-import "styles/views/Game.scss";
+import "styles/views/GameMenu.scss";
 import CardButton from "../ui/CardButton";
 import Header from "./Header";
 import MenuContainer from "../ui/MenuContainer";
 
 
-const Game = () => {
+const GameMenu = () => {
   // use react-router-dom's hook to access the history
 
   // const history = useHistory();
@@ -38,4 +38,4 @@ const Game = () => {
   );
 }
 
-export default Game;
+export default GameMenu;

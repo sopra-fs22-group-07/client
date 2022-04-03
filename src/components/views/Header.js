@@ -53,7 +53,7 @@ function Header(props){
     }
 
     if(!localStorage.getItem("token")){
-        if(props.view=="login"){
+        if(props.view==="login"){
             return     <div className="header container" style={{height:"100"}}>
                 <h1 className="header title">Group 07 in SoPra FS22 rocks with React!</h1>
                 <ReactLogo width="60px" height="60px"/>
@@ -66,7 +66,7 @@ function Header(props){
                 </div>
             </div>
         }
-        if(props.view=="register"){
+        if(props.view==="register"){
             return     <div className="header container" style={{height: "100"}}>
                 <h1 className="header title">Group 07 in SoPra FS22 rocks with React!</h1>
                 <ReactLogo width="60px" height="60px"/>
