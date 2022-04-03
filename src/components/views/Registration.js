@@ -9,6 +9,7 @@ import Header from "./Header";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Gender from "constant/Gender";
+import Select from "react-select";
 /*
 Registration Page
  */
@@ -34,6 +35,11 @@ FormField.propTypes = {
   onChange: PropTypes.func
 };
 
+const genderOptions = [
+    {value: Gender.MALE, label: "Male"},
+    {value:  Gender.FEMALE, label: "Female"},
+  {value: Gender.OTHER, label: "Other"}
+]
 
 
 const Registration = props => {
@@ -42,11 +48,12 @@ const Registration = props => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [birthday, setBirthday] = useState(null);
+  const [gender, setGender] = useState(null)
 
   const doRegister = async () => {
     try {
       // post the new user to the server
-      const requestBody = JSON.stringify({username, name, password, birthday});
+      const requestBody = JSON.stringify({username, name, password, birthday, gender});
       const response = await api.post('/users', requestBody);
 
       // Get the returned user and update a new object.
@@ -90,11 +97,18 @@ const Registration = props => {
           <div>
             <DatePicker placeholderText="Your Birthday" selected={birthday} onChange={(date)=>setBirthday(date)} />
           </div>
+          <div>
+            <Select
+                options={genderOptions}
+                onChange={(value)=>setGender(value)}
+
+            />
+          </div>
           <div className="registration button-container">
             <Button
-              disabled={!username || !password || !name || !birthday}
+              disabled={!username || !password || !name || !birthday || !gender}
               width="100%"
-              onClick={() => doRegister()}a
+              onClick={() => doRegister()}
             >
               Register
             </Button>
