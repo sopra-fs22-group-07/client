@@ -5,6 +5,7 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/Registration.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
+import Header from "./Header";
 
 /*
 Registration Page
@@ -56,16 +57,11 @@ const Registration = props => {
     }
   };
 
-  const doLogin = async => {
-    // do login instead of registration
-    try{
-      history.push('/login')
-    } catch (error){
-      alert(`Something went wrong during the registration: \n${handleError(error)}`);
-    }
-  };
+
 
   return (
+      <React.Fragment>
+        <Header view="register"/>
     <BaseContainer>
       <div className="registration container">
         <div className="registration form">
@@ -95,16 +91,11 @@ const Registration = props => {
             </Button>
           </div>
           <div className="registration button-container">
-              <Button
-                  width="100%"
-                  onClick={() => doLogin()}
-              >
-                You already have a login? go to login.
-              </Button>
             </div>
         </div>
       </div>
     </BaseContainer>
+      </React.Fragment>
   );
 };
 

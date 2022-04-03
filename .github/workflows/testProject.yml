@@ -1,0 +1,22 @@
+name: Test Project
+
+on: 
+  pull_request:
+    branches: 
+      - master
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # uncomment both tokens for assignment 2-4
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+ 
+
+    steps:
+    # checkout repository code
+    - uses: actions/checkout@v1
+   
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master

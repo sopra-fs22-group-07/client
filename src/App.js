@@ -1,4 +1,3 @@
-import Header from "components/views/Header";
 import AppRouter from "components/routing/routers/AppRouter";
 
 /**
@@ -6,11 +5,12 @@ import AppRouter from "components/routing/routers/AppRouter";
  * React Template by Lucas Pelloni
  * Overhauled by Kyrill Hux
  */
+
+
 const App = () => {
   return (
     <div>
-      <Header height="100"/>
-      <AppRouter/>
+        <AppRouter/>
     </div>
   );
 };
