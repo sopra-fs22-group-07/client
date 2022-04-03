@@ -5,8 +5,9 @@ import {Button} from 'components/ui/Button';
 import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import "styles/views/Game.scss";
+import "styles/views/Overview.scss";
 import Header from "./Header";
+import { CardButton } from 'components/ui/CardButton';
 
 const Player = ({user}) => (
   <div className="player container">
@@ -20,7 +21,7 @@ Player.propTypes = {
   user: PropTypes.object
 };
 
-const Game = () => {
+const Overview = () => {
   // use react-router-dom's hook to access the history
   const history = useHistory();
 
@@ -76,38 +77,29 @@ const Game = () => {
     fetchData();
   }, []);
 
-  let content = <Spinner/>;
-
-  if (users) {
-    content = (
-      <div className="game">
-        <ul className="game user-list">
-          {users.map(user => (
-            <Player user={user} key={user.id}/>
-          ))}
-        </ul>
-        <Button
-          width="100%"
-          onClick={() => logout()}
-        >
-          Logout
-        </Button>
-      </div>
-    );
-  }
-
   return (
       <React.Fragment>
-          <Header view="game"/>
-      <BaseContainer className="game container">
-        <h2>Happy Coding!</h2>
-        <p className="game paragraph">
-          Get all users from secure endpoint:
-        </p>
-        {content}
-      </BaseContainer>
+        <Header view="game"/>
+          <h1>Welcome to the game!</h1>
+        <BaseContainer className="overview container">
+
+          {/* some button */}
+          <CardButton
+            onClick={() => history.push('/game')}
+          >
+            Game Dashboard
+          </CardButton>
+
+          {/* some button */}
+          <CardButton
+            // onClick={() => history.push('/game/create')}
+          >
+            Some other button
+          </CardButton>
+
+        </BaseContainer>
       </React.Fragment>
   );
 }
 
-export default Game;
+export default Overview;

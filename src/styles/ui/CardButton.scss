@@ -1,0 +1,29 @@
+@import 'src/styles/theme';
+
+.primary-cardButton {
+  &:hover {
+    transform: translateY(-2px);
+  }
+  &:disabled {
+    cursor: default;
+    opacity: 0.4;
+    &:hover {
+      transform: none;
+    }
+  }
+  padding: 6px;
+  font-weight: 700;
+  text-transform: uppercase;
+  // font-size: 13px;  // original
+  font-size: 20px;
+  text-align: left;
+  height: 350px;
+  width: 200px;
+  border: none;
+  border-radius: $borderRadius;
+  cursor: pointer;
+  opacity: 1;
+  color: $background;
+  background-color: $accent;
+  transition: all 0.3s ease;
+}

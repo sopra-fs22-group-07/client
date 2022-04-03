@@ -66,8 +66,8 @@ function Header(props){
     }
     else{
         return <div className="header container" style={{height:"100"}}>
-            <h1 className="header title">Group 07 in SoPra FS22 rocks with React! GAME</h1>
-            <ReactLogo width="60px" height="60px"/>
+            <h1 className="header title">Date Against Humanity</h1>
+            {/* <ReactLogo width="60px" height="60px"/> */}
         </div>
     }
 }

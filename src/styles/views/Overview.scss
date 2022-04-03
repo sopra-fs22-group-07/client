@@ -1,0 +1,15 @@
+@import 'src/styles/theme';
+
+
+.overview {
+  &.container {
+    background: $background;
+    padding: 1.5em;
+    border-radius: $borderRadius;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-shadow: $dropShadow;
+    height: flex;
+  }
+}
