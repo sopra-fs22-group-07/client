@@ -6,7 +6,7 @@ import 'styles/views/Registration.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import Header from "./Header";
-
+import Gender from "constant/Gender";
 /*
 Registration Page
  */
@@ -32,6 +32,8 @@ FormField.propTypes = {
   onChange: PropTypes.func
 };
 
+
+
 const Registration = props => {
   const history = useHistory();
   const [username, setUsername] = useState("");
@@ -56,6 +58,7 @@ const Registration = props => {
       alert(`Something went wrong during the registration: \n${handleError(error)}`);
     }
   };
+
 
 
 
