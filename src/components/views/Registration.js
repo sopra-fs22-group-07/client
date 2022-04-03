@@ -8,7 +8,6 @@ import PropTypes from "prop-types";
 import Header from "./Header";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Gender from "constant/Gender";
 import Select from "react-select";
 /*
 Registration Page
@@ -36,9 +35,9 @@ FormField.propTypes = {
 };
 
 const genderOptions = [
-    {value: Gender.MALE, label: "Male"},
-    {value:  Gender.FEMALE, label: "Female"},
-  {value: Gender.OTHER, label: "Other"}
+    {value: "MALE", label: "Male"},
+    {value:  "FEMALE", label: "Female"},
+  {value: "OTHER", label: "Other"}
 ]
 
 
