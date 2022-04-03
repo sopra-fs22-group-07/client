@@ -7,5 +7,4 @@ class Gender{
         this.name = name
     }
 }
-
 export default Gender;
