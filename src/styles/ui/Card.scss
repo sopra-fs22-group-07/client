@@ -1,8 +1,8 @@
 @import 'src/styles/theme';
 
-.primary-cardButton {
+.primary-card {
   &:hover {
-    transform: translateY(-2px);
+    transform: translateY(-150px);
   }
   &:disabled {
     cursor: default;
@@ -19,11 +19,27 @@
   text-align: left;
   height: 350px;
   width: 200px;
-  border: none;
+  // border: none;
+  box-shadow: $dropShadow;
+  border-style: solid;
+  border-width: 5px;
+  border-color: $background;
   border-radius: $borderRadius;
   cursor: pointer;
   opacity: 1;
   color: $background;
   background-color: $accent;
   transition: all 0.3s ease;
+}
+
+.card-text{
+  font-weight: 700;
+  text-transform: uppercase;
+  // font-size: 13px;  // original
+  text-align: left;
+  font-size: 20px;
+  color: black;
+  top: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

@@ -4,7 +4,7 @@ import GameRouter from "components/routing/routers/GameRouter";
 import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
 import Login from "components/views/Login";
 import Registration from "../../views/Registration";
-import Overview from "components/views/Overview";
+import Overview from "components/views/WhiteCardSelection";
 
 /**
  * Main router of your application.
@@ -24,7 +24,7 @@ const AppRouter = () => {
             <GameRouter base="/game"/>
           </GameGuard>
         </Route>
-        <Route path="/overview">
+        <Route path="/whitecardselection">
           <GameGuard>
             <Overview/>
           </GameGuard>

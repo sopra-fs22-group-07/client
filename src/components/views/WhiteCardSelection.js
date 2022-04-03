@@ -5,9 +5,9 @@ import {Button} from 'components/ui/Button';
 import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import "styles/views/Overview.scss";
+import "styles/views/WhiteCardSelection.scss";
 import Header from "./Header";
-import { CardButton } from 'components/ui/CardButton';
+import { Card } from 'components/ui/Card';
 
 const Player = ({user}) => (
   <div className="player container">
@@ -21,7 +21,7 @@ Player.propTypes = {
   user: PropTypes.object
 };
 
-const Overview = () => {
+const WhiteCardSelection = () => {
   // use react-router-dom's hook to access the history
   const history = useHistory();
 
@@ -78,28 +78,48 @@ const Overview = () => {
   }, []);
 
   return (
-      <React.Fragment>
-        <Header view="game"/>
-          <h1>Welcome to the game!</h1>
-        <BaseContainer className="overview container">
+    <React.Fragment>
+      <Header view="game"/>
+      <h1>Pick a white card</h1>
 
-          {/* some button */}
-          <CardButton
-            onClick={() => history.push('/game')}
-          >
-            Game Dashboard
-          </CardButton>
+      {/* div containing the white cards */}
+      <div style={ {position: "fixed", bottom: 0, margin:"0px auto", left:0, right:0} }>
+        <BaseContainer className="card container">
 
-          {/* some button */}
-          <CardButton
-            // onClick={() => history.push('/game/create')}
+          {/* some card */}
+          <Card
+          // TODO: onClick: ask to confirm this card, then make api call to submit this card choice, then reload page
           >
-            Some other button
-          </CardButton>
+          This is a white card
+          </Card>
+
+          {/* some card */}
+          <Card
+          // TODO: onClick: ask to confirm this card, then make api call to submit this card choice, then reload page
+          >
+          This is a white card
+          </Card>
+
+
+          {/* some card */}
+          <Card
+          // TODO: onClick: ask to confirm this card, then make api call to submit this card choice, then reload page
+          >
+          This is a white card
+          </Card>
+
+
+          {/* some card */}
+          <Card
+          // TODO: onClick: ask to confirm this card, then make api call to submit this card choice, then reload page
+          >
+          This is a white card
+          </Card>
 
         </BaseContainer>
-      </React.Fragment>
+      </div>
+    </React.Fragment>
   );
 }
 
-export default Overview;
+export default WhiteCardSelection;
