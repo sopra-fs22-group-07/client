@@ -35,9 +35,9 @@ FormField.propTypes = {
 };
 
 const genderOptions = [
-    {value: "MALE", label: "Male"},
-    {value:  "FEMALE", label: "Female"},
-  {value: "OTHER", label: "Other"}
+    {value: 'MALE', label: 'Male'},
+    {value:  'FEMALE', label: 'Female'},
+    {value: 'OTHER', label: 'Other'}
 ]
 
 
@@ -52,7 +52,7 @@ const Registration = props => {
   const doRegister = async () => {
     try {
       // post the new user to the server
-      const requestBody = JSON.stringify({username, name, password, birthday, gender});
+      const requestBody = JSON.stringify({username, name, password, birthday});
       const response = await api.post('/users', requestBody);
 
       // Get the returned user and update a new object.
@@ -94,12 +94,17 @@ const Registration = props => {
               onChange={pw => setPassword(pw)}
           />
           <div>
-            <DatePicker placeholderText="Your Birthday" selected={birthday} onChange={(date)=>setBirthday(date)} />
+            <DatePicker
+                placeholderText="Your Birthday"
+                selected={birthday}
+                onChange={(date)=>setBirthday(date)}
+                dateFormat="dd/MM/yyyy"
+            />
           </div>
-          <div>
+          <div className="registration date-picker-container">
             <Select
                 options={genderOptions}
-                onChange={(value)=>setGender(value)}
+                onChange={(genders)=>setGender(genders.value)}
 
             />
           </div>
