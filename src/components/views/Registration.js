@@ -21,6 +21,7 @@ const FormField = props => {
         placeholder="enter here.."
         value={props.value}
         onChange={e => props.onChange(e.target.value)}
+        type={props.type}
       />
     </div>
   );
@@ -91,6 +92,7 @@ const Registration = () => {
           />
           <FormField
               label="Password"
+              type="password"
               value={password}
               onChange={pw => setPassword(pw)}
           />
