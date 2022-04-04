@@ -3,8 +3,9 @@ import {ReactLogo} from "components/ui/ReactLogo";
 import PropTypes from "prop-types";
 import "styles/views/Header.scss";
 import {Button} from "../ui/Button";
-import {handleError} from "../../helpers/api";
+import {api, handleError} from "../../helpers/api";
 import {useHistory} from 'react-router-dom';
+import {ProfilePageLogo} from "../ui/ProfilePageLogo";
 
 /**
  * This is an example of a Functional and stateless component (View) in React. Functional components are not classes and thus don't handle internal state changes.
@@ -27,8 +28,8 @@ function Header(props){
         }
     };
 
-    const goToLogin = async => {
-        // do login instead of registration
+    const goToLogin = async () => {
+        // do log in instead of registration
         try{
             history.push('/login')
         } catch (error){
@@ -36,8 +37,34 @@ function Header(props){
         }
     };
 
+    async function logout() {
+        try {
+            const requestBody = ""
+            console.log(localStorage.getItem('id'))
+            console.log(localStorage.getItem('token'))
+
+            await api.put(`/users/logout/${localStorage.getItem('id')}`,
+                requestBody,
+                {headers: {authorization: localStorage.getItem("token")}});
+
+        } catch (error) {
+            alert(`Something went wrong during the logout: \n${handleError(error)}`);
+        }
+        localStorage.removeItem('token');
+        localStorage.removeItem('id');
+        history.push('/login');
+    }
+
+    function goToUserPage() {
+        try {
+            history.push(`/users/${localStorage.getItem("id")}`)
+        }catch (error) {
+            alert(`Something went wrong during the logout: \n${handleError(error)}`);
+        }
+    }
+
     if(!localStorage.getItem("token")){
-        if(props.view=="login"){
+        if(props.view==="login"){
             return     <div className="header container" style={{height:"100"}}>
                 <h1 className="header title">Group 07 in SoPra FS22 rocks with React!</h1>
                 <ReactLogo width="60px" height="60px"/>
@@ -50,7 +77,7 @@ function Header(props){
                 </div>
             </div>
         }
-        if(props.view=="register"){
+        if(props.view==="register"){
             return     <div className="header container" style={{height: "100"}}>
                 <h1 className="header title">Group 07 in SoPra FS22 rocks with React!</h1>
                 <ReactLogo width="60px" height="60px"/>
@@ -66,8 +93,21 @@ function Header(props){
     }
     else{
         return <div className="header container" style={{height:"100"}}>
-            <h1 className="header title">Group 07 in SoPra FS22 rocks with React! GAME</h1>
-            <ReactLogo width="60px" height="60px"/>
+            <h1 className="header title">Date Against Humanity</h1>
+            <div className="header button-container">
+                <Button
+                    onClick={() => logout()}
+                >
+                    Logout
+                </Button>
+            </div>
+            <div className="header button-container profile">
+                <Button
+                    onClick={() => goToUserPage()}
+                    >
+                    <ProfilePageLogo/>
+                </Button>
+            </div>
         </div>
     }
 }
