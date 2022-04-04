@@ -28,8 +28,8 @@ function Header(props){
         }
     };
 
-    const goToLogin = async => {
-        // do login instead of registration
+    const goToLogin = async () => {
+        // do log in instead of registration
         try{
             history.push('/login')
         } catch (error){
@@ -40,18 +40,27 @@ function Header(props){
     async function logout() {
         try {
             const requestBody = ""
-            api.put('/logout', requestBody, {headers:{authorization: localStorage.getItem("token")}});
-            localStorage.removeItem('token');
-            history.push('/login');
+            console.log(localStorage.getItem('id'))
+            console.log(localStorage.getItem('token'))
+
+            await api.put(`/users/logout/${localStorage.getItem('id')}`,
+                requestBody,
+                {headers: {authorization: localStorage.getItem("token")}});
+
         } catch (error) {
             alert(`Something went wrong during the logout: \n${handleError(error)}`);
         }
         localStorage.removeItem('token');
+        localStorage.removeItem('id');
         history.push('/login');
     }
 
     function goToUserPage() {
-
+        try {
+            history.push(`/users/${localStorage.getItem("id")}`)
+        }catch (error) {
+            alert(`Something went wrong during the logout: \n${handleError(error)}`);
+        }
     }
 
     if(!localStorage.getItem("token")){

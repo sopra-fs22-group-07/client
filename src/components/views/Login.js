@@ -35,7 +35,7 @@ FormField.propTypes = {
   onChange: PropTypes.func
 };
 
-const Login = props => {
+const Login = () => {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -43,14 +43,15 @@ const Login = props => {
   const doLogin = async () => {
     try {
       const requestBody = JSON.stringify({username, password});
-      const response = await api.post('/login', requestBody);
+      const response = await api.post('/users/login', requestBody);
 
       // Get the returned user and update a new object.
-      //const user = new User(response.data);
+      // const user = new User(response.data);
 
 
       // Store the token into the local storage.
       localStorage.setItem('token', response.headers.token);
+      localStorage.setItem('id', response.data.id)
 
       // Login successfully worked --> navigate to the route /game in the GameRouter
       history.push(`/game/menu`);
