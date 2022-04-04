@@ -37,16 +37,18 @@ const Registration = () => {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  let errorResponse = null;
 
   const doRegister = async () => {
     try {
+      localStorage.removeItem('errorMessage');
       // post the new user to the server
       const requestBody = JSON.stringify({username, name, password});
+
       const response = await api.post('/users', requestBody);
 
       // Get the returned user and update a new object.
       //const user = new User(response.data);
-
       // Store the token into the local storage.
       localStorage.setItem('token', response.headers.token);
       localStorage.setItem('id', response.data.id);
@@ -54,10 +56,17 @@ const Registration = () => {
       // Registration successfully worked --> navigate to the route /game in the GameRouter
       history.push(`/game`);
     } catch (error) {
-      alert(`Something went wrong during the registration: \n${handleError(error)}`);
+      const response = error.response;
+      if (response && `${response.status}`.toString() === "409") {
+        errorResponse = "Username already taken. Try again.\n";
+        console.log(errorResponse);
+        localStorage.setItem('errorMessage', errorResponse);
+        window.location.assign(window.location);
+      } else {
+        alert(`Something went wrong during the registration: \n${handleError(error)}`);
+      }
     }
   };
-
 
 
   return (
@@ -72,6 +81,9 @@ const Registration = () => {
             value={username}
             onChange={un => setUsername(un)}
           />
+          <div className= "errorMessage">
+            {localStorage.getItem("errorMessage")}
+          </div>
         <FormField
             label="Name"
             value={name}
