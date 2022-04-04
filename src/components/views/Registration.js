@@ -32,7 +32,7 @@ FormField.propTypes = {
   onChange: PropTypes.func
 };
 
-const Registration = props => {
+const Registration = () => {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
@@ -49,6 +49,7 @@ const Registration = props => {
 
       // Store the token into the local storage.
       localStorage.setItem('token', response.headers.token);
+      localStorage.setItem('id', response.data.id);
 
       // Registration successfully worked --> navigate to the route /game in the GameRouter
       history.push(`/game`);
