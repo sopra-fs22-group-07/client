@@ -23,6 +23,7 @@ const FormField = props => {
         placeholder="enter here.."
         value={props.value}
         onChange={e => props.onChange(e.target.value)}
+        type={props.type}
       />
     </div>
   );
@@ -42,35 +43,44 @@ const genderOptions = [
 
 
 const Registration = props => {
+const Registration = () => {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [birthday, setBirthday] = useState(null);
   const [gender, setGender] = useState(null)
+  let errorResponse = null;
 
   const doRegister = async () => {
     try {
       console.log("gendertype", typeof(gender))
       console.log("gender", gender)
+      localStorage.removeItem('errorMessage');
       // post the new user to the server
       const requestBody = JSON.stringify({username, name, password, birthday, gender});
       const response = await api.post('/users', requestBody);
 
       // Get the returned user and update a new object.
       //const user = new User(response.data);
-
       // Store the token into the local storage.
       localStorage.setItem('token', response.headers.token);
+      localStorage.setItem('id', response.data.id);
 
       // Registration successfully worked --> navigate to the route /game in the GameRouter
       history.push(`/game`);
     } catch (error) {
-      alert(`Something went wrong during the registration: \n${handleError(error)}`);
+      const response = error.response;
+      if (response && `${response.status}`.toString() === "409") {
+        errorResponse = "Username already taken. Try again.\n";
+        console.log(errorResponse);
+        localStorage.setItem('errorMessage', errorResponse);
+        window.location.assign(window.location);
+      } else {
+        alert(`Something went wrong during the registration: \n${handleError(error)}`);
+      }
     }
   };
-
-
 
 
   return (
@@ -85,6 +95,9 @@ const Registration = props => {
             value={username}
             onChange={un => setUsername(un)}
           />
+          <div className= "errorMessage">
+            {localStorage.getItem("errorMessage")}
+          </div>
         <FormField
             label="Name"
             value={name}
@@ -92,6 +105,7 @@ const Registration = props => {
           />
           <FormField
               label="Password"
+              type="password"
               value={password}
               onChange={pw => setPassword(pw)}
           />
