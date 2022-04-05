@@ -22,6 +22,7 @@ function Header(props){
     const goToRegistration = async () => {
         // do Registration instead of login
         try{
+            localStorage.removeItem('errorMessage');
             history.push('/registration')
         } catch (error){
             alert(`Failed to find Register Page: \n${handleError(error)}`);
@@ -31,6 +32,7 @@ function Header(props){
     const goToLogin = async () => {
         // do log in instead of registration
         try{
+            localStorage.removeItem('errorMessage');
             history.push('/login')
         } catch (error){
             alert(`Failed to find Login Page: \n${handleError(error)}`);
