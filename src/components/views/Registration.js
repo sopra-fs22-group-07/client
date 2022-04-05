@@ -43,7 +43,6 @@ const genderOptions = [
 
 
 const Registration = props => {
-const Registration = () => {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
@@ -109,7 +108,7 @@ const Registration = () => {
               value={password}
               onChange={pw => setPassword(pw)}
           />
-          <div>
+          <div className="registration date-picker-container">
             <DatePicker
                 placeholderText="Your Birthday"
                 selected={birthday}
@@ -117,7 +116,7 @@ const Registration = () => {
                 dateFormat="dd/MM/yyyy"
             />
           </div>
-          <div className="registration date-picker-container">
+          <div className="registration gender-select-container">
             <Select
                 options={genderOptions}
                 onChange={(genders)=>setGender(genders.value)}
