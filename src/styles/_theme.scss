@@ -15,20 +15,31 @@ $background: #000000;
 
 /* some constants */
 
-$DESKTOP_WIDTH: 1160px;
+$DESKTOP_WIDTH: 1366px;
 $SMALL_LAPTOPS_WIDTH: 970px;
 $TABLETS_WIDTH: 750px;
 $SMALL_WIDTH: 768px;
+
+
+/* some Card Constants */
+$WHITE_CARD_BACKGROUND_COLOR: #f8f8f8;
+$BLACK_CARD_BACKGROUND_COLOR: black;
+$WHITE_CARD_TEXT_COLOR: black ;
+$BLACK_CARD_TEXT_COLOR: white;
+$WHITE_CARD_BORDER_COLOR: black;
+$BLACK_CARD_BORDER_COLOR: white;
 
 /* some standard elements */
 /* fonts */
 $fontDefault: "HelveticaNeueLT Pro 55 Roman", sans-serif;
 $fontMono: "Helvetica Neue", monospace;
 
+
+
 /* a standard drop shadow */
 $dropShadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.25);
 
-$borderRadius: 0.75em;
+$borderRadius: 1.5em;
 
 /* mixins
 

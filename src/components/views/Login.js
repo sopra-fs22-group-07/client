@@ -35,27 +35,38 @@ FormField.propTypes = {
   onChange: PropTypes.func
 };
 
-const Login = props => {
+const Login = () => {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  let errorResponse = null;
 
   const doLogin = async () => {
     try {
+      localStorage.removeItem('errorMessage');
       const requestBody = JSON.stringify({username, password});
-      const response = await api.post('/login', requestBody);
+      const response = await api.post('/users/login', requestBody);
 
       // Get the returned user and update a new object.
-      //const user = new User(response.data);
+      // const user = new User(response.data);
 
 
       // Store the token into the local storage.
       localStorage.setItem('token', response.headers.token);
+      localStorage.setItem('id', response.data.id)
 
       // Login successfully worked --> navigate to the route /game in the GameRouter
-      history.push(`/game/dashboard`);
+      history.push(`/game/menu`);
     } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
+      const response = error.response;
+      if (response && `${response.status}`.toString() === "401") {
+        errorResponse = "Your Username or password is incorrect.";
+        console.log(errorResponse);
+        localStorage.setItem('errorMessage', errorResponse);
+        window.location.assign(window.location);
+      } else {
+        alert(`Something went wrong during the login: \n${handleError(error)}`);
+      }
     }
   };
 
@@ -78,6 +89,9 @@ const Login = props => {
                 value={password}
                 onChange={pw => setPassword(pw)}
             />
+            <div className= "errorMessage">
+              {localStorage.getItem("errorMessage")}
+            </div>
             <div className="login button-container">
               <Button
                   disabled={!username || !password}

@@ -1,12 +1,8 @@
 @import 'src/styles/theme';
 
-.react-logo {
-  fill: $background;
-  animation: spin 20s linear infinite;
-}
-
-@keyframes spin {
-  100% {
-    transform: rotate(360deg);
-  }
+.profilePageLogo{
+  min-width: 24px;
+  min-height: 24px;
+  width: 24px;
+  height: 24px;
 }
