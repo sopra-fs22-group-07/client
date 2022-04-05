@@ -6,9 +6,10 @@ import 'styles/views/Registration.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import Header from "./Header";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-date-picker"
+import "styles/ui/DatePicker.scss"
 import Select from "react-select";
+
 /*
 Registration Page
  */
@@ -42,7 +43,7 @@ const genderOptions = [
 ]
 
 
-const Registration = props => {
+const Registration = () => {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
@@ -55,7 +56,6 @@ const Registration = props => {
     try {
       localStorage.removeItem('errorMessage');
       // post the new user to the server
-      const requestBody = JSON.stringify({username, name, password});
 
       const requestBody = JSON.stringify({username, name, password, birthday, gender});
       const response = await api.post('/users', requestBody);
@@ -112,10 +112,12 @@ const Registration = props => {
           />
           <div>
             <DatePicker
-                placeholderText="Your Birthday"
-                selected={birthday}
+                value={birthday}
                 onChange={(date)=>setBirthday(date)}
                 dateFormat="dd/MM/yyyy"
+                // restrict age:
+                maxDate={new Date()}
+                minDate={new Date('1900-01-01')}
             />
           </div>
           <div className="registration date-picker-container">
@@ -133,8 +135,6 @@ const Registration = props => {
               Register
             </Button>
           </div>
-          <div className="registration button-container">
-            </div>
         </div>
       </div>
     </BaseContainer>
