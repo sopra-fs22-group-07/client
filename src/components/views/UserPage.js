@@ -10,9 +10,17 @@ const PlayerProfile = ({user}) =>(
         <ul className="userPage player-info-container">Username: {user.username}</ul>
         <ul className="userPage player-info-container">Name: {user.name}</ul>
         <ul className="userPage player-info-container">Gender: {user.gender}</ul>
-        <ul className="userPage player-info-container">Birthday: {user.birthday}</ul>
+        <ul className="userPage player-info-container">Birthday: {displayDate(user.birthday)}</ul>
     </div>
 )
+const displayDate = (date) => {
+    if(date){
+        return date.substring(8,10)+"-"+date.substring(5,7)+"-"+date.substring(0,4);
+    }
+    else{
+        return "Date not set yet";
+    }
+}
 
 const UserPage = () =>{
     const[user, setUser] = useState(null);
