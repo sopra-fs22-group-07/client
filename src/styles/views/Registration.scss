@@ -46,7 +46,7 @@
   }
   &.button-container {
     position: relative;
-    bottom: -140px;
+    bottom: -80px;
     display: flex;
     justify-content: center;
     margin-top: 2em;
@@ -58,6 +58,10 @@
     font-size: 64px;
     top:-20px;
   }
+  &.date-picker-container{
+    position: center;
+  }
+
 }
 
 .errorMessage{
