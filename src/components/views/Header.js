@@ -54,8 +54,7 @@ function Header(props){
             console.log(localStorage.getItem('token'))
 
             await api.put(`/users/logout/${localStorage.getItem('id')}`,
-                requestBody,
-                {headers: {authorization: localStorage.getItem("token")}});
+                requestBody,);
 
         } catch (error) {
             alert(`Something went wrong during the logout: \n${handleError(error)}`);
