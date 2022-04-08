@@ -39,8 +39,10 @@ const AppRouter = () => {
             <UserPage/>
           </UserGuard>
         </Route>
-        <Route exact={}>
-
+        <Route exact path={"/users/:id/edit"}>
+          <UserGuard>
+            <EditUserPage/>
+          </UserGuard>
         </Route>
         <Route exact path="/">
           <Redirect to="/game"/>

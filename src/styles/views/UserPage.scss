@@ -27,7 +27,16 @@
     margin-top: 2em;
   }
 
-  &.title {
+  &.button-container {
+    position: relative;
+    bottom: 100px;
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+    background-color: transparent;
+  }
 
+  &.button{
+    mix-width: 100px;
   }
 }

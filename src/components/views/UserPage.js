@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
 import Header from "./Header";
-import {api} from 'helpers/api';
+import {api, handleError} from 'helpers/api';
 import BaseContainer from "../ui/BaseContainer";
 import 'styles/views/UserPage.scss'
+import {Button} from "../ui/Button";
+import {useHistory} from "react-router-dom";
 
 
 const PlayerProfile = ({user}) =>(
@@ -27,6 +29,7 @@ const displayDate = (date) => {
 }
 
 const UserPage = () =>{
+    const history = useHistory();
     const[user, setUser] = useState(null);
 
     useEffect(() => {
@@ -55,13 +58,29 @@ const UserPage = () =>{
         )
     }
 
+    const edit = async () =>{
+        try {
+            history.push('/users/id/edit')
+        }catch (error) {
+            alert(`Something went wrong while navigating to the game menu: \n${handleError(error)}`);
+        }
+    }
+
     return(
         <React.Fragment>
             <Header view="userPage"/>
             <BaseContainer>
                 <div className="userPage main-container">
                     {profile}
+                    <div className="userPage button-container">
+                        <Button
+                            onClick={() => edit()}
+                        >
+                            Edit
+                        </Button>
+                    </div>
                 </div>
+
             </BaseContainer>
         </React.Fragment>
     )
