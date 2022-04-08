@@ -114,7 +114,7 @@ function Header(props){
                 <Button
                     onClick={() => goToGameMenu()}
                 >
-                    Game Menu
+                    Menu
                 </Button>
             </div>
         </div>
