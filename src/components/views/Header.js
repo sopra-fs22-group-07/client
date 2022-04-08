@@ -74,7 +74,7 @@ function Header(props){
 
     if(!localStorage.getItem("token")){
         if(props.view==="login"){
-            return     <div className="header container" style={{height:"100"}}>
+            return     <div className="header container">
                 <h1 className="header title">Date Against Humanity</h1>
                 <ReactLogo width="60px" height="60px"/>
                 <div className="header button-container">
@@ -87,7 +87,7 @@ function Header(props){
             </div>
         }
         if(props.view==="register"){
-            return     <div className="header container" style={{height: "100"}}>
+            return     <div className="header container">
                 <h1 className="header title">Date Against Humanity</h1>
                 <ReactLogo width="60px" height="60px"/>
                 <div className="header button-container">
@@ -101,7 +101,7 @@ function Header(props){
         }
     }
     if(props.view==="userPage"){
-        return <div className="header container" style={{height:"100"}}>
+        return <div className="header container">
             <h1 className="header title">Date Against Humanity</h1>
             <div className="header button-container">
                 <Button
@@ -120,7 +120,7 @@ function Header(props){
         </div>
     }
     else{
-        return <div className="header container" style={{height:"100"}}>
+        return <div className="header container">
             <h1 className="header title">Date Against Humanity</h1>
             <div className="header button-container">
                 <Button
