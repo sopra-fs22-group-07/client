@@ -1,16 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {api, handleError} from 'helpers/api';
-import {Spinner} from 'components/ui/Spinner';
-import {Button} from 'components/ui/Button';
 import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
-import PropTypes from "prop-types";
 import "styles/views/WhiteCardSelection.scss";
 import Header from "./Header";
-import { Card } from 'components/ui/Card';
+import CardButton from "../ui/CardButton";
+import MenuContainer from "../ui/MenuContainer";
 
 
-const WhiteCardSelection = () => {
+const PlayWhites = () => {
   // use react-router-dom's hook to access the history
   const history = useHistory();
 
@@ -25,44 +22,36 @@ const WhiteCardSelection = () => {
       <Header view="game"/>
       <h1>Pick a white card</h1>
 
-      {/* div containing the white cards */}
-      <div style={ {position: "fixed", bottom: 0, margin:"0px auto", left:0, right:0} }>
-        <BaseContainer className="card container">
+      <MenuContainer className={"menu container"}>
 
-          {/* some card */}
-          <Card
+        {/* some card */}
+        <CardButton
+          className="card whiteCard"
           // TODO: onClick: ask to confirm this card, then make api call to submit this card choice, then reload page
-          >
-          This is a white card
-          </Card>
+          // onClick={() => history.push('/game/playWhites')}
+          children={"This is a white card"}
+        />
 
-          {/* some card */}
-          <Card
+        {/* some card */}
+        <CardButton
+          className="card whiteCard"
           // TODO: onClick: ask to confirm this card, then make api call to submit this card choice, then reload page
-          >
-          This is a white card
-          </Card>
+          // onClick={() => history.push('/game/playWhites')}
+          children={"This is a white card"}
+        />
 
-
-          {/* some card */}
-          <Card
+        {/* some card */}
+        <CardButton
+          className="card whiteCard"
           // TODO: onClick: ask to confirm this card, then make api call to submit this card choice, then reload page
-          >
-          This is a white card
-          </Card>
+          // onClick={() => history.push('/game/playWhites')}
+          children={"This is a white card"}
+        />
 
 
-          {/* some card */}
-          <Card
-          // TODO: onClick: ask to confirm this card, then make api call to submit this card choice, then reload page
-          >
-          This is a white card
-          </Card>
-
-        </BaseContainer>
-      </div>
+      </MenuContainer>
     </React.Fragment>
   );
 }
 
-export default WhiteCardSelection;
+export default PlayWhites;

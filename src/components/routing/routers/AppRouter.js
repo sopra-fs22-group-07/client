@@ -4,7 +4,6 @@ import GameRouter from "components/routing/routers/GameRouter";
 import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
 import Login from "components/views/Login";
 import Registration from "../../views/Registration";
-import Overview from "components/views/WhiteCardSelection";
 import {UserGuard} from "../routeProtectors/UserGuard";
 import UserPage from "../../views/UserPage";
 
@@ -21,16 +20,15 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Switch>
+
+        {/* game router: this handles everything in game. URLs are prepended with "/game" */}
         <Route path="/game">
           <GameGuard>
             <GameRouter base="/game"/>
           </GameGuard>
         </Route>
-        <Route path="/whitecardselection">
-          <GameGuard>
-            <Overview/>
-          </GameGuard>
-        </Route>
+
+        {/* login and registration */}
         <Route exact path="/login">
           <LoginGuard>
             <Login/>
@@ -39,6 +37,8 @@ const AppRouter = () => {
         <Route exact path="/registration">
             <Registration/>
         </Route>
+
+
         <Route exact path={"/users/:id"}>
           <UserGuard>
             <UserPage/>

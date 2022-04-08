@@ -22,7 +22,7 @@ const GameMenu = () => {
     }
 
     function goToPlayWhites() {
-       pushURL(`/playWhites`)
+       pushURL(`/game/playWhites`)
     }
 
     function goToRateWhites() {
