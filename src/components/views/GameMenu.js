@@ -44,24 +44,24 @@ const GameMenu = () => {
           <MenuContainer className={"menu container"}>
               <CardButton className={"card whiteCard"}
                           onClick={() => goToPlayWhites()}
-              >
-                  Play White Cards
-              </CardButton>
+                          children={"Play White Cards"}
+              />
+
               <CardButton className={"card whiteCard"}
                           onClick={() => goToRateWhites()}
-              >
-                  Rate Cards
-              </CardButton>
+                          children={"Rate Cards"}
+              />
+
               <CardButton className={"card whiteCard"}
                           onClick={() => goToRules()}
-              >
-                  Rules
-              </CardButton>
+                          children={"Rules"}
+              />
+
               <CardButton className={"card whiteCard"}
                           onClick={() => goToMatches()}
-              >
-                  Go to Matches
-              </CardButton>
+                          children={"Go to Matches"}
+              />
+
 
           </MenuContainer>
       </React.Fragment>
