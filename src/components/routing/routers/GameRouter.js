@@ -1,6 +1,7 @@
 import {Redirect, Route} from "react-router-dom";
-import Game from "components/views/Game";
+import GameMenu from "components/views/GameMenu";
 import PropTypes from 'prop-types';
+import BlackCardSelection from "../../views/BlackCardSelection";
 
 const GameRouter = props => {
   /**
@@ -8,11 +9,14 @@ const GameRouter = props => {
    */
   return (
     <div style={{display: 'flex', flexDirection: 'column'}}>
-      <Route exact path={`${props.base}/dashboard`}>
-        <Game/>
+      <Route exact path={`${props.base}/menu`}>
+        <GameMenu/>
       </Route>
+        <Route exact path={`${props.base}/select/blackCard`}>
+            <BlackCardSelection />
+        </Route>
       <Route exact path={`${props.base}`}>
-        <Redirect to={`${props.base}/dashboard`}/>
+        <Redirect to={`${props.base}/menu`}/>
       </Route>
     </div>
   );
