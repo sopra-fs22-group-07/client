@@ -15,10 +15,14 @@ const PlayerProfile = ({user}) =>(
 )
 const displayDate = (date) => {
     if(date){
-        return date.substring(8,10)+"-"+date.substring(5,7)+"-"+date.substring(0,4);
+        const dt = new Date(date);
+        const day = dt.getDate(); //gets day of the month
+        const month = dt.getMonth()+1; //month starts with jan = 0, so month + 1
+        const year = dt.getFullYear();
+        return day+"-"+month+"-"+year;
     }
     else{
-        return "Date not set yet";
+        return "No Birthday Found";
     }
 }
 
