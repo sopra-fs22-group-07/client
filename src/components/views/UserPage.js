@@ -35,7 +35,7 @@ const UserPage = () =>{
         }
         getUser()
 
-    }, []);
+    },);
     let profile = (
         <div className="userPage container">
             <ul className="userPage player-info-container">Username: username</ul>
