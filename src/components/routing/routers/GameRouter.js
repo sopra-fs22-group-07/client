@@ -1,6 +1,7 @@
 import {Redirect, Route} from "react-router-dom";
 import GameMenu from "components/views/GameMenu";
 import PropTypes from 'prop-types';
+import BlackCardSelection from "../../views/BlackCardSelection";
 
 const GameRouter = props => {
   /**
@@ -11,6 +12,9 @@ const GameRouter = props => {
       <Route exact path={`${props.base}/menu`}>
         <GameMenu/>
       </Route>
+        <Route exact path={`${props.base}/select/blackCard`}>
+            <BlackCardSelection />
+        </Route>
       <Route exact path={`${props.base}`}>
         <Redirect to={`${props.base}/menu`}/>
       </Route>

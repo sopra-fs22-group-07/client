@@ -22,6 +22,7 @@ function Header(props){
     const goToRegistration = async () => {
         // do Registration instead of login
         try{
+            localStorage.removeItem('errorMessage');
             history.push('/registration')
         } catch (error){
             alert(`Failed to find Register Page: \n${handleError(error)}`);
@@ -31,11 +32,20 @@ function Header(props){
     const goToLogin = async () => {
         // do log in instead of registration
         try{
+            localStorage.removeItem('errorMessage');
             history.push('/login')
         } catch (error){
             alert(`Failed to find Login Page: \n${handleError(error)}`);
         }
     };
+
+    const goToGameMenu = async () =>{
+        try {
+            history.push('/game')
+        }catch (error) {
+            alert(`Something went wrong while navigating to the game menu: \n${handleError(error)}`);
+        }
+    }
 
     async function logout() {
         try {
@@ -44,8 +54,7 @@ function Header(props){
             console.log(localStorage.getItem('token'))
 
             await api.put(`/users/logout/${localStorage.getItem('id')}`,
-                requestBody,
-                {headers: {authorization: localStorage.getItem("token")}});
+                requestBody,);
 
         } catch (error) {
             alert(`Something went wrong during the logout: \n${handleError(error)}`);
@@ -65,8 +74,8 @@ function Header(props){
 
     if(!localStorage.getItem("token")){
         if(props.view==="login"){
-            return     <div className="header container" style={{height:"100"}}>
-                <h1 className="header title">Group 07 in SoPra FS22 rocks with React!</h1>
+            return     <div className="header container">
+                <h1 className="header title">Date Against Humanity</h1>
                 <ReactLogo width="60px" height="60px"/>
                 <div className="header button-container">
                     <Button
@@ -78,8 +87,8 @@ function Header(props){
             </div>
         }
         if(props.view==="register"){
-            return     <div className="header container" style={{height: "100"}}>
-                <h1 className="header title">Group 07 in SoPra FS22 rocks with React!</h1>
+            return     <div className="header container">
+                <h1 className="header title">Date Against Humanity</h1>
                 <ReactLogo width="60px" height="60px"/>
                 <div className="header button-container">
                 <Button
@@ -91,8 +100,27 @@ function Header(props){
             </div>
         }
     }
+    if(props.view==="userPage"){
+        return <div className="header container">
+            <h1 className="header title">Date Against Humanity</h1>
+            <div className="header button-container">
+                <Button
+                    onClick={() => logout()}
+                >
+                    Logout
+                </Button>
+            </div>
+            <div className="header button-container-gameMenu">
+                <Button
+                    onClick={() => goToGameMenu()}
+                >
+                    Menu
+                </Button>
+            </div>
+        </div>
+    }
     else{
-        return <div className="header container" style={{height:"100"}}>
+        return <div className="header container">
             <h1 className="header title">Date Against Humanity</h1>
             <div className="header button-container">
                 <Button

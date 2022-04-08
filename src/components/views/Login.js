@@ -39,9 +39,11 @@ const Login = () => {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  let errorResponse = null;
 
   const doLogin = async () => {
     try {
+      localStorage.removeItem('errorMessage');
       const requestBody = JSON.stringify({username, password});
       const response = await api.post('/users/login', requestBody);
 
@@ -54,9 +56,17 @@ const Login = () => {
       localStorage.setItem('id', response.data.id)
 
       // Login successfully worked --> navigate to the route /game in the GameRouter
-      history.push(`/game/menu`);
+      history.push(`/game/select/blackCard`);
     } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
+      const response = error.response;
+      if (response && `${response.status}`.toString() === "401") {
+        errorResponse = "username or password incorrect.";
+        console.log(errorResponse);
+        localStorage.setItem('errorMessage', errorResponse);
+        window.location.assign(window.location);
+      } else {
+        alert(`Something went wrong during the login: \n${handleError(error)}`);
+      }
     }
   };
 
@@ -79,6 +89,9 @@ const Login = () => {
                 value={password}
                 onChange={pw => setPassword(pw)}
             />
+            <div className= "errorMessage">
+              {localStorage.getItem("errorMessage")}
+            </div>
             <div className="login button-container">
               <Button
                   disabled={!username || !password}

@@ -38,6 +38,7 @@ const AppRouter = () => {
             <UserPage/>
           </UserGuard>
         </Route>
+
         <Route exact path="/">
           <Redirect to="/game"/>
         </Route>

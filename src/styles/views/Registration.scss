@@ -4,7 +4,6 @@
   &.container {
     margin-top: 2em;
     min-height: 300px;
-    /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
     @include center;
     flex-direction: column;
   }
@@ -46,7 +45,7 @@
   }
   &.button-container {
     position: relative;
-    bottom: -140px;
+    bottom: -80px;
     display: flex;
     justify-content: center;
     margin-top: 2em;
@@ -58,4 +57,14 @@
     font-size: 64px;
     top:-20px;
   }
+  &.date-picker-container{
+    position: center;
+  }
+
+}
+
+.errorMessage{
+  color: crimson;
+  margin-bottom: 20px;
+  margin-top: -10px;
 }

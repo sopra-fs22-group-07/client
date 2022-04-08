@@ -5,7 +5,9 @@ const CardButton = props => (
         {...props}
         style={{width: props.width, ...props.style}}
         className={`card-button ${props.className}`}>
-        {props.children}
+        <div className={"card-text"}>
+            {props.children}
+        </div>
     </button>
 )
 
