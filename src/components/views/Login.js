@@ -56,11 +56,11 @@ const Login = () => {
       localStorage.setItem('id', response.data.id)
 
       // Login successfully worked --> navigate to the route /game in the GameRouter
-      history.push(`/game/menu`);
+      history.push(`/game/select/blackCard`);
     } catch (error) {
       const response = error.response;
       if (response && `${response.status}`.toString() === "401") {
-        errorResponse = "Your Username or password is incorrect.";
+        errorResponse = "username or password incorrect.";
         console.log(errorResponse);
         localStorage.setItem('errorMessage', errorResponse);
         window.location.assign(window.location);
