@@ -33,7 +33,6 @@ const UserPage = () =>{
     const[user, setUser] = useState(null);
 
     useEffect(() => {
-
         async function getUser(){
             const id = localStorage.getItem("id")
             const response = await api.get('/users/'+id)
@@ -41,7 +40,6 @@ const UserPage = () =>{
             console.log(response)
         }
         getUser()
-
     },);
     let profile = (
         <div className="userPage container">
