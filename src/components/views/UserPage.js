@@ -33,17 +33,12 @@ const UserPage = () =>{
 
         async function getUser(){
             const id = localStorage.getItem("id")
-            const response = await api.get('/users/'+id,
-                {
-                    headers: {
-                        authorization: localStorage.getItem("token")
-                    }
-                })
+            const response = await api.get('/users/'+id)
             setUser(response.data);
             console.log(response)
         }
         getUser()
-    },);
+    }, []);
     let profile = (
         <div className="userPage container">
             <ul className="userPage player-info-container">Username: username</ul>
