@@ -59,16 +59,15 @@ const Registration = () => {
 
       const requestBody = JSON.stringify({username, name, password, birthday, gender});
       const response = await api.post('/users', requestBody);
-
       // Get the returned user and update a new object.
-      //const user = new User(response.data);
 
       // Store the token into the local storage.
       localStorage.setItem('token', response.headers.token);
       localStorage.setItem('id', response.data.id);
 
       // Registration successfully worked --> navigate to the route /game in the GameRouter
-      history.push(`/game/select/blackCard`);
+      history.push('/game')
+      //history.push(`/game/select/blackCard`);
     } catch (error) {
       const response = error.response;
       if (response && `${response.status}`.toString() === "409") {

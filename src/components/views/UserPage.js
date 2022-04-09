@@ -34,6 +34,7 @@ const UserPage = () =>{
 
     useEffect(() => {
         async function getUser(){
+            console.log("Token in Userpage:"+localStorage.getItem("token"))
             const id = localStorage.getItem("id")
             const response = await api.get('/users/'+id)
             setUser(response.data);
