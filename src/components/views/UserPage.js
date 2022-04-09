@@ -100,7 +100,7 @@ const UserPage = () =>{
         card = <CardButton className={"card blackCard"}
                            disabled={true}
                            >
-            {card.text}
+            {blackCard.text}
         </CardButton>
     }
 
