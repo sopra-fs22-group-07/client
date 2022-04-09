@@ -20,11 +20,15 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Switch>
+
+        {/* game router: this handles everything in game. URLs are prepended with "/game" */}
         <Route path="/game">
           <GameGuard>
             <GameRouter base="/game"/>
           </GameGuard>
         </Route>
+
+        {/* login and registration */}
         <Route exact path="/login">
           <LoginGuard>
             <Login/>
@@ -33,6 +37,8 @@ const AppRouter = () => {
         <Route exact path="/registration">
             <Registration/>
         </Route>
+
+
         <Route exact path={"/users/:id"}>
           <UserGuard>
             <UserPage/>
