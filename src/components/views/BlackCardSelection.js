@@ -16,7 +16,12 @@ const BlackCardSelection = () => {
     useEffect(() => {
         async function fetchCards() {
             try {
-                const response = await api.get(`games/${localStorage.getItem("id")}`);
+                const response = await api.get(`games/${localStorage.getItem("id")}`,
+                    {
+                        headers: {
+                            authorization: localStorage.getItem("token")
+                        }
+                    });
                 setCards(response.data)
             }
             catch (error) {
@@ -31,7 +36,12 @@ const BlackCardSelection = () => {
         let id = card.id
         const requestBody = JSON.stringify({id});
         try {
-            await api.post(`games/${localStorage.getItem("id")}`, requestBody);
+            await api.post(`games/${localStorage.getItem("id")}`, requestBody,
+                {
+                    headers: {
+                        authorization: localStorage.getItem("token")
+                    }
+                });
         } catch (error) {
             console.error("Details:", error);
             alert("Invalid Input:\n " + handleError(error));
