@@ -50,6 +50,7 @@ function Header(props){
     async function logout() {
         try {
             const requestBody = ""
+
             await api.put(`/users/logout/${localStorage.getItem('id')}`,
                 requestBody,);
 
