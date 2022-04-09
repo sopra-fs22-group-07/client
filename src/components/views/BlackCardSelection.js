@@ -13,6 +13,7 @@ const BlackCardSelection = () => {
     const history = useHistory();
     const [cards, setCards] = useState(null)
 
+    // fetch the black cards
     useEffect(() => {
         async function fetchCards() {
             try {
