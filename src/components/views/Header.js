@@ -50,14 +50,12 @@ function Header(props){
     async function logout() {
         try {
             const requestBody = ""
-            console.log("User id ", localStorage.getItem('id'))
-            console.log("TOKEN: ", localStorage.getItem('token'))
 
             await api.put(`/users/logout/${localStorage.getItem('id')}`,
                 requestBody,);
 
         } catch (error) {
-            alert(`Something went wrong during the logout: \n${handleError(error)}`);
+            // alert(`Something went wrong during the logout: \n${handleError(error)}`);
         }
         localStorage.removeItem('token');
         localStorage.removeItem('id');
