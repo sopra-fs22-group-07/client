@@ -1,5 +1,5 @@
 
 const EditUserPage = () => {
-    return <div>EditUserPage</div>
+    return <div>EditUserpage</div>
 }
 export default EditUserPage
