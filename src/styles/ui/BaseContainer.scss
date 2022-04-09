@@ -7,4 +7,10 @@
   padding-right: 15px;
   max-width: $DESKTOP_WIDTH;
   color: $textColor;
+  &.userPage {
+    // todo Style UserPage
+    flex-direction: column;
+    //align-content: center;
+  }
 }
+

@@ -68,7 +68,14 @@ const Registration = () => {
       localStorage.setItem('id', response.data.id);
 
       // Registration successfully worked --> navigate to the route /game in the GameRouter
-      history.push(`/game/select/blackCard`);
+      history.push({
+        pathname: `/game/select/blackCard`,
+        state: {
+          id: response.data.id,
+          token: response.headers.token
+        }
+      });
+
     } catch (error) {
       const response = error.response;
       if (response && `${response.status}`.toString() === "409") {
