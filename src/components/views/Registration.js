@@ -119,7 +119,7 @@ const Registration = () => {
               onChange={pw => setPassword(pw)}
           />
           <div>
-            <DatePicker
+            <DatePicker className="registration date-picker-container"
                 value={birthday}
                 onChange={(date)=>setBirthday(date)}
                 dateFormat="dd/MM/yyyy"
@@ -128,7 +128,7 @@ const Registration = () => {
                 minDate={new Date('1900-01-01')}
             />
           </div>
-          <div className="registration date-picker-container">
+          <div>
             <Select
                 options={genderOptions}
                 onChange={(genders)=>setGender(genders.value)}

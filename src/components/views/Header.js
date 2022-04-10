@@ -55,7 +55,7 @@ function Header(props){
                 requestBody);
 
         } catch (error) {
-            // alert(`Something went wrong during the logout: \n${handleError(error)}`);
+            alert(`Something went wrong during the logout: \n${handleError(error)}`);
         }
         localStorage.removeItem('token');
         localStorage.removeItem('id');
@@ -66,7 +66,7 @@ function Header(props){
         try {
             history.push(`/users/${localStorage.getItem("id")}`)
         }catch (error) {
-            alert(`Something went wrong during the logout: \n${handleError(error)}`);
+            alert(`Something went wrong while trying to access your profile: \n${handleError(error)}`);
         }
     }
 
