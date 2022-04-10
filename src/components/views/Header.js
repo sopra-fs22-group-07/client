@@ -52,7 +52,7 @@ function Header(props){
             const requestBody = ""
 
             await api.put(`/users/logout/${localStorage.getItem('id')}`,
-                requestBody,);
+                requestBody);
 
         } catch (error) {
             // alert(`Something went wrong during the logout: \n${handleError(error)}`);
