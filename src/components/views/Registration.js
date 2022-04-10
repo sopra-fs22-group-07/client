@@ -57,7 +57,7 @@ const Registration = () => {
       localStorage.removeItem('errorMessage');
       // post the new user to the server
 
-      const requestBody = JSON.stringify({username, name, password, birthday, gender});
+      const requestBody = JSON.stringify({username:username.trim(), name, password, birthday, gender});
       const response = await api.post('/users', requestBody);
       // Get the returned user and update a new object.
 

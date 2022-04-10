@@ -96,10 +96,10 @@ const EditUserPage = () =>{
     const doEdit = async () => {
         try {
             localStorage.removeItem('errorMessage');
-
+            setUsername(username.trim())
             // put the new username and/or Gender to the server
 
-            const requestBody = JSON.stringify({username, gender});
+            const requestBody = JSON.stringify({username:username.trim(), gender});
             await api.put('/users/'+localStorage.getItem("id"), requestBody);
 
             // Registration successfully worked --> navigate to the route /game in the GameRouter
