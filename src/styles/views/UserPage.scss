@@ -41,5 +41,15 @@
 
   &.button{
     background-color: $background;
+
   }
+}
+
+.selector{
+  min-width: auto;
+}
+
+.errorMessage{
+  color: crimson;
+  margin-top: 10px;
 }

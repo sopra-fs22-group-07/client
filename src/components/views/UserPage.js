@@ -127,7 +127,7 @@ const UserPage = () =>{
                         <Button
                             onClick={() => goToEdit()}
                         >
-                            Edit
+                            Edit Profile
                         </Button>
                     </div>
                 </div>
