@@ -65,6 +65,9 @@ const Registration = () => {
       localStorage.setItem('token', response.headers.token);
       localStorage.setItem('id', response.data.id);
 
+      // do the login (especially change the status to online)
+      await api.post('/users/login', JSON.stringify({username, password}))
+
       // Registration successfully worked --> navigate to the route /game in the GameRouter
       history.push({
         pathname: `/game/select/blackCard`,
