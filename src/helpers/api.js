@@ -3,9 +3,19 @@ import { getDomain } from 'helpers/getDomain';
 
 export const api = axios.create({
   baseURL: getDomain(),
-  headers: { 'Content-Type': 'application/json',
-  "authorization": (localStorage.getItem("token")) ? localStorage.getItem("token"): null}
-});
+  headers: {
+    'Content-Type': 'application/json',
+  }});
+
+// this makes axios intercept the requests and reconfigure it. Here we configure the header. With this, no more custom
+// configuration is needed. See https://axios-http.com/docs/interceptors and
+// https://stackoverflow.com/questions/43051291/attach-authorization-header-for-all-axios-requests
+api.interceptors.request.use(function (config) {
+  const token = localStorage.getItem("token")
+  config.headers.authorization = token ? token : ''
+  return config
+})
+
 
 export const handleError = error => {
   const response = error.response;
