@@ -61,7 +61,7 @@ const EditUserPage = () =>{
                     setErr("username already taken")
                 }
             } catch (error) {
-                alert(`Something went wrong during the registration: \n${handleError(error)}`);
+                alert(`Something went wrong during the check of the username: \n${handleError(error)}`);
             }
         }
         checkAvailability()
@@ -147,7 +147,6 @@ const EditUserPage = () =>{
             alert(`Something went wrong while changing the User Data: \n${handleError(error)}`);
         }
     };
-
 
     return(
         <React.Fragment>
