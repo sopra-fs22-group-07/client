@@ -75,7 +75,7 @@ const Registration = () => {
     try {
 
       // post the new user to the server
-      const requestBody = JSON.stringify({username:username.trim(), name, password, birthday, gender});
+      const requestBody = JSON.stringify({username:username, name, password, birthday, gender});
       const response = await api.post('/users', requestBody);
       // Get the returned user and update a new object.
 
@@ -111,7 +111,7 @@ const Registration = () => {
         <h2 className="registration title"> Registration </h2>
           <FormField
             label="Username"
-            value={username}
+            value={username.trim()} //can't add spaces at start or end of username, with this it is impossible to enter ""as username
             onChange={un => setUsername(un)}
           />
           <div className={"registration errorMessage"}>

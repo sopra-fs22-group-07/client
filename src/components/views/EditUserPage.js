@@ -97,7 +97,7 @@ const EditUserPage = () =>{
                  <FormField
                      label="Username"
                      username={user.username}
-                     value={username}
+                     value={username.trim()}
                      onChange={un => setUsername(un)}
                  />
                  <div className={"errorMessage"}>
