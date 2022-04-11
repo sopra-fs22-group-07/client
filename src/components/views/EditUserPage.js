@@ -140,7 +140,7 @@ const EditUserPage = () =>{
             const requestBody = JSON.stringify({username: un, gender: g});
             await api.put(`/users/${id}`, requestBody);
 
-            // Registration successfully worked --> navigate to the route /game in the GameRouter
+            // Editing user successfully worked --> navigate to the route /userprofile in the router
             history.push(`/users/${id}`);
 
         } catch (error) {

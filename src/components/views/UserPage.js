@@ -107,7 +107,7 @@ const UserPage = () =>{
 
     const goToEdit = async () =>{
         try {
-            history.push('/users/:id/edit')
+            history.push(`/users/${id}/edit`)
         }catch (error) {
             alert(`Something went wrong while navigating to the game menu: \n${handleError(error)}`);
         }

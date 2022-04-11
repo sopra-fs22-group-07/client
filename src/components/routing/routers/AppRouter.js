@@ -38,14 +38,12 @@ const AppRouter = () => {
         <Route exact path="/registration">
             <Registration/>
         </Route>
-
-
         <Route exact path={"/users/:id"}>
           <UserGuard>
             <UserPage/>
           </UserGuard>
         </Route>
-        <Route exact path={"/users/:id/edit"}>
+        <Route exact path={'/users/:id/edit'}>
           <UserGuard>
             <EditUserPage/>
           </UserGuard>
