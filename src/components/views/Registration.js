@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
@@ -48,20 +48,36 @@ const Registration = () => {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  let errorResponse = null;
   const [birthday, setBirthday] = useState(null);
   const [gender, setGender] = useState(null)
+  const [err, setErr] = useState("")
+
+  // This little function asks the server if the typed in username is available and sets an error message accordingly
+  useEffect(() => {
+    async function checkAvailability(){
+      try{
+        const requestBody = JSON.stringify({username})
+        const response = await api.post('/users/usernames', requestBody)
+        if(response.data.available === true) {
+          setErr("")
+        }
+        else {
+          setErr("username already taken")
+        }
+      } catch (error) {
+        alert(`Something went wrong during the registration: \n${handleError(error)}`);
+      }
+    }
+    checkAvailability()
+  }, [username]) // the function gets called whenever the username changes
 
   const doRegister = async () => {
     try {
-      localStorage.removeItem('errorMessage');
+
       // post the new user to the server
-
-      const requestBody = JSON.stringify({username, name, password, birthday, gender});
+      const requestBody = JSON.stringify({username:username, name, password, birthday, gender});
       const response = await api.post('/users', requestBody);
-
       // Get the returned user and update a new object.
-      //const user = new User(response.data);
 
       // Store the token into the local storage.
       localStorage.setItem('token', response.headers.token);
@@ -80,15 +96,7 @@ const Registration = () => {
       });
 
     } catch (error) {
-      const response = error.response;
-      if (response && `${response.status}`.toString() === "409") {
-        errorResponse = "Username already taken. Try again.\n";
-        console.log(errorResponse);
-        localStorage.setItem('errorMessage', errorResponse);
-        window.location.assign(window.location);
-      } else {
-        alert(`Something went wrong during the registration: \n${handleError(error)}`);
-      }
+      alert(`Something went wrong during the registration: \n${handleError(error)}`);
     }
   };
 
@@ -103,12 +111,13 @@ const Registration = () => {
         <h2 className="registration title"> Registration </h2>
           <FormField
             label="Username"
-            value={username}
+            value={username.trim()} //can't add spaces at start or end of username, with this it is impossible to enter ""as username
             onChange={un => setUsername(un)}
           />
-          <div className= "errorMessage">
-            {localStorage.getItem("errorMessage")}
+          <div className={"registration errorMessage"}>
+            {err}
           </div>
+
         <FormField
             label="Name"
             value={name}
@@ -121,7 +130,7 @@ const Registration = () => {
               onChange={pw => setPassword(pw)}
           />
           <div>
-            <DatePicker
+            <DatePicker className="registration date-picker-container"
                 value={birthday}
                 onChange={(date)=>setBirthday(date)}
                 dateFormat="dd/MM/yyyy"
@@ -130,7 +139,7 @@ const Registration = () => {
                 minDate={new Date('1900-01-01')}
             />
           </div>
-          <div className="registration date-picker-container">
+          <div>
             <Select
                 options={genderOptions}
                 onChange={(genders)=>setGender(genders.value)}
@@ -138,7 +147,7 @@ const Registration = () => {
           </div>
           <div className="registration button-container">
             <Button
-              disabled={!username || !password || !name || !birthday || !gender}
+              disabled={err!=='' || !username || !password || !name || !birthday || !gender}
               width="100%"
               onClick={() => doRegister()}
             >

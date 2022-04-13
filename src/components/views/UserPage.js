@@ -5,6 +5,7 @@ import BaseContainer from "../ui/BaseContainer";
 import 'styles/views/UserPage.scss'
 import CardButton from "../ui/CardButton";
 import {useHistory} from "react-router-dom";
+import {Button} from "../ui/Button";
 
 
 const PlayerProfile = ({user}) =>(
@@ -104,6 +105,15 @@ const UserPage = () =>{
         </CardButton>
     }
 
+    const goToEdit = async () =>{
+        try {
+            history.push(`/users/${id}/edit`)
+        }catch (error) {
+            alert(`Something went wrong while navigating to the game menu: \n${handleError(error)}`);
+        }
+    }
+
+
     return(
         <React.Fragment>
             <Header view="userPage"/>
@@ -113,6 +123,13 @@ const UserPage = () =>{
                 </div>
                 <div className="userPage main-container">
                     {profile}
+                    <div className="userPage button-container">
+                        <Button
+                            onClick={() => goToEdit()}
+                        >
+                            Edit Profile
+                        </Button>
+                    </div>
                 </div>
             </BaseContainer>
         </React.Fragment>
