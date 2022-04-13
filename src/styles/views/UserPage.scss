@@ -7,6 +7,9 @@
     @include center;
     flex-direction: column;
   }
+  &.card-container{
+    background-color: background;
+  }
   &.container {
     display: flex;
     flex-direction: column;
@@ -27,7 +30,26 @@
     margin-top: 2em;
   }
 
-  &.title {
+  &.button-container {
+    position: relative;
+    bottom: 100px;
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+    background-color: transparent;
+  }
+
+  &.button{
+    background-color: $background;
 
   }
+}
+
+.selector{
+  min-width: auto;
+}
+
+.errorMessage{
+  color: crimson;
+  margin-top: 10px;
 }

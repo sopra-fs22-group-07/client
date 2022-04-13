@@ -61,10 +61,11 @@
     position: center;
   }
 
+  &.errorMessage{
+    color: crimson;
+    margin-bottom: 20px;
+    margin-top: -15px;
+  }
+
 }
 
-.errorMessage{
-  color: crimson;
-  margin-bottom: 20px;
-  margin-top: -10px;
-}

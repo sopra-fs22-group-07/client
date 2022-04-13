@@ -50,11 +50,9 @@ function Header(props){
     async function logout() {
         try {
             const requestBody = ""
-            console.log(localStorage.getItem('id'))
-            console.log(localStorage.getItem('token'))
 
             await api.put(`/users/logout/${localStorage.getItem('id')}`,
-                requestBody,);
+                requestBody);
 
         } catch (error) {
             alert(`Something went wrong during the logout: \n${handleError(error)}`);
@@ -68,7 +66,7 @@ function Header(props){
         try {
             history.push(`/users/${localStorage.getItem("id")}`)
         }catch (error) {
-            alert(`Something went wrong during the logout: \n${handleError(error)}`);
+            alert(`Something went wrong while trying to access your profile: \n${handleError(error)}`);
         }
     }
 

@@ -6,6 +6,7 @@ import Login from "components/views/Login";
 import Registration from "../../views/Registration";
 import {UserGuard} from "../routeProtectors/UserGuard";
 import UserPage from "../../views/UserPage";
+import EditUserPage from "../../views/EditUserPage"
 
 /**
  * Main router of your application.
@@ -20,11 +21,15 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Switch>
+
+        {/* game router: this handles everything in game. URLs are prepended with "/game" */}
         <Route path="/game">
           <GameGuard>
             <GameRouter base="/game"/>
           </GameGuard>
         </Route>
+
+        {/* login and registration */}
         <Route exact path="/login">
           <LoginGuard>
             <Login/>
@@ -38,7 +43,11 @@ const AppRouter = () => {
             <UserPage/>
           </UserGuard>
         </Route>
-
+        <Route exact path={'/users/:id/edit'}>
+          <UserGuard>
+            <EditUserPage/>
+          </UserGuard>
+        </Route>
         <Route exact path="/">
           <Redirect to="/game"/>
         </Route>
