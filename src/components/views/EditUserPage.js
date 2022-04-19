@@ -145,19 +145,15 @@ const EditUserPage = () =>{
     const doDeleteAccount = async () => {
         if (window.confirm("Press OK to Delete your Account\nDeleting your Account is irreversible and will DELETE ALL MATCHES")){
             console.log("Account Was Deleted!") //TODO: Delete These Lines, implement REST Delete (Backend)
-            //DELETE USER HERE
             try {
-                const requestBody = ""
-
-                await api.put(`/users/logout/${localStorage.getItem('id')}`,
-                    requestBody);
+                await api.delete(`/users/${localStorage.getItem('id')}`);
+                localStorage.removeItem('token'); //Basically just logging out
+                localStorage.removeItem('id');
+                history.push('/login');
 
             } catch (error) {
                 alert(`Something went wrong during the logout: \n${handleError(error)}`);
             }
-            localStorage.removeItem('token');
-            localStorage.removeItem('id');
-            history.push('/login');
         }
         else{
             console.log("Account was not Deleted!")
