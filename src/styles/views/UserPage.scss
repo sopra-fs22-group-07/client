@@ -28,20 +28,26 @@
   &.player-info-container{
     color: $textColor;
     margin-top: 2em;
+    font-size: 30px;
   }
 
   &.button-container {
     position: relative;
-    bottom: 100px;
+    bottom: 120px;
     display: flex;
     justify-content: center;
     margin-top: 2em;
     background-color: transparent;
+    width: 400px;
   }
 
   &.button{
-    background-color: $background;
-
+    background-color: $accent;
+    width: 400px;
+    height: 50px;
+    font-size: 30px;
+    border-radius: 12px;
+    text-transform: capitalize;
   }
 }
 
