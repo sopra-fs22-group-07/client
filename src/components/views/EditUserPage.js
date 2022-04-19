@@ -126,8 +126,42 @@ const EditUserPage = () =>{
                          Cancel
                      </Button>
                  </div>
+
+                 <div className="UserPage button-container">
+                     <Button
+                         width="100%"
+                        onClick={() => doDeleteAccount()}
+                     >
+
+                         DELETE ACCOUNT
+                     </Button>
+                 </div>
              </div>
         )
+    }
+    //Triggered When Delete account button is pressed.
+    //Gives a PopUp to confirm if the account should be deleted. If cancel-> nothing happens
+    //if OK -> Account gets deleted(not implemented yet) & and navigates to login screen
+    const doDeleteAccount = async () => {
+        if (window.confirm("Press OK to Delete your Account\nDeleting your Account is irreversible and will DELETE ALL MATCHES")){
+            console.log("Account Was Deleted!") //TODO: Delete These Lines, implement REST Delete (Backend)
+            //DELETE USER HERE
+            try {
+                const requestBody = ""
+
+                await api.put(`/users/logout/${localStorage.getItem('id')}`,
+                    requestBody);
+
+            } catch (error) {
+                alert(`Something went wrong during the logout: \n${handleError(error)}`);
+            }
+            localStorage.removeItem('token');
+            localStorage.removeItem('id');
+            history.push('/login');
+        }
+        else{
+            console.log("Account was not Deleted!")
+        }
     }
 
     const doEdit = async () => {
