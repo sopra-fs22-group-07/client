@@ -29,11 +29,12 @@
     color: $textColor;
     margin-top: 2em;
     font-size: 30px;
+    margin-bottom: 1em;
   }
 
   &.button-container {
     position: relative;
-    bottom: 120px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: center;
     margin-top: 2em;
@@ -43,17 +44,44 @@
 
   &.button{
     background-color: $accent;
-    width: 400px;
+    width: 380px;
     height: 50px;
     font-size: 30px;
     border-radius: 12px;
     text-transform: capitalize;
   }
+
+  &.edit-field{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &.edit-label{
+    color: $textColor;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 30px;
+  }
+
+  &.edit-input{
+    background-color: transparent;
+    height: 35px;
+    padding-left: 15px;
+    margin-left: -4px;
+    font-size: 30px;
+    border: none;
+    color: $textColor;
+    border-bottom: 1px solid #FFFFFF;
+  }
+
+  .selector{
+    min-width: auto;
+  }
+
 }
 
-.selector{
-  min-width: auto;
-}
+
 
 .errorMessage{
   color: crimson;

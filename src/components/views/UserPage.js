@@ -7,15 +7,25 @@ import CardButton from "../ui/CardButton";
 import {useHistory} from "react-router-dom";
 import {Button} from "../ui/Button";
 
-
+/**
 const PlayerProfile = ({user}) =>(
+    <div>
     <div className="userPage container">
         <ul className="userPage player-info-container">Username: {user.username}</ul>
         <ul className="userPage player-info-container">Name: {user.name}</ul>
         <ul className="userPage player-info-container">Gender: {user.gender}</ul>
         <ul className="userPage player-info-container">Birthday: {displayDate(user.birthday)}</ul>
     </div>
-)
+    <div className="userPage button-container">
+        <Button className="userPage button"
+                onClick={() => goToEdit()}
+        >
+            Edit Profile
+        </Button>
+    </div>
+    </div>
+)*/
+
 const displayDate = (date) => {
 
     if(date){
@@ -69,16 +79,37 @@ const UserPage = () =>{
 
     let profile = (
         <div className="userPage container">
+        <div>
             <ul className="userPage player-info-container">Username: </ul>
             <ul className="userPage player-info-container">Name: </ul>
             <ul className="userPage player-info-container">Gender: </ul>
             <ul className="userPage player-info-container">Birthday: </ul>
         </div>
+            <div className="userPage button-container">
+                <Button className="userPage button"
+                        onClick={() => goToEdit()}
+                >
+                    Edit Profile
+                </Button>
+            </div>
+        </div>
     )
 
     if(user){
         profile  = (
-            <PlayerProfile user={user}/>
+            <div className="userPage container" >
+                    <ul className="userPage player-info-container">Username: {user.username}</ul>
+                    <ul className="userPage player-info-container">Name: {user.name}</ul>
+                    <ul className="userPage player-info-container">Gender: {user.gender}</ul>
+                    <ul className="userPage player-info-container">Birthday: {displayDate(user.birthday)}</ul>
+                <div className="userPage button-container">
+                    <Button className="userPage button"
+                            onClick={() => goToEdit()}
+                    >
+                        Edit Profile
+                    </Button>
+                </div>
+            </div>
         )
     }
 
@@ -123,13 +154,6 @@ const UserPage = () =>{
                 </div>
                 <div className="userPage main-container">
                     {profile}
-                    <div className="userPage button-container">
-                        <Button className="userPage button"
-                            onClick={() => goToEdit()}
-                        >
-                            Edit Profile
-                        </Button>
-                    </div>
                 </div>
             </BaseContainer>
         </React.Fragment>

@@ -16,11 +16,12 @@ Edit User Info Page
 const FormField = props => {
 
     return (
-        <div className="registration field">
-            <label>
+        <div className="userPage edit-field">
+            <label className="userPage edit-label">
                 {props.label}
             </label>
             <input
+                className="userPage edit-input"
                 placeholder={props.username}
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
@@ -95,7 +96,7 @@ const EditUserPage = () =>{
              <div className="userPage container">
 
                  <FormField
-                     label="Username"
+                     label="Choose New Username"
                      username={user.username}
                      value={username.trim()}
                      onChange={un => setUsername(un)}
@@ -103,33 +104,33 @@ const EditUserPage = () =>{
                  <div className={"errorMessage"}>
                      {err}
                  </div>
-                 <ul className="userPage player-info-container">Gender: {user.gender} </ul>
-                 <ul className="userPage player-info-container">
-                     <Select className="selector"
+                 <p className="userPage player-info-container">Gender: {user.gender} </p>
+                 <p className="userPage player-info-container">
+                     <Select className="userPage selector"
                          options={genderOptions}
                          onChange={(genders)=>setGender(genders.value)}
                      />
-                 </ul>
-                 <div className="UserPage button-container">
+                 </p>
+                 <div className="userPage button-container">
                      <Button
-                         width="100%"
+                         className="userPage button"
                          onClick={() => doEdit()}
                      >
                          Save
                      </Button>
                  </div>
-                 <div className="UserPage button-container">
+                 <div className="userPage button-container">
                      <Button
-                         width="100%"
+                         className="userPage button"
                          onClick={() => doCancel()}
                      >
                          Cancel
                      </Button>
                  </div>
 
-                 <div className="UserPage button-container">
+                 <div className="userPage button-container">
                      <Button
-                         width="100%"
+                         className="userPage button"
                         onClick={() => doDeleteAccount()}
                      >
 
