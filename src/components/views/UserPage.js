@@ -69,10 +69,10 @@ const UserPage = () =>{
 
     let profile = (
         <div className="userPage container">
-            <ul className="userPage player-info-container">Username: username</ul>
-            <ul className="userPage player-info-container">Name: name</ul>
-            <ul className="userPage player-info-container">Gender: gender</ul>
-            <ul className="userPage player-info-container">Birthday: birthday</ul>
+            <ul className="userPage player-info-container">Username: </ul>
+            <ul className="userPage player-info-container">Name: </ul>
+            <ul className="userPage player-info-container">Gender: </ul>
+            <ul className="userPage player-info-container">Birthday: </ul>
         </div>
     )
 
@@ -124,7 +124,7 @@ const UserPage = () =>{
                 <div className="userPage main-container">
                     {profile}
                     <div className="userPage button-container">
-                        <Button
+                        <Button className="userPage button"
                             onClick={() => goToEdit()}
                         >
                             Edit Profile
