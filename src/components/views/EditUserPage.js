@@ -31,6 +31,8 @@ const FormField = props => {
     );
 };
 
+
+
 //For the gender Picker
 const genderOptions = [
     {value: 'MALE', label: 'Male'},
@@ -106,7 +108,18 @@ const EditUserPage = () =>{
                  </div>
                  <p className="userPage player-info-container">Gender: {user.gender} </p>
                  <p className="userPage player-info-container">
-                     <Select className="userPage selector"
+                     <Select
+                         /*className="react-select"
+                         classNamePrefix="react-select"
+                         theme={(theme) => ({
+                             ...theme,
+                             borderRadius: 0,
+                             colors: {
+                                 ...theme.colors,
+                                 neutral10: 'black',
+                                 text-colors: 'black',
+                             },
+                         })*/
                          options={genderOptions}
                          onChange={(genders)=>setGender(genders.value)}
                      />
@@ -130,11 +143,10 @@ const EditUserPage = () =>{
 
                  <div className="userPage button-container">
                      <Button
-                         className="userPage button"
+                         className="userPage delete-button"
                         onClick={() => doDeleteAccount()}
                      >
-
-                         DELETE ACCOUNT
+                         Delete Account
                      </Button>
                  </div>
              </div>
@@ -145,13 +157,12 @@ const EditUserPage = () =>{
     //if OK -> Account gets deleted(not implemented yet) & and navigates to login screen
     const doDeleteAccount = async () => {
         if (window.confirm("Press OK to Delete your Account\nDeleting your Account is irreversible and will DELETE ALL MATCHES")){
-            console.log("Account Was Deleted!") //TODO: Delete These Lines, implement REST Delete (Backend)
             try {
                 await api.delete(`/users/${localStorage.getItem('id')}`);
+                console.log("Account Was Deleted!")
                 localStorage.removeItem('token'); //Basically just logging out
                 localStorage.removeItem('id');
                 history.push('/login');
-
             } catch (error) {
                 alert(`Something went wrong during the logout: \n${handleError(error)}`);
             }

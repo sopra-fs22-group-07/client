@@ -51,6 +51,15 @@
     text-transform: capitalize;
   }
 
+  &.delete-button{
+    background-color: #ff6969;
+    width: 380px;
+    height: 50px;
+    font-size: 30px;
+    border-radius: 12px;
+    text-transform: capitalize;
+  }
+
   &.edit-field{
     display: flex;
     flex-direction: column;
@@ -75,12 +84,21 @@
     border-bottom: 1px solid #FFFFFF;
   }
 
-  .selector{
-    min-width: auto;
+  .react-select {
+    width: 380px;
+  }
+
+  .react-select
+  .react-select__control--is-focused.react-select__control--menu-is-open {
+    border-color: white;
+    color: black;
+  }
+
+  &.select-option{
+    color: black;
   }
 
 }
-
 
 
 .errorMessage{
