@@ -54,8 +54,7 @@ const EditUserPage = () =>{
     useEffect(() => {
         async function checkAvailability(){
             try{
-                const requestBody = JSON.stringify({username})
-                const response = await api.post('/users/usernames', requestBody)
+                const response = await api.get(`users/usernames?username=${username}`)
                 // We don't want to show an error if the user retypes his old username, only if it is different and taken
                 if(response.data.available === true || username === user.username) {
                     setErr("")

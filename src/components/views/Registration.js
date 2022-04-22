@@ -56,8 +56,7 @@ const Registration = () => {
   useEffect(() => {
     async function checkAvailability(){
       try{
-        const requestBody = JSON.stringify({username})
-        const response = await api.post('/users/usernames', requestBody)
+        const response = await api.get(`/users/usernames?username=${username}`)
         if(response.data.available === true) {
           setErr("")
         }
