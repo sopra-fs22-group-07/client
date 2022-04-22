@@ -37,7 +37,6 @@
   }
 
   &.button-container {
-    bottom: -150px;
     position: relative;
     margin-bottom: 20px;
     display: flex;
@@ -45,6 +44,10 @@
     margin-top: 10px;
     background-color: transparent;
     width: 380px;
+
+    &.edit{
+      bottom: -150px;
+    }
   }
 
   &.button{

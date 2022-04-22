@@ -126,7 +126,7 @@ const EditUserPage = () =>{
                          onChange={(genders)=>setGender(genders.value)}
                      />
                  </p>
-                 <div className="userPage button-container">
+                 <div className="userPage button-container edit">
                      <Button
                          className="userPage button"
                          onClick={() => doEdit()}
@@ -134,7 +134,7 @@ const EditUserPage = () =>{
                          Save
                      </Button>
                  </div>
-                 <div className="userPage button-container">
+                 <div className="userPage button-container edit">
                      <Button
                          className="userPage button"
                          onClick={() => doCancel()}
@@ -143,7 +143,7 @@ const EditUserPage = () =>{
                      </Button>
                  </div>
 
-                 <div className="userPage button-container">
+                 <div className="userPage button-container edit">
                      <Button
                          className="userPage delete-button"
                         onClick={() => doDeleteAccount()}
