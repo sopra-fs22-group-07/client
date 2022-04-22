@@ -19,10 +19,10 @@ const BlackCardSelection = () => {
     // If token / userId is in localStorage, we use this, else we use the state passed from login / registration
     // if we're coming from these components, else we use null and trigger a call to the server which we shall then handle.
     const location = useLocation()
-    let id = null
+    let userId = null
     let token = null
     try {
-        id = (localStorage.getItem("id")) ? localStorage.getItem("id") : location.state.id
+        userId = (localStorage.getItem("id")) ? localStorage.getItem("id") : location.state.id
     } catch (e) {
         console.log("No userId found!")
     }
@@ -37,7 +37,7 @@ const BlackCardSelection = () => {
     useEffect(() => {
         async function fetchCards() {
             try {
-                const response = await api.get(`users/${id}/games`,
+                const response = await api.get(`users/${userId}/games`,
                     {
                         // reconfiguration might be necessary in case token is not in localStorage here
                         headers: {
@@ -57,10 +57,10 @@ const BlackCardSelection = () => {
 
     // put the black Card to the Server and proceed to main menu
     async function selectCard(card) {
-        let cardId = card.id
-        const requestBody = JSON.stringify({cardId});
+        let id = card.id
+        const requestBody = JSON.stringify({id});
         try {
-            await api.post(`users/${id}/games/`, requestBody);
+            await api.post(`users/${userId}/games/`, requestBody);
         } catch (error) {
             console.error("Details:", error);
             alert("Invalid Input:\n " + handleError(error));
