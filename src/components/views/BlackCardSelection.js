@@ -60,7 +60,7 @@ const BlackCardSelection = () => {
         let cardId = card.id
         const requestBody = JSON.stringify({cardId});
         try {
-            await api.post(`games/${id}`, requestBody);
+            await api.post(`users/${id}/games/`, requestBody);
         } catch (error) {
             console.error("Details:", error);
             alert("Invalid Input:\n " + handleError(error));
