@@ -28,26 +28,86 @@
   &.player-info-container{
     color: $textColor;
     margin-top: 2em;
+    font-size: 30px;
+    margin-bottom: 1em;
+  }
+
+  &.player-info-container-title{
+    margin-bottom: 10px;
   }
 
   &.button-container {
     position: relative;
-    bottom: 100px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: center;
-    margin-top: 2em;
+    margin-top: 10px;
     background-color: transparent;
+    width: 380px;
+
+    &.edit{
+      bottom: -150px;
+    }
   }
 
   &.button{
-    background-color: $background;
-
+    background-color: $accent;
+    width: 380px;
+    height: 50px;
+    font-size: 30px;
+    border-radius: 12px;
+    text-transform: capitalize;
   }
+
+  &.delete-button{
+    background-color: #ff6969;
+    width: 380px;
+    height: 50px;
+    font-size: 30px;
+    border-radius: 12px;
+    text-transform: capitalize;
+  }
+
+  &.edit-field{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &.edit-label{
+    color: $textColor;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 30px;
+  }
+
+  &.edit-input{
+    background-color: transparent;
+    height: 35px;
+    padding-left: 15px;
+    margin-left: -4px;
+    font-size: 30px;
+    border: none;
+    color: $textColor;
+    border-bottom: 1px solid #FFFFFF;
+  }
+
+  .react-select {
+    width: 380px;
+  }
+
+  .react-select,
+  .react-select__control--is-focused.react-select__control--menu-is-open {
+    border-color: white;
+    color: black;
+  }
+
+  &.select-option{
+    color: black;
+  }
+
 }
 
-.selector{
-  min-width: auto;
-}
 
 .errorMessage{
   color: crimson;
