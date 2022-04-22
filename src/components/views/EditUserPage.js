@@ -106,8 +106,10 @@ const EditUserPage = () =>{
                  <div className={"errorMessage"}>
                      {err}
                  </div>
-                 <p className="userPage player-info-container">Gender: {user.gender} </p>
                  <p className="userPage player-info-container">
+                     <div className="userPage player-info-container-title">
+                         Current Gender: {user.gender}
+                     </div>
                      <Select
                          /*className="react-select"
                          classNamePrefix="react-select"

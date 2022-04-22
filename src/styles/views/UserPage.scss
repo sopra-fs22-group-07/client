@@ -32,14 +32,19 @@
     margin-bottom: 1em;
   }
 
+  &.player-info-container-title{
+    margin-bottom: 10px;
+  }
+
   &.button-container {
+    bottom: -150px;
     position: relative;
     margin-bottom: 20px;
     display: flex;
     justify-content: center;
-    margin-top: 2em;
+    margin-top: 10px;
     background-color: transparent;
-    width: 400px;
+    width: 380px;
   }
 
   &.button{
@@ -88,7 +93,7 @@
     width: 380px;
   }
 
-  .react-select
+  .react-select,
   .react-select__control--is-focused.react-select__control--menu-is-open {
     border-color: white;
     color: black;
