@@ -64,11 +64,12 @@ const UserPage = () =>{
     }, []);
 
     // fetch black card of the user
+    // TODO: Question: of which user? of another or himself?
     useEffect(() => {
         async function getBlackCard() {
             try {
                 // if user has no black card yet, server should return null or something.
-                const response = await api.get(`users/${id}/games/blackCard`)
+                const response = await api.get(`/users/${id}/games/vote`)
                 setBlackCard(response.data)
             } catch (error) {
                 console.error("Details:", error);
