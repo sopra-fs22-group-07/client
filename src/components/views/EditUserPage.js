@@ -111,17 +111,6 @@ const EditUserPage = () =>{
                          Current Gender: {user.gender}
                      </div>
                      <Select
-                         /*className="react-select"
-                         classNamePrefix="react-select"
-                         theme={(theme) => ({
-                             ...theme,
-                             borderRadius: 0,
-                             colors: {
-                                 ...theme.colors,
-                                 neutral10: 'black',
-                                 text-colors: 'black',
-                             },
-                         })*/
                          options={genderOptions}
                          onChange={(genders)=>setGender(genders.value)}
                      />
