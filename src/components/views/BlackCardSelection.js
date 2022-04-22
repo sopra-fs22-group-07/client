@@ -37,7 +37,7 @@ const BlackCardSelection = () => {
     useEffect(() => {
         async function fetchCards() {
             try {
-                const response = await api.get(`games/${id}`,
+                const response = await api.get(`users/${id}/games`,
                     {
                         // reconfiguration might be necessary in case token is not in localStorage here
                         headers: {
