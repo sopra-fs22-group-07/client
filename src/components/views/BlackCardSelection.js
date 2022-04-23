@@ -39,7 +39,7 @@ const BlackCardSelection = () => {
     CardButton.propTypes = {
         card: PropTypes.object
     };
-    const history = useHistory()
+
     const [cards, setCards] = useState(null)
 
 
