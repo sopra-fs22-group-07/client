@@ -12,26 +12,9 @@ import {api, handleError} from "../../helpers/api";
 const PlayWhites = () => {
   // use react-router-dom's hook to access the history
   const history = useHistory();
-    const [cards, setCards] = useState(null)
-
-
-    // Because of rendering reasons, we use location here, which allows passing states around components.
-    // Here we get the state from Registration / Login, because the localStorage might not have been updated yet.
-    // If token / userId is in localStorage, we use this, else we use the state passed from login / registration
-    // if we're coming from these components, else we use null and trigger a call to the server which we shall then handle.
-    const location = useLocation()
-    let userId = null
-    let token = null
-    try {
-        userId = (localStorage.getItem("id")) ? localStorage.getItem("id") : location.state.id
-    } catch (e) {
-        console.log("No userId found!")
-    }
-    try {
-        token = (localStorage.getItem("token")) ? localStorage.getItem("token") : location.state.token
-    } catch (e) {
-        console.log("No token found!")
-    }
+  const [cards, setCards] = useState(null)
+  const userId = localStorage.getItem("id")
+  const token = localStorage.getItem("token")
 
   // define a state variable (using the state hook).
   // if this variable changes, the component will re-render, but the variable will
@@ -43,6 +26,7 @@ const PlayWhites = () => {
     useEffect(() => {
         async function fetchWhiteCards() {
             try {
+
                 const response = await api.get(`users/${userId}/games/whiteCards`,
                     {
                         // reconfiguration might be necessary in case token is not in localStorage here
