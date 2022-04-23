@@ -6,12 +6,6 @@ import {api, handleError} from "../../helpers/api";
 import {useHistory, useLocation} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import PropTypes from "prop-types";
-import {Button} from "../ui/Button";
-
-
-
-
-
 
 const BlackCardSelection = () => {
 
