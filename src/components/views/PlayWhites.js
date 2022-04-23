@@ -52,6 +52,7 @@ const PlayWhites = () => {
                         }
                     });
                 setCards(response.data)
+                console.log(response.data)
             }
             catch (error) {
                 console.error("Details:", error);
@@ -76,7 +77,6 @@ const PlayWhites = () => {
                 ))}
             </ul>
     }
-
 
   return (
     <React.Fragment>

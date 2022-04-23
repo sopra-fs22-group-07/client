@@ -56,8 +56,9 @@ const BlackCardSelection = () => {
     }, []);
 
     // put the black Card to the Server and proceed to main menu
-    async function selectCard(card) {
-        let id = card.id
+    async function selectCard(id) {
+        // let id = card.id
+        console.log('Card id: ', id)
         const requestBody = JSON.stringify({id});
         try {
             await api.post(`users/${userId}/games/`, requestBody);
@@ -76,10 +77,11 @@ const BlackCardSelection = () => {
         content =
             <ul className={"game card-list"}>
                 {cards.map(card => (
-                    <CardButton className={"card blackCard"}
-                                onClick={(c) => selectCard(c)}
+                    <CardButton card = {card}
                                 children={card.text}
                                 key={card.id}
+                                className={"card blackCard"}
+                                onClick={(card) => selectCard(card.id)}
                                 />
                 ))}
             </ul>
