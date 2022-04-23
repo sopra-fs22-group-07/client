@@ -42,7 +42,6 @@ const BlackCardSelection = () => {
 
     const [cards, setCards] = useState(null)
 
-
     // Because of rendering reasons, we use location here, which allows passing states around components.
     // Here we get the state from Registration / Login, because the localStorage might not have been updated yet.
     // If token / userId is in localStorage, we use this, else we use the state passed from login / registration
