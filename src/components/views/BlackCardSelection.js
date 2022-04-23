@@ -28,7 +28,7 @@ const BlackCardSelection = () => {
 
         return(
             <CardButton className={"card blackCard"}
-                        onClick={(c) => selectCard(c)}
+                        onClick={() => selectCard()}
                         children={card.text}
                         key={card.id}
             />
