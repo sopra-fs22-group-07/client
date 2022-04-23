@@ -64,7 +64,6 @@ const UserPage = () =>{
     }, []);
 
     // fetch black card of the user
-    // TODO: Question: of which user? of another or himself?
     useEffect(() => {
         async function getBlackCard() {
             try {
