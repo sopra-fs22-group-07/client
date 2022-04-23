@@ -16,6 +16,7 @@ const PlayWhites = () => {
   const[blackCard, setBlackCard] = useState(null)
   const[gameId, setGameId] = useState(null)
   const [cards, setCards] = useState(null)
+    const [count, setCount] = useState(0)
   const userId = localStorage.getItem("id")
   const token = localStorage.getItem("token")
 
@@ -34,8 +35,8 @@ const PlayWhites = () => {
                 console.error("Details:", error);
                 alert("Invalid Input:\n " + handleError(error));
             }
-            // TODO reload page? how to?
-            history.push(`/game/menu`)
+            // next card gets displayed
+            setCount(count + 1)
         }
 
         return(
@@ -99,7 +100,7 @@ const PlayWhites = () => {
         }
         fetchGame();
         fetchWhiteCards();
-    }, []);
+    }, [count]);
 
     // placeholder in case of failure
     let cardsContent = <div>No white cards available</div>
@@ -125,6 +126,10 @@ const PlayWhites = () => {
         <Header view="game"/>
         <div className={"game description"}>
             <h1>Choose a White Card for the provided Black Card</h1>
+        </div>
+        <div>
+            <button onClick = {() => setCount(count + 1)}>
+                Or Skip this Card </button>
         </div>
 
         <BaseContainer className={"menu container"}>
