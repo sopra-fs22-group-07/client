@@ -39,7 +39,6 @@ const BlackCardSelection = () => {
     CardButton.propTypes = {
         card: PropTypes.object
     };
-
     const [cards, setCards] = useState(null)
 
     // Because of rendering reasons, we use location here, which allows passing states around components.
@@ -59,7 +58,6 @@ const BlackCardSelection = () => {
     } catch (e) {
         console.log("No token found!")
     }
-
 
     // fetch the blackCards from the server (it is the server's responsibility to give us 8 cards)
     useEffect(() => {
