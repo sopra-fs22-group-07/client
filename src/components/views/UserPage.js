@@ -69,7 +69,7 @@ const UserPage = () =>{
             try {
                 // if user has no black card yet, server should return null or something.
                 const response = await api.get(`/users/${id}/games/vote`)
-                setBlackCard(response.data)
+                setBlackCard(response.data.blackCard)
             } catch (error) {
                 console.error("Details:", error);
             }
