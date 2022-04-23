@@ -25,6 +25,7 @@ const PlayWhites = () => {
 
         // put the black Card to the Server and proceed to main menu
         const selectCard = async ()  => {
+            // TODO: onClick: ask to confirm this card
             let cardId = card.id
             const requestBody = JSON.stringify({gameId});
             try {
@@ -33,6 +34,7 @@ const PlayWhites = () => {
                 console.error("Details:", error);
                 alert("Invalid Input:\n " + handleError(error));
             }
+            // TODO reload page? how to?
             history.push(`/game/menu`)
         }
 
@@ -104,7 +106,6 @@ const PlayWhites = () => {
     let blackCardContent = <div>No black card available</div>
 
     if(cards) {
-        // TODO: onClick: ask to confirm this card, then make api call to submit this card choice, then reload page
         cardsContent =
             <ul className={"game card-list"}>
                 {cards.map(card => (
