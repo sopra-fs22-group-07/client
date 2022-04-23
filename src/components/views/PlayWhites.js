@@ -4,7 +4,6 @@ import BaseContainer from "components/ui/BaseContainer";
 import "styles/views/WhiteCardSelection.scss";
 import Header from "./Header";
 import CardButton from "../ui/CardButton";
-import MenuContainer from "../ui/MenuContainer";
 import {api, handleError} from "../../helpers/api";
 
 //TODO: fetch a game of a random user (todo) and your white cards (done)

@@ -5,11 +5,46 @@ import Header from "./Header";
 import {api, handleError} from "../../helpers/api";
 import {useHistory, useLocation} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
+import PropTypes from "prop-types";
+import {Button} from "../ui/Button";
+
+
+
 
 
 
 const BlackCardSelection = () => {
 
+    const BlackCard = ({card}) => {
+        // use react-router-dom's hook to access the history
+        const history = useHistory();
+
+        // put the black Card to the Server and proceed to main menu
+        const selectCard = async ()  => {
+            let id = card.id
+            const requestBody = JSON.stringify({id});
+            try {
+                await api.post(`users/${userId}/games/`, requestBody);
+            } catch (error) {
+                console.error("Details:", error);
+                alert("Invalid Input:\n " + handleError(error));
+            }
+            history.push(`/game/menu`)
+        }
+
+        return(
+            <CardButton className={"card blackCard"}
+                        onClick={(c) => selectCard(c)}
+                        children={card.text}
+                        key={card.id}
+            />
+        );
+
+    };
+
+    CardButton.propTypes = {
+        card: PropTypes.object
+    };
     const history = useHistory()
     const [cards, setCards] = useState(null)
 
@@ -55,19 +90,6 @@ const BlackCardSelection = () => {
         fetchCards();
     }, []);
 
-    // put the black Card to the Server and proceed to main menu
-    async function selectCard(id) {
-        // let id = card.id
-        console.log('Card id: ', id)
-        const requestBody = JSON.stringify({id});
-        try {
-            await api.post(`users/${userId}/games/`, requestBody);
-        } catch (error) {
-            console.error("Details:", error);
-            alert("Invalid Input:\n " + handleError(error));
-        }
-        history.push(`/game/menu`)
-    }
 
 
     // placeholder in case of failure
@@ -77,12 +99,7 @@ const BlackCardSelection = () => {
         content =
             <ul className={"game card-list"}>
                 {cards.map(card => (
-                    <CardButton card = {card}
-                                children={card.text}
-                                key={card.id}
-                                className={"card blackCard"}
-                                onClick={(card) => selectCard(card.id)}
-                                />
+                    <BlackCard card={card} key={card.id}/>
                 ))}
             </ul>
     }
