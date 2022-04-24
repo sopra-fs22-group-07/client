@@ -84,7 +84,7 @@ const PlayWhites = () => {
             }
         }
 
-        // the white cards of a user gets fetched
+        // the white cards of the user who is playing gets fetched
         async function fetchWhiteCards() {
             try {
 
