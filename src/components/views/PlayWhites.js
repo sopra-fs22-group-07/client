@@ -5,16 +5,58 @@ import "styles/views/WhiteCardSelection.scss";
 import Header from "./Header";
 import CardButton from "../ui/CardButton";
 import {api, handleError} from "../../helpers/api";
+import PropTypes from "prop-types";
 
-//TODO: fetch a game of a random user (todo) and your white cards (done)
-
-
+/*
+for playing white cards on a black Card
+ */
 const PlayWhites = () => {
   // use react-router-dom's hook to access the history
   const history = useHistory();
+  const[blackCard, setBlackCard] = useState(null)
+  const[gameId, setGameId] = useState(null)
   const [cards, setCards] = useState(null)
+    const [count, setCount] = useState(0)
   const userId = localStorage.getItem("id")
   const token = localStorage.getItem("token")
+
+    // function defines what is happening, when a white card gets selected. also renders the white cards
+    const WhiteCard = ({card}) => {
+
+        // put the white Card and userId to the game on a Server, reloads useEffects
+        const selectCard = async ()  => {
+            if (window.confirm("Press OK to confirm this card")){
+                let cardId = card.id
+                const requestBody = JSON.stringify({gameId});
+                // card gets played
+                try {
+                    await api.post(`users/${userId}/whiteCards/${cardId}`, requestBody);
+                } catch (error) {
+                    console.error("Details:", error);
+                    alert("Invalid Input:\n " + handleError(error));
+                }
+                // next card gets displayed, use for statistic, reloads useEffects
+                setCount(count + 1)
+            }
+            else{
+                console.log("Card was not played!")
+            }
+        }
+        // design of white card
+        return(
+            <CardButton className={"card whiteCard"}
+                        onClick={() => selectCard()}
+                        children={card.text}
+                        key={card.id}
+            />
+        );
+
+    };
+
+    // test if white card is of type card
+    WhiteCard.propTypes = {
+        card: PropTypes.object
+    };
 
   // define a state variable (using the state hook).
   // if this variable changes, the component will re-render, but the variable will
@@ -22,14 +64,32 @@ const PlayWhites = () => {
   // a component can have as many state variables as you like.
   // more information can be found under https://reactjs.org/docs/hooks-state.html
 
-    // fetch the blackCards from the server (it is the server's responsibility to give us 8 cards)
     useEffect(() => {
+        // the game of a random user gets fetched
+        async function fetchGame() {
+            try {
+                const response = await api.get(`users/${userId}/games/blackCards`,
+                    {
+                        headers: {
+                            "authorization": token
+                        }
+                    });
+                setBlackCard(response.data.blackCard)
+                setGameId(response.data.gameId)
+                console.log(response.data)
+            }
+            catch (error) {
+                console.error("Details:", error);
+                alert("Invalid Input:\n " + handleError(error));
+            }
+        }
+
+        // the white cards of the user who is playing gets fetched
         async function fetchWhiteCards() {
             try {
 
                 const response = await api.get(`users/${userId}/games/whiteCards`,
                     {
-                        // reconfiguration might be necessary in case token is not in localStorage here
                         headers: {
                             "authorization": token
                         }
@@ -42,34 +102,46 @@ const PlayWhites = () => {
                 alert("Invalid Input:\n " + handleError(error));
             }
         }
+        fetchGame();
         fetchWhiteCards();
-    }, []);
+    }, [count]); // when count gets changed, new call to useEffects
 
     // placeholder in case of failure
-    let content = <div>No Content Available</div>
-
+    let cardsContent = <div>No white cards available</div>
+    let blackCardContent = <div>No black card available</div>
+    // white cards get displayed if fetched
     if(cards) {
-        // TODO: onClick: ask to confirm this card, then make api call to submit this card choice, then reload page
-        content =
+        cardsContent =
             <ul className={"game card-list"}>
                 {cards.map(card => (
-                    <CardButton className={"card whiteCard"}
-                                children={card.text}
-                                key={card.id}
-                    />
+                    <WhiteCard card={card} key={card.id}/>
                 ))}
             </ul>
+    }
+    // black card gets displaced id fetched
+    if(blackCard){
+        blackCardContent =
+            <CardButton className={"card blackCard"}>
+                {blackCard.text}
+            </CardButton>
     }
 
   return (
     <React.Fragment>
         <Header view="game"/>
         <div className={"game description"}>
+            <h1>Use a White Card to fill in the Blank</h1>
+        </div>
+
+        <BaseContainer className={"menu container"}>
+            {blackCardContent}
+        </BaseContainer>
+        <div className={"game description"}>
             <h1>Pick a white card</h1>
         </div>
 
         <BaseContainer className={"menu container"}>
-            {content}
+            {cardsContent}
         </BaseContainer>
     </React.Fragment>
   );
