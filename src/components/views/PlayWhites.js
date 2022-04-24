@@ -7,9 +7,9 @@ import CardButton from "../ui/CardButton";
 import {api, handleError} from "../../helpers/api";
 import PropTypes from "prop-types";
 
-//TODO: fetch a game of a random user (todo) and your white cards (done)
-
-
+/*
+for playing white cards on a black Card
+ */
 const PlayWhites = () => {
   // use react-router-dom's hook to access the history
   const history = useHistory();
@@ -20,25 +20,29 @@ const PlayWhites = () => {
   const userId = localStorage.getItem("id")
   const token = localStorage.getItem("token")
 
+    // function defines what is happening, when a white card gets selected. also renders the white cards
     const WhiteCard = ({card}) => {
-        // use react-router-dom's hook to access the history
-        const history = useHistory();
 
         // put the black Card to the Server and proceed to main menu
         const selectCard = async ()  => {
-            // TODO: onClick: ask to confirm this card
-            let cardId = card.id
-            const requestBody = JSON.stringify({gameId});
-            try {
-                await api.post(`users/${userId}/whiteCards/${cardId}`, requestBody);
-            } catch (error) {
-                console.error("Details:", error);
-                alert("Invalid Input:\n " + handleError(error));
+            if (window.confirm("Press OK to confirm this card")){
+                let cardId = card.id
+                const requestBody = JSON.stringify({gameId});
+                // card gets played
+                try {
+                    await api.post(`users/${userId}/whiteCards/${cardId}`, requestBody);
+                } catch (error) {
+                    console.error("Details:", error);
+                    alert("Invalid Input:\n " + handleError(error));
+                }
+                // next card gets displayed, use for statistic
+                setCount(count + 1)
             }
-            // next card gets displayed
-            setCount(count + 1)
+            else{
+                console.log("Card was not played!")
+            }
         }
-
+        // design of white card
         return(
             <CardButton className={"card whiteCard"}
                         onClick={() => selectCard()}
@@ -49,6 +53,7 @@ const PlayWhites = () => {
 
     };
 
+    // test if white card is of type card
     WhiteCard.propTypes = {
         card: PropTypes.object
     };
@@ -59,13 +64,12 @@ const PlayWhites = () => {
   // a component can have as many state variables as you like.
   // more information can be found under https://reactjs.org/docs/hooks-state.html
 
-  // fetch the whiteCards from the server (it is the server's responsibility to give us 12 cards)
     useEffect(() => {
+        // the game of a random user gets fetched
         async function fetchGame() {
             try {
                 const response = await api.get(`users/${userId}/games/blackCards`,
                     {
-                        // reconfiguration might be necessary in case token is not in localStorage here
                         headers: {
                             "authorization": token
                         }
@@ -80,12 +84,12 @@ const PlayWhites = () => {
             }
         }
 
+        // the white cards of a user gets fetched
         async function fetchWhiteCards() {
             try {
 
                 const response = await api.get(`users/${userId}/games/whiteCards`,
                     {
-                        // reconfiguration might be necessary in case token is not in localStorage here
                         headers: {
                             "authorization": token
                         }
@@ -100,7 +104,7 @@ const PlayWhites = () => {
         }
         fetchGame();
         fetchWhiteCards();
-    }, [count]);
+    }, [count]); // when count gets changed, new call to useEffects
 
     // placeholder in case of failure
     let cardsContent = <div>No white cards available</div>
@@ -125,11 +129,7 @@ const PlayWhites = () => {
     <React.Fragment>
         <Header view="game"/>
         <div className={"game description"}>
-            <h1>Choose a White Card for the provided Black Card</h1>
-        </div>
-        <div>
-            <button onClick = {() => setCount(count + 1)}>
-                Or Skip this Card </button>
+            <h1>Use a White Card to fill in the Blank</h1>
         </div>
 
         <BaseContainer className={"menu container"}>
