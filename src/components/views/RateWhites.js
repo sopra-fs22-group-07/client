@@ -1,3 +1,5 @@
+import React from 'react';
+
 /*
 For Rating the White Cards that got played on your Black Cards
  */
