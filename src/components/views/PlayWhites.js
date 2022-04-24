@@ -108,22 +108,28 @@ const PlayWhites = () => {
 
     // placeholder in case of failure
     let cardsContent = <div>No white cards available</div>
-    let blackCardContent = <div>No black card available</div>
-    // white cards get displayed if fetched
-    if(cards) {
-        cardsContent =
-            <ul className={"game card-list"}>
-                {cards.map(card => (
-                    <WhiteCard card={card} key={card.id}/>
-                ))}
-            </ul>
-    }
-    // black card gets displaced id fetched
+    // If no game is left to play on (return value of blackCard is null), this is shown:
+    let blackCardContent =
+        <CardButton className={"card blackCard"}>
+            No black card available
+        </CardButton>
+
+    // black card gets displayed if fetched
     if(blackCard){
         blackCardContent =
             <CardButton className={"card blackCard"}>
                 {blackCard.text}
             </CardButton>
+
+        // white cards get displayed if fetched and a blackCard is not null
+        if(cards) {
+            cardsContent =
+                <ul className={"game card-list"}>
+                    {cards.map(card => (
+                        <WhiteCard card={card} key={card.id}/>
+                    ))}
+                </ul>
+        }
     }
 
   return (
