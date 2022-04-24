@@ -5,24 +5,51 @@ import Header from "./Header";
 import {api, handleError} from "../../helpers/api";
 import {useHistory, useLocation} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
-
-
+import PropTypes from "prop-types";
 
 const BlackCardSelection = () => {
 
-    const history = useHistory()
-    const [cards, setCards] = useState(null)
+    const BlackCard = ({card}) => {
+        // use react-router-dom's hook to access the history
+        const history = useHistory();
 
+        // put the black Card to the Server and proceed to main menu
+        const selectCard = async ()  => {
+            let id = card.id
+            const requestBody = JSON.stringify({id});
+            try {
+                await api.post(`users/${userId}/games/`, requestBody);
+            } catch (error) {
+                console.error("Details:", error);
+                alert("Invalid Input:\n " + handleError(error));
+            }
+            history.push(`/game/menu`)
+        }
+
+        return(
+            <CardButton className={"card blackCard"}
+                        onClick={() => selectCard()}
+                        children={card.text}
+                        key={card.id}
+            />
+        );
+
+    };
+
+    BlackCard.propTypes = {
+        card: PropTypes.object
+    };
+    const [cards, setCards] = useState(null)
 
     // Because of rendering reasons, we use location here, which allows passing states around components.
     // Here we get the state from Registration / Login, because the localStorage might not have been updated yet.
     // If token / userId is in localStorage, we use this, else we use the state passed from login / registration
     // if we're coming from these components, else we use null and trigger a call to the server which we shall then handle.
     const location = useLocation()
-    let id = null
+    let userId = null
     let token = null
     try {
-        id = (localStorage.getItem("id")) ? localStorage.getItem("id") : location.state.id
+        userId = (localStorage.getItem("id")) ? localStorage.getItem("id") : location.state.id
     } catch (e) {
         console.log("No userId found!")
     }
@@ -32,12 +59,11 @@ const BlackCardSelection = () => {
         console.log("No token found!")
     }
 
-
     // fetch the blackCards from the server (it is the server's responsibility to give us 8 cards)
     useEffect(() => {
         async function fetchCards() {
             try {
-                const response = await api.get(`games/${id}`,
+                const response = await api.get(`users/${userId}/games`,
                     {
                         // reconfiguration might be necessary in case token is not in localStorage here
                         headers: {
@@ -55,32 +81,17 @@ const BlackCardSelection = () => {
         fetchCards();
     }, []);
 
-    // put the black Card to the Server and proceed to main menu
-    async function selectCard(card) {
-        let cardId = card.id
-        const requestBody = JSON.stringify({cardId});
-        try {
-            await api.post(`games/${id}`, requestBody);
-        } catch (error) {
-            console.error("Details:", error);
-            alert("Invalid Input:\n " + handleError(error));
-        }
-        history.push(`/game/menu`)
-    }
 
 
     // placeholder in case of failure
     let content = <div>No Content Available</div>
 
+    // if black cards are fetched, they get displayed
     if(cards) {
         content =
             <ul className={"game card-list"}>
                 {cards.map(card => (
-                    <CardButton className={"card blackCard"}
-                                onClick={(c) => selectCard(c)}
-                                children={card.text}
-                                key={card.id}
-                                />
+                    <BlackCard card={card} key={card.id}/>
                 ))}
             </ul>
     }
