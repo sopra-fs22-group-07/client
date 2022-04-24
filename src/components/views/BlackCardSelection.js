@@ -36,7 +36,7 @@ const BlackCardSelection = () => {
 
     };
 
-    CardButton.propTypes = {
+    BlackCard.propTypes = {
         card: PropTypes.object
     };
     const [cards, setCards] = useState(null)
