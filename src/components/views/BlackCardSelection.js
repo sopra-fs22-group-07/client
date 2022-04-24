@@ -86,6 +86,7 @@ const BlackCardSelection = () => {
     // placeholder in case of failure
     let content = <div>No Content Available</div>
 
+    // if black cards are fetched, they get displayed
     if(cards) {
         content =
             <ul className={"game card-list"}>
