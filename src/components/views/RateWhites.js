@@ -54,7 +54,7 @@ const RateWhites = () => {
         )
     }
     //PlaceHold if no Whitecard is found (yet)
-    let whiteCardContent = <CardButton disabled={true} className={"card whiteCard"}> No White Card to be found</CardButton>
+    let whiteCardContent = <CardButton disabled={true} className={"card whiteCard"}> No White Card to Vote on at the moment</CardButton>
     //If a white cards is found
     if(currentPlay){
         whiteCardContent = (
@@ -66,14 +66,14 @@ const RateWhites = () => {
 
 
     //Button that Accepts / Likes the Card
-    const acceptButton = <Button onClick={() => acceptCard()}> Accept/Like Card </Button>
+    const acceptButton = <Button disabled={currentPlay==null} onClick={() => acceptCard()}> Accept/Like Card </Button>
     /**
      * Method that makes API call that the card is liked and therefore accepted - possibility for match
      */
     function acceptCard() {
         voteOnCard(true)}
     //Button that declines / doesn't like the Card
-    const declineButton = <Button onClick={() => declineCard() }> Decline/Don't Like Card </Button>
+    const declineButton = <Button disabled={currentPlay==null} onClick={() => declineCard() }> Decline/Don't Like Card </Button>
 
     /**
      * Method that should makes the API Call that the card is not Liked by user and therefore declined
@@ -91,9 +91,8 @@ const RateWhites = () => {
 
         if(plays.length===0) {
             setPlaysEmpty(true)
-            setBlackCard(null)
         }
-        console.log("Shit")
+
         const otherUserId = currentPlay.userId.toString()
         const gameId = currentPlay.gameId
         const requestBody = JSON.stringify({userId:otherUserId, like})
