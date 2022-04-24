@@ -23,7 +23,7 @@ const PlayWhites = () => {
     // function defines what is happening, when a white card gets selected. also renders the white cards
     const WhiteCard = ({card}) => {
 
-        // put the black Card to the Server and proceed to main menu
+        // put the white Card and userId to the game on a Server, reloads useEffects
         const selectCard = async ()  => {
             if (window.confirm("Press OK to confirm this card")){
                 let cardId = card.id
@@ -35,7 +35,7 @@ const PlayWhites = () => {
                     console.error("Details:", error);
                     alert("Invalid Input:\n " + handleError(error));
                 }
-                // next card gets displayed, use for statistic
+                // next card gets displayed, use for statistic, reloads useEffects
                 setCount(count + 1)
             }
             else{
@@ -109,7 +109,7 @@ const PlayWhites = () => {
     // placeholder in case of failure
     let cardsContent = <div>No white cards available</div>
     let blackCardContent = <div>No black card available</div>
-
+    // white cards get displayed if fetched
     if(cards) {
         cardsContent =
             <ul className={"game card-list"}>
@@ -118,6 +118,7 @@ const PlayWhites = () => {
                 ))}
             </ul>
     }
+    // black card gets displaced id fetched
     if(blackCard){
         blackCardContent =
             <CardButton className={"card blackCard"}>
