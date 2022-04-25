@@ -115,14 +115,15 @@ const PlayWhites = () => {
     let cardsContent = <div>No white cards available</div>
     // If no game is left to play on (return value of blackCard is null), this is shown:
     let blackCardContent =
-        <CardButton className={"card blackCard"}>
+        <CardButton className={"card blackCard"} disabled={true}>
             No black card available
+
         </CardButton>
 
     // black card gets displayed if fetched
     if(blackCard){
         blackCardContent =
-            <CardButton className={"card blackCard"}>
+            <CardButton className={"card blackCard"} disabled={true}>
                 {blackCard.text}
             </CardButton>
 
