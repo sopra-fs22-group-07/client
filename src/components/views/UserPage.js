@@ -130,14 +130,11 @@ const UserPage = () =>{
 
     if(blackCard) {
         card =
-            <div>
-                <div className={"userPage title"}>Your Black Card for the Day</div>
                 <CardButton className={"card blackCard"}
                    disabled={true}
                    >
                    {blackCard.text}
                 </CardButton>
-            </div>
     }
 
     const goToEdit = async () =>{
@@ -148,11 +145,17 @@ const UserPage = () =>{
         }
     }
 
+    let title = <div className="userPage title"> Please Choose a Black Card for the day</div>
+
+    if(blackCard){
+        title = <div className="userPage title"> Your Black Card:</div>
+    }
 
     return(
         <React.Fragment>
             <Header view="userPage"/>
             <BaseContainer className="userPage">
+                {title}
                 <div className="userPage card-container">
                     {card}
                 </div>

@@ -1,6 +1,7 @@
 @import 'src/styles/theme';
 
 .userPage {
+
   &.main-container{
     margin-top: 2em;
     min-height: 300px;
@@ -9,6 +10,7 @@
   }
   &.card-container{
     background-color: $accent;
+    display: block;
     @include center;
 
   }
@@ -63,7 +65,8 @@
 
   &.title{
     color: $background;
-    font-size: $fontSizeLarge;
+    font-size: $fontSizeMedium;
+    text-align: center;
   }
 
   &.delete-button{
