@@ -129,11 +129,15 @@ const UserPage = () =>{
     </CardButton>
 
     if(blackCard) {
-        card = <CardButton className={"card blackCard"}
-                           disabled={true}
-                           >
-            {blackCard.text}
-        </CardButton>
+        card =
+            <div>
+                <div className={"userPage title"}>Your Black Card for the Day</div>
+                <CardButton className={"card blackCard"}
+                   disabled={true}
+                   >
+                   {blackCard.text}
+                </CardButton>
+            </div>
     }
 
     const goToEdit = async () =>{

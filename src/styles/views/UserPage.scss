@@ -8,7 +8,9 @@
     flex-direction: column;
   }
   &.card-container{
-    background-color: background;
+    background-color: $accent;
+    @include center;
+
   }
   &.container {
     display: flex;
@@ -16,7 +18,7 @@
     width: 60%;
     max-width: 25em;
     height: 40em;
-    font-size: 18px;
+    font-size: $fontSizeSmall;
     font-weight: 300;
     padding-left: 37px;
     padding-right: 37px;
@@ -28,7 +30,7 @@
   &.player-info-container{
     color: $textColor;
     margin-top: 2em;
-    font-size: 30px;
+    font-size: $fontSizeMedium;
     margin-bottom: 1em;
   }
 
@@ -46,7 +48,7 @@
     width: 380px;
 
     &.edit{
-      bottom: -150px;
+      bottom: -100px;
     }
   }
 
@@ -54,16 +56,21 @@
     background-color: $accent;
     width: 380px;
     height: 50px;
-    font-size: 30px;
+    font-size: $fontSizeMedium;
     border-radius: 12px;
     text-transform: capitalize;
+  }
+
+  &.title{
+    color: $background;
+    font-size: $fontSizeLarge;
   }
 
   &.delete-button{
     background-color: #ff6969;
     width: 380px;
     height: 50px;
-    font-size: 30px;
+    font-size: $fontSizeMedium;
     border-radius: 12px;
     text-transform: capitalize;
   }
@@ -86,7 +93,7 @@
     height: 35px;
     padding-left: 15px;
     margin-left: -4px;
-    font-size: 30px;
+    font-size: $fontSizeMedium;
     border: none;
     color: $textColor;
     border-bottom: 1px solid #FFFFFF;
