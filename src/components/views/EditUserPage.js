@@ -16,11 +16,12 @@ Edit User Info Page
 const FormField = props => {
 
     return (
-        <div className="registration field">
-            <label>
+        <div className="userPage edit-field">
+            <label className="userPage edit-label">
                 {props.label}
             </label>
             <input
+                className="userPage edit-input"
                 placeholder={props.username}
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
@@ -29,6 +30,8 @@ const FormField = props => {
         </div>
     );
 };
+
+
 
 //For the gender Picker
 const genderOptions = [
@@ -51,8 +54,7 @@ const EditUserPage = () =>{
     useEffect(() => {
         async function checkAvailability(){
             try{
-                const requestBody = JSON.stringify({username})
-                const response = await api.post('/users/usernames', requestBody)
+                const response = await api.get(`users/usernames?username=${username}`)
                 // We don't want to show an error if the user retypes his old username, only if it is different and taken
                 if(response.data.available === true || username === user.username) {
                     setErr("")
@@ -95,7 +97,7 @@ const EditUserPage = () =>{
              <div className="userPage container">
 
                  <FormField
-                     label="Username"
+                     label="Choose New Username"
                      username={user.username}
                      value={username.trim()}
                      onChange={un => setUsername(un)}
@@ -103,31 +105,61 @@ const EditUserPage = () =>{
                  <div className={"errorMessage"}>
                      {err}
                  </div>
-                 <ul className="userPage player-info-container">Gender: {user.gender} </ul>
-                 <ul className="userPage player-info-container">
-                     <Select className="selector"
+                 <p className="userPage player-info-container">
+                     <div className="userPage player-info-container-title">
+                         Current Gender: {user.gender}
+                     </div>
+                     <Select
                          options={genderOptions}
                          onChange={(genders)=>setGender(genders.value)}
                      />
-                 </ul>
-                 <div className="UserPage button-container">
+                 </p>
+                 <div className="userPage button-container edit">
                      <Button
-                         width="100%"
+                         className="userPage button"
                          onClick={() => doEdit()}
                      >
                          Save
                      </Button>
                  </div>
-                 <div className="UserPage button-container">
+                 <div className="userPage button-container edit">
                      <Button
-                         width="100%"
+                         className="userPage button"
                          onClick={() => doCancel()}
                      >
                          Cancel
                      </Button>
                  </div>
+
+                 <div className="userPage button-container edit">
+                     <Button
+                         className="userPage delete-button"
+                        onClick={() => doDeleteAccount()}
+                     >
+                         Delete Account
+                     </Button>
+                 </div>
              </div>
         )
+    }
+    //Triggered When Delete account button is pressed.
+    //Gives a PopUp to confirm if the account should be deleted. If cancel-> nothing happens
+    //if OK -> Account gets deleted(not implemented yet) & and navigates to login screen
+    const doDeleteAccount = async () => {
+        if (window.confirm("Press OK to Delete your Account\nDeleting your Account is irreversible and will DELETE ALL MATCHES")){
+            try {
+                await api.delete(`/users/${localStorage.getItem('id')}`);
+                console.log("Account Was Deleted!")
+                localStorage.removeItem('token'); //Basically just logging out
+                localStorage.removeItem('id');
+                history.push('/login');
+            } catch (error) {
+                alert(`Something went wrong during the logout: \n${handleError(error)}`);
+            }
+        }
+        else{
+            console.log("Account was not Deleted!")
+        }
     }
 
     const doEdit = async () => {
