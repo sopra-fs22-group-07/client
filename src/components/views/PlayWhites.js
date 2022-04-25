@@ -76,11 +76,16 @@ const PlayWhites = () => {
                     });
                 setBlackCard(response.data.blackCard)
                 setGameId(response.data.gameId)
-                console.log(response.data)
             }
             catch (error) {
-                console.error("Details:", error);
-                alert("Invalid Input:\n " + handleError(error));
+                if(error.response.status === 404
+                    && error.response.data.message === "There is no black card of another user left"){
+                    setBlackCard(null);
+                    console.error("Error 404: ", error.response.data.message)
+                }
+                else{
+                    console.error("Details:", error);
+                    alert("Invalid Input:\n " + handleError(error));}
             }
         }
 
