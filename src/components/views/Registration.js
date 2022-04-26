@@ -36,12 +36,27 @@ FormField.propTypes = {
   onChange: PropTypes.func
 };
 
+//Options for Selector Element
 const genderOptions = [
     {value: 'MALE', label: 'Male'},
     {value:  'FEMALE', label: 'Female'},
     {value: 'OTHER', label: 'Other'}
 ]
 
+//Needed for styling of selector element
+const customStyles = {
+  option: (provided) => ({
+    ...provided,
+    borderBottom: '1px dotted black',
+    color: 'black',
+    padding: 10,
+  }),
+  singleValue: (provided, state) => {
+    const opacity = state.isDisabled ? 0.5 : 1;
+    const transition = 'opacity 300ms';
+    return { ...provided, opacity, transition };
+  }
+}
 
 const Registration = () => {
   const history = useHistory();
@@ -140,6 +155,7 @@ const Registration = () => {
           </div>
           <div>
             <Select
+                styles={customStyles}
                 options={genderOptions}
                 onChange={(genders)=>setGender(genders.value)}
             />
