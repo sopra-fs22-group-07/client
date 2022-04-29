@@ -111,9 +111,10 @@ const PlayWhites = () => {
     let blackCardContent = <div>No black card available</div>
     // white cards get displayed if fetched
     if(cards) {
+        const cardsOnHand = cards.slice(0, cardsPerHand);
         cardsContent =
             <ul className={"game card-list"}>
-                {cards.map(card => (
+                {cardsOnHand.map(card => (
                     <WhiteCard card={card} key={card.id}/>
                 ))}
             </ul>
