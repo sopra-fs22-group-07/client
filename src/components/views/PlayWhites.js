@@ -74,11 +74,16 @@ const PlayWhites = () => {
                     });
                 setBlackCard(response.data.blackCard)
                 setGameId(response.data.gameId)
-                console.log(response.data)
             }
             catch (error) {
-                console.error("Details:", error);
-                alert("Invalid Input:\n " + handleError(error));
+                if(error.response.status === 404
+                    && error.response.data.message === "There is no black card of another user left"){
+                    setBlackCard(null);
+                    console.error("Error 404: ", error.response.data.message)
+                }
+                else{
+                    console.error("Details:", error);
+                    alert("Invalid Input:\n " + handleError(error));}
             }
         }
 
@@ -93,7 +98,6 @@ const PlayWhites = () => {
                         }
                     });
                 setCards(response.data)
-                console.log(response.data)
             }
             catch (error) {
                 console.error("Details:", error);
@@ -108,23 +112,30 @@ const PlayWhites = () => {
 
     // placeholder in case of failure
     let cardsContent = <div>No white cards available</div>
-    let blackCardContent = <div>No black card available</div>
-    // white cards get displayed if fetched
-    if(cards) {
-        const cardsOnHand = cards.slice(0, cardsPerHand);
-        cardsContent =
-            <ul className={"game card-list"}>
-                {cardsOnHand.map(card => (
-                    <WhiteCard card={card} key={card.id}/>
-                ))}
-            </ul>
-    }
-    // black card gets displaced id fetched
+
+    // If no game is left to play on (return value of blackCard is null), this is shown:
+    let blackCardContent =
+        <CardButton className={"card blackCard"} disabled={true}>
+            No black card available
+        </CardButton>
+
+    // black card gets displayed if fetched
     if(blackCard){
         blackCardContent =
-            <CardButton className={"card blackCard"}>
+            <CardButton className={"card blackCard"} disabled={true}>
                 {blackCard.text}
             </CardButton>
+
+        // white cards get displayed if fetched and a blackCard is not null
+        if(cards) {
+            const cardsOnHand = cards.slice(0, cardsPerHand);
+            cardsContent =
+                <ul className={"game card-list"}>
+                    {cardsOnHand.map(card => (
+                        <WhiteCard card={card} key={card.id}/>
+                    ))}
+                </ul>
+        }
     }
 
     let drawtext = "Somehow there don't seem to be any cards today"
