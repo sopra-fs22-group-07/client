@@ -90,6 +90,7 @@ const Registration = () => {
 
       // post the new user to the server
       const requestBody = JSON.stringify({username:username, name, password, birthday, gender});
+      console.log(requestBody)
       const response = await api.post('/users', requestBody);
       // Get the returned user and update a new object.
 

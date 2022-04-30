@@ -30,11 +30,11 @@ const GameMenu = () => {
     }
 
     function goToRules() {
-        pushURL(`/rules`)
+        pushURL(`/game/rules`)
     }
 
     function goToMatches() {
-        pushURL(`/matches`)
+        pushURL(`/game/matches`)
     }
 
     return (
