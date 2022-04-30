@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import "styles/views/WhiteCardSelection.scss";
 import Header from "./Header";
@@ -10,9 +9,7 @@ import {api, handleError} from "../../helpers/api";
 // Viewing the matches
 const Matches = () => {
     // use react-router-dom's hook to access the history
-    const history = useHistory();
     const userId = localStorage.getItem("id")
-    const token = localStorage.getItem("token")
     const [matchedUsers, setMatchedUsers] = useState(null)
 
     // functions that gets the matches from the server
@@ -48,7 +45,7 @@ const Matches = () => {
         <React.Fragment>
             <Header view="game"/>
             <div className={"game description"}>
-                <h1>Users with whom you matched:</h1>
+                <h1>You matched with:</h1>
             </div>
 
             <BaseContainer className={"menu container"}>
