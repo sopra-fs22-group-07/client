@@ -6,7 +6,7 @@ The basic principle is simple. You can publish on your profile some gap texts (b
 
 ### Goal: network with other people in a fun way, play and have fun together
 
-## Rules:
+### Rules:
 Gap text and terms are all from the game "Cards against humanity". You get dealt a total of N terms (white cards) per day, from which you can only see 8 at any given time. For each term you use, you draw another one until you have used up all your N cards for this day. Each day, you can write one term by yourself (wild card).
 
 More information: https://www.cardsagainsthumanity.com/
