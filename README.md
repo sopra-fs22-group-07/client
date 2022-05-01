@@ -44,3 +44,5 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 * [react-router-dom](https://reacttraining.com/react-router/web/guides/quick-start) offers declarative routing for React. It is a collection of navigational components that fit nicely with the application. 
 * [react-hooks](https://reactrouter.com/web/api/Hooks) let you access the router's state and perform navigation from inside your components.
+
+### The client is built on the SoPra Client Template FS22
