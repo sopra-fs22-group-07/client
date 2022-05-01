@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import "styles/views/WhiteCardSelection.scss";
 import Header from "./Header";
@@ -12,14 +11,13 @@ for playing white cards on a black Card
  */
 const PlayWhites = () => {
   // use react-router-dom's hook to access the history
-  const history = useHistory();
   const[blackCard, setBlackCard] = useState(null)
   const[gameId, setGameId] = useState(null)
   const [cards, setCards] = useState(null)
     const [count, setCount] = useState(0)
   const userId = localStorage.getItem("id")
   const token = localStorage.getItem("token")
-
+  const cardsPerHand = 8 //constant of how many cards there are in a users hand
     // function defines what is happening, when a white card gets selected. also renders the white cards
     const WhiteCard = ({card}) => {
 
@@ -106,17 +104,19 @@ const PlayWhites = () => {
                 alert("Invalid Input:\n " + handleError(error));
             }
         }
+
         fetchGame();
         fetchWhiteCards();
+
     }, [count]); // when count gets changed, new call to useEffects
 
     // placeholder in case of failure
     let cardsContent = <div>No white cards available</div>
+
     // If no game is left to play on (return value of blackCard is null), this is shown:
     let blackCardContent =
         <CardButton className={"card blackCard"} disabled={true}>
             No black card available
-
         </CardButton>
 
     // black card gets displayed if fetched
@@ -128,14 +128,31 @@ const PlayWhites = () => {
 
         // white cards get displayed if fetched and a blackCard is not null
         if(cards) {
+            const cardsOnHand = cards.slice(0, cardsPerHand);
             cardsContent =
                 <ul className={"game card-list"}>
-                    {cards.map(card => (
+                    {cardsOnHand.map(card => (
                         <WhiteCard card={card} key={card.id}/>
                     ))}
                 </ul>
         }
     }
+
+    let drawtext = "Somehow there don't seem to be any cards today"
+    if(cards){ //If there are cards then display how many are left to draw today
+        if(cards.length>cardsPerHand){
+            drawtext= "You can draw " +(cards.length-cardsPerHand) + " more cards today"
+        }
+        else(drawtext="No more Cards left to draw today")
+    }
+
+
+    let drawPile = <BaseContainer className="menu container">
+        <CardButton className="card whiteCard"
+    disabled={true}>
+            {drawtext}
+    </CardButton>
+    </BaseContainer>
 
   return (
     <React.Fragment>
@@ -154,6 +171,7 @@ const PlayWhites = () => {
         <BaseContainer className={"menu container"}>
             {cardsContent}
         </BaseContainer>
+        {drawPile}
     </React.Fragment>
   );
 }
