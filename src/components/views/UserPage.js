@@ -68,7 +68,7 @@ const UserPage = () =>{
         async function getBlackCard() {
             try {
                 // if user has no black card yet, server should return null or something.
-                const response = await api.get(`/users/${id}/blackCard`)
+                const response = await api.get(`/users/${id}/games/blackCards/current`)
                 setBlackCard(response.data)
             } catch (error) {
                 console.error("Details:", error);
