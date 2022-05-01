@@ -138,19 +138,19 @@ const PlayWhites = () => {
         }
     }
 
-    let drawtext = "Somehow there don't seem to be any cards today"
+    let drawText = "Somehow there don't seem to be any cards today"
     if(cards){ //If there are cards then display how many are left to draw today
         if(cards.length>cardsPerHand){
-            drawtext= "You can draw " +(cards.length-cardsPerHand) + " more cards today"
+            drawText= "You can play " +(cards.length) + " more cards today"
         }
-        else(drawtext="No more Cards left to draw today")
+        else(drawText="No more Cards left to draw today")
     }
 
 
     let drawPile = <BaseContainer className="menu container">
         <CardButton className="card whiteCard"
     disabled={true}>
-            {drawtext}
+            {drawText}
     </CardButton>
     </BaseContainer>
 
