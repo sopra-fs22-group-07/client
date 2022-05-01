@@ -50,10 +50,6 @@ const Login = () => {
 
       history.push({
         pathname: `/game/menu`,
-        state: {
-          id: localStorage.getItem('id'),
-          token: localStorage.getItem('token')
-        }
       });
     } catch (error) {
       if(error.response.status === 404){
@@ -86,7 +82,7 @@ const Login = () => {
       localStorage.setItem('id', response.data.id)
 
       // Login successfully worked --> navigate to the route /game in the GameRouter
-      pushUser();
+      await pushUser();
 
     } catch (error) {
       const response = error.response;
