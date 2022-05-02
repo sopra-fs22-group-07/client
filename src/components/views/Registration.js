@@ -144,7 +144,13 @@ const Registration = () => {
               value={password}
               onChange={pw => setPassword(pw)}
           />
-          <div>
+          <FormField
+              label="Birthday"
+              type="date"
+              value={birthday}
+              onChange={bd => setBirthday(bd)}
+          />
+          {/*<div>
             <DatePicker className="registration date-picker-container"
                 value={birthday}
                 onChange={(date)=>setBirthday(date)}
@@ -153,7 +159,7 @@ const Registration = () => {
                 maxDate={new Date()}
                 minDate={new Date('1900-01-01')}
             />
-          </div>
+          </div>*/}
           <div>
             <Select
                 styles={customStyles}
