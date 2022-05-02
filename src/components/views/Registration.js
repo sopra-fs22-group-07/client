@@ -36,12 +36,27 @@ FormField.propTypes = {
   onChange: PropTypes.func
 };
 
+//Options for Selector Element
 const genderOptions = [
     {value: 'MALE', label: 'Male'},
     {value:  'FEMALE', label: 'Female'},
     {value: 'OTHER', label: 'Other'}
 ]
 
+//Needed for styling of selector element
+const customStyles = {
+  option: (provided) => ({
+    ...provided,
+    borderBottom: '1px dotted black',
+    color: 'black',
+    padding: 10,
+  }),
+  singleValue: (provided, state) => {
+    const opacity = state.isDisabled ? 0.5 : 1;
+    const transition = 'opacity 300ms';
+    return { ...provided, opacity, transition };
+  }
+}
 
 const Registration = () => {
   const history = useHistory();
@@ -56,8 +71,7 @@ const Registration = () => {
   useEffect(() => {
     async function checkAvailability(){
       try{
-        const requestBody = JSON.stringify({username})
-        const response = await api.post('/users/usernames', requestBody)
+        const response = await api.get(`/users/usernames?username=${username}`)
         if(response.data.available === true) {
           setErr("")
         }
@@ -76,6 +90,7 @@ const Registration = () => {
 
       // post the new user to the server
       const requestBody = JSON.stringify({username:username, name, password, birthday, gender});
+      console.log(requestBody)
       const response = await api.post('/users', requestBody);
       // Get the returned user and update a new object.
 
@@ -141,6 +156,7 @@ const Registration = () => {
           </div>
           <div>
             <Select
+                styles={customStyles}
                 options={genderOptions}
                 onChange={(genders)=>setGender(genders.value)}
             />

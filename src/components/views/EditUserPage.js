@@ -7,7 +7,6 @@ import 'styles/views/Registration.scss'
 import {Button} from "../ui/Button";
 import {useHistory} from "react-router-dom";
 import Select from "react-select";
-
 /*
 Edit User Info Page
  */
@@ -31,6 +30,21 @@ const FormField = props => {
     );
 };
 
+//Needed for the styling of the Selector element
+const customStyles = {
+    option: (provided) => ({
+        ...provided,
+        borderBottom: '1px dotted black',
+        color: 'black',
+        padding: 10,
+    }),
+    singleValue: (provided, state) => {
+        const opacity = state.isDisabled ? 0.5 : 1;
+        const transition = 'opacity 300ms';
+
+        return { ...provided, opacity, transition };
+    }
+}
 
 
 //For the gender Picker
@@ -54,8 +68,7 @@ const EditUserPage = () =>{
     useEffect(() => {
         async function checkAvailability(){
             try{
-                const requestBody = JSON.stringify({username})
-                const response = await api.post('/users/usernames', requestBody)
+                const response = await api.get(`users/usernames?username=${username}`)
                 // We don't want to show an error if the user retypes his old username, only if it is different and taken
                 if(response.data.available === true || username === user.username) {
                     setErr("")
@@ -92,6 +105,7 @@ const EditUserPage = () =>{
         history.push(`/users/${id}`)
     }
 
+
     //As soon as User(almost instantly) render correct EditPlayerProfile View
     if(user){
          editProfile  = (
@@ -111,6 +125,7 @@ const EditUserPage = () =>{
                          Current Gender: {user.gender}
                      </div>
                      <Select
+                         styles={customStyles}
                          options={genderOptions}
                          onChange={(genders)=>setGender(genders.value)}
                      />
@@ -180,6 +195,9 @@ const EditUserPage = () =>{
             alert(`Something went wrong while changing the User Data: \n${handleError(error)}`);
         }
     };
+
+
+
 
     return(
         <React.Fragment>

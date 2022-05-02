@@ -39,7 +39,33 @@ const Login = () => {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   let errorResponse = null;
+
+  const pushUser = async () => {
+    try {
+      const id =  localStorage.getItem('id')
+      // if user has no black card yet, server should return null or something.
+      const response = await api.get(`/users/${id}/games/blackCards/current`)
+
+      history.push({
+        pathname: `/game/menu`,
+      });
+    } catch (error) {
+      if(error.response.status === 404){
+        history.push({
+          pathname: `/game/select/blackCard`,
+          state: {
+            id: localStorage.getItem('id'),
+            token: localStorage.getItem('token')
+          }
+        });
+      }
+      else{
+        console.error("Details:", error);
+        alert("Invalid Input:\n " + handleError(error));}
+    }
+  };
 
   const doLogin = async () => {
     try {
@@ -56,13 +82,8 @@ const Login = () => {
       localStorage.setItem('id', response.data.id)
 
       // Login successfully worked --> navigate to the route /game in the GameRouter
-      history.push({
-        pathname: `/game/select/blackCard`,
-        state: {
-          id: response.data.id,
-          token: response.headers.token
-        }
-      });
+      await pushUser();
+
     } catch (error) {
       const response = error.response;
       if (response && `${response.status}`.toString() === "401") {
@@ -75,8 +96,6 @@ const Login = () => {
       }
     }
   };
-
-
 
   return (
       <React.Fragment>

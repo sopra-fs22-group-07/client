@@ -26,15 +26,15 @@ const GameMenu = () => {
     }
 
     function goToRateWhites() {
-        pushURL(`/rateWhites`)
+        pushURL(`/game/rateWhites`)
     }
 
     function goToRules() {
-        pushURL(`/rules`)
+        pushURL(`/game/rules`)
     }
 
     function goToMatches() {
-        pushURL(`/matches`)
+        pushURL(`/game/matches`)
     }
 
     return (
