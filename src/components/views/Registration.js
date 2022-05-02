@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
-import 'styles/views/Registration.scss';
+import 'styles/views/LoginRegistration.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import Header from "./Header";
@@ -15,12 +15,12 @@ Registration Page
  */
 const FormField = props => {
   return (
-    <div className="registration field">
-      <label className="registration label">
+    <div className="login field">
+      <label className="login label">
         {props.label}
       </label>
       <input
-        className="registration input"
+        className="login input"
         placeholder="enter here.."
         value={props.value}
         onChange={e => props.onChange(e.target.value)}
@@ -121,15 +121,15 @@ const Registration = () => {
       <React.Fragment>
         <Header view="register"/>
     <BaseContainer>
-      <div className="registration container">
-        <div className="registration form">
-        <h2 className="registration title"> Registration </h2>
+      <div className="login container">
+        <div className="login form">
+        <h2 className="login title"> Registration </h2>
           <FormField
             label="Username"
             value={username.trim()} //can't add spaces at start or end of username, with this it is impossible to enter ""as username
             onChange={un => setUsername(un)}
           />
-          <div className={"registration errorMessage"}>
+          <div className={"errorMessage register"}>
             {err}
           </div>
 
@@ -151,7 +151,7 @@ const Registration = () => {
               onChange={bd => setBirthday(bd)}
           />
           {/*<div>
-            <DatePicker className="registration date-picker-container"
+            <DatePicker className="login date-picker-container"
                 value={birthday}
                 onChange={(date)=>setBirthday(date)}
                 dateFormat="dd/MM/yyyy"
@@ -167,7 +167,7 @@ const Registration = () => {
                 onChange={(genders)=>setGender(genders.value)}
             />
           </div>
-          <div className="registration button-container">
+          <div className="login button-container register">
             <Button
               disabled={err!=='' || !username || !password || !name || !birthday || !gender}
               width="100%"

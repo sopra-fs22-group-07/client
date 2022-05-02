@@ -3,7 +3,6 @@ import Header from "./Header";
 import {api, handleError} from 'helpers/api';
 import BaseContainer from "../ui/BaseContainer";
 import 'styles/views/UserPage.scss'
-import 'styles/views/Registration.scss'
 import {Button} from "../ui/Button";
 import {useHistory} from "react-router-dom";
 import Select from "react-select";

@@ -1,9 +1,10 @@
 @import 'src/styles/theme';
 
-.registration {
+.login {
   &.container {
     margin-top: 2em;
     min-height: 300px;
+    /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
     @include center;
     flex-direction: column;
   }
@@ -45,27 +46,33 @@
   }
   &.button-container {
     position: relative;
-    bottom: -80px;
     display: flex;
     justify-content: center;
     margin-top: 2em;
     background-color: transparent;
-
+    &.login {
+      bottom: -240px;
+    }
+    &.register {
+      bottom: -80px;
+    }
   }
+
   &.title{
     position: relative;
     font-size: 64px;
     top:-20px;
   }
+
   &.date-picker-container{
     position: center;
   }
-
-  &.errorMessage{
-    color: crimson;
-    margin-bottom: 20px;
-    margin-top: -15px;
-  }
-
 }
 
+.errorMessage{
+  color: crimson;
+  margin-top: -10px;
+  &.register {
+    margin-bottom: 20px;
+  }
+}

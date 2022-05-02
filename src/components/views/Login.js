@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
-import 'styles/views/Login.scss';
+import 'styles/views/LoginRegistration.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import Header from "./Header";
@@ -119,7 +119,7 @@ const Login = () => {
             <div className= "errorMessage">
               {localStorage.getItem("errorMessage")}
             </div>
-            <div className="login button-container">
+            <div className="login button-container login">
               <Button
                   disabled={!username || !password}
                   width="100%"
@@ -127,9 +127,6 @@ const Login = () => {
               >
                 Login
               </Button>
-            </div>
-            <div className="login button-container">
-
             </div>
           </div>
         </div>
