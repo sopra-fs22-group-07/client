@@ -24,6 +24,7 @@ const FormField = props => {
             placeholder="enter here.."
             value={props.value}
             onChange={e => props.onChange(e.target.value)}
+            type={props.type}
         />
       </div>
   );
@@ -46,7 +47,7 @@ const Login = () => {
     try {
       const id =  localStorage.getItem('id')
       // if user has no black card yet, server should return null or something.
-      const response = await api.get(`/users/${id}/games/blackCards/current`)
+      await api.get(`/users/${id}/games/blackCards/current`)
 
       history.push({
         pathname: `/game/menu`,
@@ -111,6 +112,7 @@ const Login = () => {
             />
             <FormField
                 label="Password"
+                type="password"
                 value={password}
                 onChange={pw => setPassword(pw)}
             />
