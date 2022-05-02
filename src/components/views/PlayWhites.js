@@ -76,10 +76,10 @@ const PlayWhites = () => {
                 setGameId(response.data.gameId)
             }
             catch (error) {
-                if(error.response.status === 404
-                    && error.response.data.message === "There is no black card of another user left"){
+                if(error.response.status === 404){
                     setBlackCard(null);
                     console.error("Error 404: ", error.response.data.message)
+                    // && error.response.data.message === "There is no black card of another user left"
                 }
                 else{
                     console.error("Details:", error);
