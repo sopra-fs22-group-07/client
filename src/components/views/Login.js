@@ -76,7 +76,7 @@ const Login = () => {
       window.alert("Demo users added.")
     }
     catch (error) {
-      window.alert("Details:", error.message);
+      window.alert("Error: " + error.response.data.message);
     }
   }
 
