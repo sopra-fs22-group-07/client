@@ -67,6 +67,22 @@ const Login = () => {
     }
   };
 
+
+  // TODO: this is a feature for development only, remove on final build
+  // api call to add demo users
+  const addDemoUsers = async () => {
+    try {
+      const response = await api.post('/users/demo')
+      window.alert("Demo users added.")
+    }
+    catch (error) {
+      window.alert("Details:", error.message);
+    }
+  }
+
+
+
+
   const doLogin = async () => {
     try {
       localStorage.removeItem('errorMessage');
@@ -126,9 +142,38 @@ const Login = () => {
                 Login
               </Button>
             </div>
-            <div className="login button-container">
 
+            {/* TODO: this is a feature for development only, remove on final build */}
+            <div className="login button-container">
+              <Button
+                  width="100%"
+                  onClick={() => addDemoUsers()}
+              >
+                Add Demo Users
+              </Button>
             </div>
+
+          </div>
+
+          {/* TODO: this is a feature for development only, remove on final build */}
+          <div style={{color: "black"}}>
+            <br/>
+            <br/>
+            <br/>
+            There are three demo users with credentials:
+            <ul>
+              <li>Username: demoUser1</li>
+              <li>Password: demoUser1</li>
+            </ul>
+            <ul>
+              <li>Username: demoUser2</li>
+              <li>Password: demoUser2</li>
+            </ul>
+            <ul>
+              <li>Username: demoUser3</li>
+              <li>Password: demoUser3</li>
+            </ul>
+
           </div>
         </div>
       </BaseContainer>
