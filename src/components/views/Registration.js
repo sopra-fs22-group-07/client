@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import Header from "./Header";
 import DatePicker from "react-date-picker"
 import "styles/ui/DatePicker.scss"
-import Select from "react-select";
+import {GenderPicker} from "../ui/GenderPicker";
 
 /*
 Registration Page
@@ -35,28 +35,6 @@ FormField.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func
 };
-
-//Options for Selector Element
-const genderOptions = [
-    {value: 'MALE', label: 'Male'},
-    {value:  'FEMALE', label: 'Female'},
-    {value: 'OTHER', label: 'Other'}
-]
-
-//Needed for styling of selector element
-const customStyles = {
-  option: (provided) => ({
-    ...provided,
-    borderBottom: '1px dotted black',
-    color: 'black',
-    padding: 10,
-  }),
-  singleValue: (provided, state) => {
-    const opacity = state.isDisabled ? 0.5 : 1;
-    const transition = 'opacity 300ms';
-    return { ...provided, opacity, transition };
-  }
-}
 
 const Registration = () => {
   const history = useHistory();
@@ -161,9 +139,7 @@ const Registration = () => {
             />
           </div>*/}
           <div>
-            <Select
-                styles={customStyles}
-                options={genderOptions}
+            <GenderPicker
                 onChange={(genders)=>setGender(genders.value)}
             />
           </div>

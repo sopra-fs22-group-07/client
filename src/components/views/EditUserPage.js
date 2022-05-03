@@ -5,7 +5,7 @@ import BaseContainer from "../ui/BaseContainer";
 import 'styles/views/UserPage.scss'
 import {Button} from "../ui/Button";
 import {useHistory} from "react-router-dom";
-import Select from "react-select";
+import {GenderPicker} from "../ui/GenderPicker";
 /*
 Edit User Info Page
  */
@@ -28,31 +28,6 @@ const FormField = props => {
         </div>
     );
 };
-
-//Needed for the styling of the Selector element
-const customStyles = {
-    option: (provided) => ({
-        ...provided,
-        borderBottom: '1px dotted black',
-        color: 'black',
-        padding: 10,
-    }),
-    singleValue: (provided, state) => {
-        const opacity = state.isDisabled ? 0.5 : 1;
-        const transition = 'opacity 300ms';
-
-        return { ...provided, opacity, transition };
-    }
-}
-
-
-//For the gender Picker
-const genderOptions = [
-    {value: 'MALE', label: 'Male'},
-    {value:  'FEMALE', label: 'Female'},
-    {value: 'OTHER', label: 'Other'}
-]
-
 
 const EditUserPage = () =>{
     const id = localStorage.getItem("id")
@@ -123,9 +98,7 @@ const EditUserPage = () =>{
                      <div className="userPage player-info-container-title">
                          Current Gender: {user.gender}
                      </div>
-                     <Select
-                         styles={customStyles}
-                         options={genderOptions}
+                     <GenderPicker
                          onChange={(genders)=>setGender(genders.value)}
                      />
                  </p>
