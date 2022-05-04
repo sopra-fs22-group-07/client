@@ -7,6 +7,7 @@ import Registration from "../../views/Registration";
 import {UserGuard} from "../routeProtectors/UserGuard";
 import UserPage from "../../views/UserPage";
 import EditUserPage from "../../views/EditUserPage"
+import Demo from "../../../helpers/Demo";
 
 /**
  * Main router of your application.
@@ -27,6 +28,10 @@ const AppRouter = () => {
           <GameGuard>
             <GameRouter base="/game"/>
           </GameGuard>
+        </Route>
+
+        <Route exact path={"/demo"}>
+          <Demo />
         </Route>
 
         {/* login and registration */}
