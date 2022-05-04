@@ -139,11 +139,14 @@ const Registration = () => {
             />
           </div>*/}
           <div>
+            <div className="login container-title">
+              Gender
+            </div>
             <GenderPicker
                 onChange={(genders)=>setGender(genders.value)}
             />
           </div>
-          <div className="login button-container register">
+          <div className="login fixed-button-container">
             <Button
               disabled={err!=='' || !username || !password || !name || !birthday || !gender}
               width="100%"

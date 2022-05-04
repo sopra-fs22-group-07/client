@@ -16,7 +16,7 @@ const PlayerProfile = ({user}) =>(
         <ul className="userPage player-info-container">Gender: {user.gender}</ul>
         <ul className="userPage player-info-container">Birthday: {displayDate(user.birthday)}</ul>
     </div>
-    <div className="userPage button-container">
+    <div className="userPage moving-button-container">
         <Button className="userPage button"
                 onClick={() => goToEdit()}
         >
@@ -85,13 +85,6 @@ const UserPage = () =>{
             <ul className="userPage player-info-container">Gender: </ul>
             <ul className="userPage player-info-container">Birthday: </ul>
         </div>
-            <div className="userPage button-container">
-                <Button className="userPage button"
-                        onClick={() => goToEdit()}
-                >
-                    Edit Profile
-                </Button>
-            </div>
         </div>
     )
 
@@ -102,8 +95,8 @@ const UserPage = () =>{
                     <ul className="userPage player-info-container">Name: {user.name}</ul>
                     <ul className="userPage player-info-container">Gender: {user.gender}</ul>
                     <ul className="userPage player-info-container">Birthday: {displayDate(user.birthday)}</ul>
-                <div className="userPage button-container">
-                    <Button className="userPage button"
+                <div className="userPage fixed-button-container">
+                    <Button
                             onClick={() => goToEdit()}
                     >
                         Edit Profile

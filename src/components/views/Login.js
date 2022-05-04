@@ -119,7 +119,7 @@ const Login = () => {
             <div className= "errorMessage">
               {localStorage.getItem("errorMessage")}
             </div>
-            <div className="login button-container login">
+            <div className="login fixed-button-container">
               <Button
                   disabled={!username || !password}
                   width="100%"

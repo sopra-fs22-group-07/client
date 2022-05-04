@@ -22,6 +22,7 @@
     background-color: $background;
     transition: opacity 0.5s ease, transform 0.5s ease;
     box-shadow: $dropShadow;
+    position: relative;
   }
   &.field {
     display: flex;
@@ -34,33 +35,30 @@
     padding-left: 15px;
     margin-left: -4px;
     border: none;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     color: $textColor;
     border-bottom: 1px solid #FFFFFF;
   }
   &.label {
     color: $textColor;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     font-weight: 300;
-    font-size: 30px;
   }
-  &.button-container {
-    position: relative;
+  &.fixed-button-container {
+    position: absolute;
+    bottom: 20px;
+    width: 380px;
     display: flex;
     justify-content: center;
-    margin-top: 2em;
     background-color: transparent;
-    &.login {
-      bottom: -240px;
-    }
-    &.register {
-      bottom: -80px;
-    }
+  }
+  &.container-title{
+    margin-bottom: 10px;
   }
 
   &.title{
     position: relative;
-    font-size: 64px;
+    font-size: 48px;
     top:-20px;
   }
 
