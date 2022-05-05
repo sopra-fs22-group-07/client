@@ -4,11 +4,10 @@ import {api, handleError} from 'helpers/api';
 import BaseContainer from "../ui/BaseContainer";
 import 'styles/views/UserPage.scss'
 import 'styles/views/LoginRegistration.scss';
-import CardButton from "../ui/CardButton";
 import {useHistory} from "react-router-dom";
 import {Button} from "../ui/Button";
 
-/**
+/** TODO: DELETE IF SURE WE DONT NEED IT ANYMORE
 const PlayerProfile = ({user}) =>(
     <div>
     <div className="userPage container">
@@ -46,8 +45,6 @@ const UserPage = () =>{
     const history = useHistory()
 
     const[user, setUser] = useState(null);
-    const [blackCard, setBlackCard] = useState(null)
-    const [preferences, setPreferences] = useState(null)
 
     useEffect(() => {
 
@@ -97,11 +94,37 @@ const UserPage = () =>{
     }, [])
 
     let profile = (
-        <div className="userPage container">
-            <div className="userPage player-info-container">Username: </div>
-            <div className="userPage player-info-container">Name: </div>
-            <div className="userPage player-info-container">Gender: </div>
-            <div className="userPage player-info-container">Birthday: </div>
+        <div>
+            <div className="userPage title"> Profile </div>
+            <table className="userPage table">
+                <tbody>
+                <tr className="userPage player-info-container">
+                    <td> Username: </td>
+                    <td className="userPage td"> USERNAME </td>
+                </tr>
+                <tr className="userPage player-info-container">
+                    <td> Name: </td>
+                    <td className="userPage td"> NAME </td>
+                </tr>
+                <tr className="userPage player-info-container">
+                    <td> Gender: </td>
+                    <td className="userPage td"> GENDER </td>
+                </tr>
+                <tr className="userPage player-info-container">
+                    <td> Birthday: </td>
+                    <td className="userPage td"> BIRTHDAY </td>
+                </tr>
+                </tbody>
+            </table>
+            <div>
+                <Button
+                    className="invert"
+                    width="100%"
+                    onClick={() => goToEdit()}
+                >
+                    Edit Profile
+                </Button>
+            </div>
         </div>
     )
 
@@ -199,6 +222,8 @@ const UserPage = () =>{
         )
     }
 
+
+    /** TODO: DELETE IF SURE WE DONT NEED THIS ANYMORE
     function goToChooseBlackCard() {
         // also push the state ( does not add functionality )
         history.push(`/game/select/blackCard`,
@@ -212,16 +237,7 @@ const UserPage = () =>{
                            onClick={() => goToChooseBlackCard()}
                            >
         You haven't selected a black Card yet, click here to choose one.
-    </CardButton>
-
-    if(blackCard) {
-        card =
-                <CardButton className={"card blackCard"}
-                   disabled={true}
-                   >
-                   {blackCard.text}
-                </CardButton>
-    }
+    </CardButton>*/
 
     const goToEdit = async () =>{
         try {
@@ -237,12 +253,6 @@ const UserPage = () =>{
         }catch (error) {
             alert(`Something went wrong while navigating to the game menu: \n${handleError(error)}`);
         }
-    }
-
-    let title = <div className="userPage title"> Please Choose a Black Card for the day</div>
-
-    if(blackCard){
-        title = <div className="userPage title"> Your Black Card:</div>
     }
 
     return(
