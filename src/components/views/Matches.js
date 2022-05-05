@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import BaseContainer from "components/ui/BaseContainer";
-import "styles/views/WhiteCardSelection.scss";
+
 import "styles/views/Matches.scss";
 import Header from "./Header";
-import CardButton from "../ui/CardButton";
 import {api, handleError} from "../../helpers/api";
-import ChatListItems from "components/ui/ChatListItem";
+import MatchListItems from "components/ui/MatchListItem";
 
 
 // Viewing the matches
@@ -46,26 +44,23 @@ const Matches = () => {
     return (
         <React.Fragment>
             <Header view="game"/>
-            <div className="main__chatlist">
-                <div className="chatlist__heading">
+            <div className="containerMatchList">
+                <div className="matchListHeading">
                     <h2>Matches</h2>
-                    <button className="btn-nobg">
-                        <i className="fa fa-ellipsis-h"></i>
-                    </button>
                 </div>
-                <div className="chatList__search">
-                    <div className="search_wrap">
+                <div className="messageList">
+                    <div className="searchWrap">
                         <input type="text" placeholder="Search Here" required />
-                        <button className="search-btn">
+                        <button className="searchButton">
                             <i className="fa fa-search"></i>
                         </button>
                     </div>
                 </div>
-                <div className="chatlist__items">
+                <div className="MatchListItem">
                     {matchedUsers ? matchedUsers.map(user => {
                         return (
                             <div>
-                                <ChatListItems
+                                <MatchListItems
                                     name={user.username}
                                     key={user.id}
                                     active={user.status ? "ONLINE" : ""}
