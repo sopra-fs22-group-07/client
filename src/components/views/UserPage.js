@@ -47,6 +47,7 @@ const UserPage = () =>{
 
     const[user, setUser] = useState(null);
     const [blackCard, setBlackCard] = useState(null)
+    const [preferences, setPreferences] = useState(null)
 
     useEffect(() => {
 
@@ -63,6 +64,23 @@ const UserPage = () =>{
         getUser()
 
     }, []);
+
+    useEffect(() => {
+        async function getPreferences(){
+            try{
+                const response = await api.get(`/users/${id}/preferences`)
+                setPreferences(response.data)
+                console.log(response.data)
+                console.log(response.data.minAge)
+                console.log(response.data.maxAge)
+                console.log(response.data.genderPreferences.includes("MALE"))
+            }catch (error){
+                console.error("Details:", error);
+                alert("Couldn't get user preferences" + handleError(error))
+            }
+        }
+        getPreferences()
+    }, [])
 
     // fetch black card of the user
     useEffect(() => {
@@ -86,6 +104,7 @@ const UserPage = () =>{
             <div className="userPage player-info-container">Birthday: </div>
         </div>
     )
+
 
     if(user){
         profile  = (
@@ -124,6 +143,62 @@ const UserPage = () =>{
         )
     }
 
+    let userPreferences = (
+        <div>
+            <div className="userPage title">Preferences</div>
+            <table className="userPage table">
+                <tbody>
+                    <tr className="userPage player-info-container">
+                        <td> Age Preference:</td>
+                        <td className="userPage td"> minAge-maxAge </td>
+                    </tr>
+                    <tr className="userPage player-info-container">
+                        <td> Gender Preferences: </td>
+                        <td className="userPage td"> Preferred Gender(s) </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                <Button
+                    className="invert"
+                    width="100%"
+                    onClick={() => goToEditPreferences()}
+                >
+                    Edit Preferences
+                </Button>
+            </div>
+        </div>
+    )
+
+    if(preferences){
+        userPreferences = (
+            <div>
+                <div className="userPage title">Preferences</div>
+                <table className="userPage table">
+                    <tbody>
+                    <tr className="userPage player-info-container">
+                        <td> Age Preference:</td>
+                        <td className="userPage td"> {preferences.minAge} Years - {preferences.maxAge} Years</td>
+                    </tr>
+                    <tr className="userPage player-info-container">
+                        <td> Gender Preferences: </td>
+                        <td className="userPage td"> {preferences.genderPreferences.join(', ')} </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <Button
+                        className="invert"
+                        width="100%"
+                        onClick={() => goToEditPreferences()}
+                    >
+                        Edit Preferences
+                    </Button>
+                </div>
+            </div>
+        )
+    }
+
     function goToChooseBlackCard() {
         // also push the state ( does not add functionality )
         history.push(`/game/select/blackCard`,
@@ -150,7 +225,15 @@ const UserPage = () =>{
 
     const goToEdit = async () =>{
         try {
-            history.push(`/users/${id}/edit`)
+            history.push(`/users/${id}/edit/userinfo`)
+        }catch (error) {
+            alert(`Something went wrong while navigating to the game menu: \n${handleError(error)}`);
+        }
+    }
+
+    const goToEditPreferences = async () =>{
+        try {
+            history.push(`/users/${id}/edit/preferences`)
         }catch (error) {
             alert(`Something went wrong while navigating to the game menu: \n${handleError(error)}`);
         }
@@ -168,6 +251,9 @@ const UserPage = () =>{
             <BaseContainer className="userPage main-container">
                 <div className="userPage main-container">
                     {profile}
+                </div>
+                <div className="userPage main-container">
+                    {userPreferences}
                 </div>
             </BaseContainer>
         </React.Fragment>
