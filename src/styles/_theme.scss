@@ -36,7 +36,6 @@ $fontMono: "Helvetica Neue", monospace;
 $fontSizeLarge: 48px;
 $fontSizeMedium: 36px;
 $fontSizeSmall: 18px;
-$fontSizeExtraSmall: 13px; /* used for buttons*/
 
 
 
@@ -49,7 +48,7 @@ $borderRadius: 1.5em;
 /* mixins
 
   these allow you to create small snippets that you can insert with a one-liner in other stylesheets
-  for an example, see styles/views/LoginRegistration.scss
+  for an example, see styles/views/Login.scss
 */
 @mixin center {
   display: flex;

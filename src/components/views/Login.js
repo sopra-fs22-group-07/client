@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
-import 'styles/views/LoginRegistration.scss';
+import 'styles/views/Login.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import Header from "./Header";
@@ -24,7 +24,6 @@ const FormField = props => {
             placeholder="enter here.."
             value={props.value}
             onChange={e => props.onChange(e.target.value)}
-            type={props.type}
         />
       </div>
   );
@@ -47,7 +46,7 @@ const Login = () => {
     try {
       const id =  localStorage.getItem('id')
       // if user has no black card yet, server should return null or something.
-      await api.get(`/users/${id}/games/blackCards/current`)
+      const response = await api.get(`/users/${id}/games/blackCards/current`)
 
       history.push({
         pathname: `/game/menu`,
@@ -112,14 +111,13 @@ const Login = () => {
             />
             <FormField
                 label="Password"
-                type="password"
                 value={password}
                 onChange={pw => setPassword(pw)}
             />
             <div className= "errorMessage">
               {localStorage.getItem("errorMessage")}
             </div>
-            <div className="login fixed-button-container">
+            <div className="login button-container">
               <Button
                   disabled={!username || !password}
                   width="100%"
@@ -127,6 +125,9 @@ const Login = () => {
               >
                 Login
               </Button>
+            </div>
+            <div className="login button-container">
+
             </div>
           </div>
         </div>

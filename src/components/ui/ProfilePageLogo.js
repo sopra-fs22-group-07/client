@@ -1,5 +1,5 @@
 import React from "react";
-import "styles/ui/profilePageLogo.scss";
+import "styles/ui/ReactLogo.scss";
 
 export const ProfilePageLogo = props => {
     return (
