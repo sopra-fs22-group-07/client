@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Avatar from "./Avatar";
+import PropTypes from "prop-types";
 
 export default class ChatListItems extends Component {
     constructor(props) {

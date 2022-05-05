@@ -5,7 +5,7 @@ import "styles/views/Matches.scss";
 import Header from "./Header";
 import CardButton from "../ui/CardButton";
 import {api, handleError} from "../../helpers/api";
-import ChatListItems from "components/ui/ChatListItems";
+import ChatListItems from "components/ui/ChatListItem";
 
 
 // Viewing the matches
