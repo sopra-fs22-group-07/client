@@ -18,7 +18,7 @@ export default class MatchListItems extends Component {
         return (
             <div
                 style={{animationDelay: `0.${this.props.animationDelay}s`,
-                     justifyContent: "space-between", alignSelf: "flex-start", marginRight: '.5rem'}}
+                     justifyContent: "space-evenly", alignSelf: "flex-start"}}
 
 
                 className={`matchListItem ${
