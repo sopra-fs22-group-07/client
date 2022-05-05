@@ -63,9 +63,12 @@ const Registration = () => {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [birthday, setBirthday] = useState(null);
   const [gender, setGender] = useState(null)
   const [err, setErr] = useState("")
+  let eighteenYearsAgo = new Date()
+  eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18)
+  const [birthday, setBirthday] = useState(eighteenYearsAgo);
+
 
   // This little function asks the server if the typed in username is available and sets an error message accordingly
   useEffect(() => {
@@ -150,7 +153,7 @@ const Registration = () => {
                 onChange={(date)=>setBirthday(date)}
                 dateFormat="dd/MM/yyyy"
                 // restrict age:
-                maxDate={new Date()}
+                maxDate={eighteenYearsAgo}
                 minDate={new Date('1900-01-01')}
             />
           </div>
