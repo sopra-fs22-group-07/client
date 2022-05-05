@@ -19,8 +19,11 @@ export default class ChatListItems extends Component {
 
     render() {
         return (
+         <React.Fragment>
+
             <div
-                style={{ animationDelay: `0.${this.props.animationDelay}s` }}
+                style={{animationDelay: `0.${this.props.animationDelay}s`,
+                     justifyContent: "space-evenly", alignSelf: "flex-start"}}
                 onClick={this.selectChat}
                 className={`chatlist__item ${
                     this.props.active ? this.props.active : ""
@@ -28,7 +31,7 @@ export default class ChatListItems extends Component {
             >
                 <Avatar
                     image={
-                        this.props.image ? this.props.image : "http://placehold.it/80x80"
+                        this.props.image ? this.props.image : "https://via.placeholder.com/80"
                     }
                     isOnline={this.props.isOnline}
                 />
@@ -37,7 +40,14 @@ export default class ChatListItems extends Component {
                     <p>{this.props.name}</p>
                     <span className="activeTime">32 mins ago</span>
                 </div>
+                <div className="userMeta">
+                    <p>{this.props.gender}</p>
+                </div>
+                <div className="userMeta">
+                    <p>{this.props.birthday}</p>
+                </div>
             </div>
+         </React.Fragment>
         );
     }
 }

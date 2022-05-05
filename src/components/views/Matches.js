@@ -46,51 +46,9 @@ const Matches = () => {
     return (
         <React.Fragment>
             <Header view="game"/>
-            <div className={"game description"}>
-                <h1>You matched with:</h1>
-            </div>
-
-            <BaseContainer className={"menu container"}>
-                {/* display all users in matchedUsers if there are any */}
-                {matchedUsers ? matchedUsers.map(user => {
-                    return (
-                        <div>
-                        <CardButton
-                            key={user.id}
-                            className={"card whiteCard"}
-                            // onClick={() => history.push(`/game/${user.id}`)}
-                        >
-                            {`Username: ${user.username}`}
-                            <br/>
-                            {`Name: ${user.name}`}
-                            <br/>
-                            {`Status: ${user.status}`}
-                            <br/>
-                            {`Birthday: ${user.birthday}`}
-                            <br/>
-                            {`Gender: ${user.gender}`}
-                        </CardButton>
-
-                    <ChatListItems
-                        name={user.name}
-                        key={user.id}
-                        active={user.status ? "ONLINE" : ""}
-                        isOnline={user.status ? "ONLINE" : ""}
-                        image={user.image}
-                    />
-                    </div>
-                    )
-                }) : "No Matches Found"}
-            </BaseContainer>
-
-
             <div className="main__chatlist">
-                <button className="btn">
-                    <i className="fa fa-plus"></i>
-                    <span>New conversation</span>
-                </button>
                 <div className="chatlist__heading">
-                    <h2>Chats</h2>
+                    <h2>Matches</h2>
                     <button className="btn-nobg">
                         <i className="fa fa-ellipsis-h"></i>
                     </button>
@@ -106,13 +64,19 @@ const Matches = () => {
                 <div className="chatlist__items">
                     {matchedUsers ? matchedUsers.map(user => {
                         return (
-                            <ChatListItems
-                                name={user.name}
-                                key={user.id}
-                                active={user.status ? "ONLINE" : ""}
-                                isOnline={user.status ? "ONLINE" : ""}
-                                image={user.image}
-                            />
+                            <div>
+                                <ChatListItems
+                                    name={user.username}
+                                    key={user.id}
+                                    active={user.status ? "ONLINE" : ""}
+                                    isOnline={user.status ? "ONLINE" : ""}
+                                    status={user.status ? "ONLINE" : ""}
+                                    image={user.image}
+                                    gender = {user.gender}
+                                    birthday = {user.birthday}
+                                />
+                            </div>
+
                         );
                     }): "No Matches Found"}
                 </div>
