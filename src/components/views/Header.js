@@ -95,7 +95,7 @@ function Header(props){
             </div>
         }
     }
-    if(props.view==="userPage"){
+    if(props.view==="somePage"){
         return <div className="header container">
             <h1 className="header title">Date Against Humanity</h1>
             <div className="header button-container">

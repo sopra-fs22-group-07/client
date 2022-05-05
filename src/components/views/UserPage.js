@@ -244,7 +244,7 @@ const UserPage = () =>{
 
     return(
         <React.Fragment>
-            <Header view="userPage"/>
+            <Header view="somePage"/>
             <BaseContainer className="userPage main-container">
                 <div className="userPage main-container">
                     {profile}
