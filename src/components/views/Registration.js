@@ -2,25 +2,25 @@ import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
-import 'styles/views/Registration.scss';
+import 'styles/views/LoginRegistration.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import Header from "./Header";
 import DatePicker from "react-date-picker"
 import "styles/ui/DatePicker.scss"
-import Select from "react-select";
+import {GenderPicker} from "../ui/GenderPicker";
 
 /*
 Registration Page
  */
 const FormField = props => {
   return (
-    <div className="registration field">
-      <label className="registration label">
+    <div className="login field">
+      <label className="login label">
         {props.label}
       </label>
       <input
-        className="registration input"
+        className="login input"
         placeholder="enter here.."
         value={props.value}
         onChange={e => props.onChange(e.target.value)}
@@ -36,36 +36,17 @@ FormField.propTypes = {
   onChange: PropTypes.func
 };
 
-//Options for Selector Element
-const genderOptions = [
-    {value: 'MALE', label: 'Male'},
-    {value:  'FEMALE', label: 'Female'},
-    {value: 'OTHER', label: 'Other'}
-]
-
-//Needed for styling of selector element
-const customStyles = {
-  option: (provided) => ({
-    ...provided,
-    borderBottom: '1px dotted black',
-    color: 'black',
-    padding: 10,
-  }),
-  singleValue: (provided, state) => {
-    const opacity = state.isDisabled ? 0.5 : 1;
-    const transition = 'opacity 300ms';
-    return { ...provided, opacity, transition };
-  }
-}
-
 const Registration = () => {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [birthday, setBirthday] = useState(null);
   const [gender, setGender] = useState(null)
   const [err, setErr] = useState("")
+  let eighteenYearsAgo = new Date()
+  eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18)
+  const [birthday, setBirthday] = useState(eighteenYearsAgo);
+
 
   // This little function asks the server if the typed in username is available and sets an error message accordingly
   useEffect(() => {
@@ -121,19 +102,19 @@ const Registration = () => {
       <React.Fragment>
         <Header view="register"/>
     <BaseContainer>
-      <div className="registration container">
-        <div className="registration form">
-        <h2 className="registration title"> Registration </h2>
+      <div className="login container">
+        <div className="login form">
+          <h2 className="login title"> Registration </h2>
           <FormField
             label="Username"
             value={username.trim()} //can't add spaces at start or end of username, with this it is impossible to enter ""as username
             onChange={un => setUsername(un)}
           />
-          <div className={"registration errorMessage"}>
+          <div className={"errorMessage register"}>
             {err}
           </div>
 
-        <FormField
+          <FormField
             label="Name"
             value={name}
             onChange={na => setName(na)}
@@ -144,24 +125,33 @@ const Registration = () => {
               value={password}
               onChange={pw => setPassword(pw)}
           />
+          {/*<FormField
+              label="Birthday"
+              type="date"
+              min="1900-01-01"
+              max={eighteenYearsAgo.getDate().toString() +"/" + eighteenYearsAgo.getMonth().toString() + "/" +eighteenYearsAgo.getFullYear().toString()}
+              value={birthday}
+              onChange={bd => setBirthday(bd)}
+          />*/}
           <div>
-            <DatePicker className="registration date-picker-container"
+            <DatePicker className="login date-picker-container"
                 value={birthday}
                 onChange={(date)=>setBirthday(date)}
                 dateFormat="dd/MM/yyyy"
                 // restrict age:
-                maxDate={new Date()}
+                maxDate={eighteenYearsAgo}
                 minDate={new Date('1900-01-01')}
             />
           </div>
           <div>
-            <Select
-                styles={customStyles}
-                options={genderOptions}
+            <div className="login container-title">
+              Gender
+            </div>
+            <GenderPicker
                 onChange={(genders)=>setGender(genders.value)}
             />
           </div>
-          <div className="registration button-container">
+          <div className="login fixed-button-container">
             <Button
               disabled={err!=='' || !username || !password || !name || !birthday || !gender}
               width="100%"
