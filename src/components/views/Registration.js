@@ -101,7 +101,7 @@ const Registration = () => {
     <BaseContainer>
       <div className="login container">
         <div className="login form">
-        <h2 className="login title"> Registration </h2>
+          <h2 className="login title"> Registration </h2>
           <FormField
             label="Username"
             value={username.trim()} //can't add spaces at start or end of username, with this it is impossible to enter ""as username
@@ -111,7 +111,7 @@ const Registration = () => {
             {err}
           </div>
 
-        <FormField
+          <FormField
             label="Name"
             value={name}
             onChange={na => setName(na)}

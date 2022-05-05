@@ -28,4 +28,8 @@
   &.delete {
     background-color: #ff6969;
   }
+  &.invert {
+    color: $accent;
+    background-color: $background;
+  }
 }

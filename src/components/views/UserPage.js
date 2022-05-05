@@ -3,6 +3,7 @@ import Header from "./Header";
 import {api, handleError} from 'helpers/api';
 import BaseContainer from "../ui/BaseContainer";
 import 'styles/views/UserPage.scss'
+import 'styles/views/LoginRegistration.scss';
 import CardButton from "../ui/CardButton";
 import {useHistory} from "react-router-dom";
 import {Button} from "../ui/Button";
@@ -79,25 +80,42 @@ const UserPage = () =>{
 
     let profile = (
         <div className="userPage container">
-        <div>
-            <ul className="userPage player-info-container">Username: </ul>
-            <ul className="userPage player-info-container">Name: </ul>
-            <ul className="userPage player-info-container">Gender: </ul>
-            <ul className="userPage player-info-container">Birthday: </ul>
-        </div>
+            <div className="userPage player-info-container">Username: </div>
+            <div className="userPage player-info-container">Name: </div>
+            <div className="userPage player-info-container">Gender: </div>
+            <div className="userPage player-info-container">Birthday: </div>
         </div>
     )
 
     if(user){
         profile  = (
-            <div className="userPage container" >
-                    <ul className="userPage player-info-container">Username: {user.username}</ul>
-                    <ul className="userPage player-info-container">Name: {user.name}</ul>
-                    <ul className="userPage player-info-container">Gender: {user.gender}</ul>
-                    <ul className="userPage player-info-container">Birthday: {displayDate(user.birthday)}</ul>
-                <div className="userPage fixed-button-container">
+            <div>
+                <div className="userPage title"> Profile </div>
+                <table className="userPage table">
+                    <tbody>
+                        <tr className="userPage player-info-container">
+                            <td> Username: </td>
+                            <td className="userPage td"> {user.username} </td>
+                        </tr>
+                        <tr className="userPage player-info-container">
+                            <td> Name: </td>
+                            <td className="userPage td"> {user.name} </td>
+                        </tr>
+                        <tr className="userPage player-info-container">
+                            <td> Gender: </td>
+                            <td className="userPage td"> {user.gender} </td>
+                        </tr>
+                        <tr className="userPage player-info-container">
+                            <td> Birthday: </td>
+                            <td className="userPage td"> {displayDate(user.birthday)} </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div>
                     <Button
-                            onClick={() => goToEdit()}
+                        className="invert"
+                        width="100%"
+                        onClick={() => goToEdit()}
                     >
                         Edit Profile
                     </Button>
@@ -147,11 +165,7 @@ const UserPage = () =>{
     return(
         <React.Fragment>
             <Header view="userPage"/>
-            <BaseContainer className="userPage">
-                {title}
-                <div className="userPage card-container">
-                    {card}
-                </div>
+            <BaseContainer className="userPage main-container">
                 <div className="userPage main-container">
                     {profile}
                 </div>

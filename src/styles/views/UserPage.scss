@@ -7,6 +7,7 @@
     min-height: 300px;
     @include center;
     flex-direction: column;
+    margin-bottom: 20px;
   }
   &.card-container{
     background-color: $accent;
@@ -20,21 +21,28 @@
     width: 60%;
     max-width: 25em;
     height: 40em;
-    font-size: $fontSizeSmall;
+    font-size: $fontSizeMedium;
     font-weight: 300;
     padding-left: 37px;
     padding-right: 37px;
     border-radius: 1.2em;
     background-color: $background;
+    transition: opacity 0.5s ease, transform 0.5s ease;
     box-shadow: $dropShadow;
     position: relative;
   }
 
   &.player-info-container{
-    color: $textColor;
-    margin-top: 2em;
-    font-size: $fontSizeMedium;
-    margin-bottom: 1em;
+    color: $background;
+    margin-bottom: 20px;
+    font-size: $fontSizeSmall;
+  }
+
+  &.title{
+    color: $background;
+    position: relative;
+    font-size: 48px;
+    top:-20px;
   }
 
   &.moving-button-container {
@@ -47,29 +55,13 @@
   }
   &.fixed-button-container {
     position: absolute;
-    bottom: 0px;
-  }
-
-  &.button{
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: center;
-    position: relative;
+    bottom: 0;
   }
 
   &.title{
     color: $background;
     font-size: $fontSizeMedium;
     text-align: center;
-  }
-
-  &.delete-button{
-    background-color: #ff6969;
-    width: 380px;
-    height: 50px;
-    font-size: $fontSizeMedium;
-    border-radius: 12px;
-    text-transform: capitalize;
   }
 
   .react-select {
@@ -84,6 +76,15 @@
 
   &.select-option{
     color: black;
+  }
+
+  &.td{
+    padding-left: 20px;
+    padding-bottom: 5px;
+  }
+
+  &.table{
+    margin-bottom: 20px;
   }
 
 }
