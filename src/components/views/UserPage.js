@@ -79,18 +79,17 @@ const UserPage = () =>{
     }, [])
 
     let profile = (
-        <div className="userPage container">
+        <table className="userPage table">
             <div className="userPage player-info-container">Username: </div>
             <div className="userPage player-info-container">Name: </div>
             <div className="userPage player-info-container">Gender: </div>
             <div className="userPage player-info-container">Birthday: </div>
-        </div>
+        </table>
     )
 
     if(user){
         profile  = (
             <div>
-                <div className="userPage title"> Profile </div>
                 <table className="userPage table">
                     <tbody>
                         <tr className="userPage player-info-container">
@@ -109,17 +108,25 @@ const UserPage = () =>{
                             <td> Birthday: </td>
                             <td className="userPage td"> {displayDate(user.birthday)} </td>
                         </tr>
+                        <tr>
+                            <td colspan="2">
+                                <Button
+                                    className="invert"
+                                    width="100%"
+                                    onClick={() => goToEdit()}
+                                >
+                                    Edit Profile
+                                </Button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr className="userPage player-info-container">
+                            <td colSpan="2">Do same for preferences</td>
+                        </tr>
                     </tbody>
                 </table>
-                <div>
-                    <Button
-                        className="invert"
-                        width="100%"
-                        onClick={() => goToEdit()}
-                    >
-                        Edit Profile
-                    </Button>
-                </div>
             </div>
         )
     }
@@ -167,6 +174,7 @@ const UserPage = () =>{
             <Header view="userPage"/>
             <BaseContainer className="userPage main-container">
                 <div className="userPage main-container">
+                    <div className="userPage title"> Profile </div>
                     {profile}
                 </div>
             </BaseContainer>
