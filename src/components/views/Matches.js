@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import BaseContainer from "components/ui/BaseContainer";
-import "styles/views/WhiteCardSelection.scss";
+
+import "styles/views/Matches.scss";
 import Header from "./Header";
-import CardButton from "../ui/CardButton";
 import {api, handleError} from "../../helpers/api";
+import MatchListItems from "components/ui/MatchListItem";
 
 
 // Viewing the matches
@@ -40,36 +40,42 @@ const Matches = () => {
     useEffect(() => {
         getMatches()
     }, [])
-
+    // for styling: animationDelay={index + 1}
     return (
         <React.Fragment>
             <Header view="game"/>
-            <div className={"game description"}>
-                <h1>You matched with:</h1>
-            </div>
+            <div className="containerMatchList">
+                <div className="matchListHeading">
+                    <h2>Matches</h2>
+                </div>
+                <div className="messageList">
+                    <div className="searchWrap">
+                        <input type="text" placeholder="Search Here" required />
+                        <button className="searchButton">
+                            <i className="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div className="MatchListItem">
+                    {matchedUsers ? matchedUsers.map(user => {
+                        return (
+                            <div>
+                                <MatchListItems
+                                    name={user.username}
+                                    key={user.id}
+                                    active={user.status ? "ONLINE" : ""}
+                                    isOnline={user.status ? "ONLINE" : ""}
+                                    status={user.status ? "ONLINE" : ""}
+                                    image={user.image}
+                                    gender = {user.gender}
+                                    birthday = {user.birthday}
+                                />
+                            </div>
 
-            <BaseContainer className={"menu container"}>
-                {/* display all users in matchedUsers if there are any */}
-                {matchedUsers ? matchedUsers.map(user => {
-                    return (
-                        <CardButton
-                            key={user.id}
-                            className={"card whiteCard"}
-                            // onClick={() => history.push(`/game/${user.id}`)}
-                        >
-                            {`Username: ${user.username}`}
-                            <br/>
-                            {`Name: ${user.name}`}
-                            <br/>
-                            {`Status: ${user.status}`}
-                            <br/>
-                            {`Birthday: ${user.birthday}`}
-                            <br/>
-                            {`Gender: ${user.gender}`}
-                        </CardButton>
-                    )
-                }) : "No Matches Found"}
-            </BaseContainer>
+                        );
+                    }): "No Matches Found"}
+                </div>
+            </div>
         </React.Fragment>
     );
 }

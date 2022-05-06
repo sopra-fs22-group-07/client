@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@weavy/dropin-js": "^10.0.6",
     "axios": "^0.24.0",
+    "components": "^0.1.0",
     "node-gyp": "^8.4.1",
     "node-sass": "^7.0.1",
     "prop-types": "^15.8.1",
