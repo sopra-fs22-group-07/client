@@ -3,11 +3,11 @@ import Header from "./Header";
 import {api, handleError} from 'helpers/api';
 import BaseContainer from "../ui/BaseContainer";
 import 'styles/views/UserPage.scss'
-import 'styles/views/LoginRegistration.scss';
+import CardButton from "../ui/CardButton";
 import {useHistory} from "react-router-dom";
 import {Button} from "../ui/Button";
 
-/** TODO: DELETE IF SURE WE DONT NEED IT ANYMORE
+/**
 const PlayerProfile = ({user}) =>(
     <div>
     <div className="userPage container">
@@ -16,7 +16,7 @@ const PlayerProfile = ({user}) =>(
         <ul className="userPage player-info-container">Gender: {user.gender}</ul>
         <ul className="userPage player-info-container">Birthday: {displayDate(user.birthday)}</ul>
     </div>
-    <div className="userPage moving-button-container">
+    <div className="userPage button-container">
         <Button className="userPage button"
                 onClick={() => goToEdit()}
         >
@@ -78,58 +78,42 @@ const UserPage = () =>{
             }
         }
         getPreferences()
+
     }, [])
 
     let profile = (
-        <table className="userPage table">
-            <div className="userPage player-info-container">Username: </div>
-            <div className="userPage player-info-container">Name: </div>
-            <div className="userPage player-info-container">Gender: </div>
-            <div className="userPage player-info-container">Birthday: </div>
-        </table>
+        <div className="userPage container">
+        <div>
+            <ul className="userPage player-info-container">Username: </ul>
+            <ul className="userPage player-info-container">Name: </ul>
+            <ul className="userPage player-info-container">Gender: </ul>
+            <ul className="userPage player-info-container">Birthday: </ul>
+        </div>
+            <div className="userPage button-container">
+                <Button className="userPage button"
+                        onClick={() => goToEdit()}
+                >
+                    Edit Profile
+                </Button>
+            </div>
+        </div>
     )
 
 
     if(user){
         profile  = (
-            <div>
-                <table className="userPage table">
-                    <tbody>
-                        <tr className="userPage player-info-container">
-                            <td> Username: </td>
-                            <td className="userPage td"> {user.username} </td>
-                        </tr>
-                        <tr className="userPage player-info-container">
-                            <td> Name: </td>
-                            <td className="userPage td"> {user.name} </td>
-                        </tr>
-                        <tr className="userPage player-info-container">
-                            <td> Gender: </td>
-                            <td className="userPage td"> {user.gender} </td>
-                        </tr>
-                        <tr className="userPage player-info-container">
-                            <td> Birthday: </td>
-                            <td className="userPage td"> {displayDate(user.birthday)} </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <Button
-                                    className="invert"
-                                    width="100%"
-                                    onClick={() => goToEdit()}
-                                >
-                                    Edit Profile
-                                </Button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr className="userPage player-info-container">
-                            <td colSpan="2">Do same for preferences</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div className="userPage container" >
+                    <ul className="userPage player-info-container">Username: {user.username}</ul>
+                    <ul className="userPage player-info-container">Name: {user.name}</ul>
+                    <ul className="userPage player-info-container">Gender: {user.gender}</ul>
+                    <ul className="userPage player-info-container">Birthday: {displayDate(user.birthday)}</ul>
+                <div className="userPage button-container">
+                    <Button className="userPage button"
+                            onClick={() => goToEdit()}
+                    >
+                        Edit Profile
+                    </Button>
+                </div>
             </div>
         )
     }
@@ -225,12 +209,18 @@ const UserPage = () =>{
         }
     }
 
+    let title = <div className="userPage title"> Please Choose a Black Card for the day</div>
+
+    if(blackCard){
+        title = <div className="userPage title"> Your Black Card:</div>
+    }
+
     return(
         <React.Fragment>
             <Header view="somePage"/>
             <BaseContainer className="userPage main-container">
+
                 <div className="userPage main-container">
-                    <div className="userPage title"> Profile </div>
                     {profile}
                 </div>
                 <div className="userPage main-container">
