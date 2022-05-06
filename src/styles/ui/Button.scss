@@ -24,4 +24,12 @@
   color: $background;
   background-color: $accent;
   transition: all 0.3s ease;
+
+  &.delete {
+    background-color: #ff6969;
+  }
+  &.invert {
+    color: $accent;
+    background-color: $background;
+  }
 }
