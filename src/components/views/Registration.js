@@ -41,9 +41,12 @@ const Registration = () => {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [birthday, setBirthday] = useState(null);
   const [gender, setGender] = useState(null)
   const [err, setErr] = useState("")
+  let eighteenYearsAgo = new Date()
+  eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18)
+  const [birthday, setBirthday] = useState(eighteenYearsAgo);
+
 
   // This little function asks the server if the typed in username is available and sets an error message accordingly
   useEffect(() => {
@@ -107,7 +110,7 @@ const Registration = () => {
             value={username.trim()} //can't add spaces at start or end of username, with this it is impossible to enter ""as username
             onChange={un => setUsername(un)}
           />
-          <div className={"errorMessage register"}>
+          <div className={"errorMessage"}>
             {err}
           </div>
 
@@ -122,22 +125,24 @@ const Registration = () => {
               value={password}
               onChange={pw => setPassword(pw)}
           />
-          <FormField
+          {/*<FormField
               label="Birthday"
               type="date"
+              min="1900-01-01"
+              max={eighteenYearsAgo.getDate().toString() +"/" + eighteenYearsAgo.getMonth().toString() + "/" +eighteenYearsAgo.getFullYear
               value={birthday}
               onChange={bd => setBirthday(bd)}
-          />
-          {/*<div>
+          />*/}
+          <div>
             <DatePicker className="login date-picker-container"
                 value={birthday}
                 onChange={(date)=>setBirthday(date)}
                 dateFormat="dd/MM/yyyy"
                 // restrict age:
-                maxDate={new Date()}
+                maxDate={eighteenYearsAgo}
                 minDate={new Date('1900-01-01')}
             />
-          </div>*/}
+          </div>
           <div>
             <div className="login container-title">
               Gender

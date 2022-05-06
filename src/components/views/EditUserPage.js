@@ -92,7 +92,7 @@ const EditUserPage = () =>{
                      value={username.trim()}
                      onChange={un => setUsername(un)}
                  />
-                 <div className={"errorMessage register"}>
+                 <div className={"errorMessage"}>
                      {err}
                  </div>
                  <div>
