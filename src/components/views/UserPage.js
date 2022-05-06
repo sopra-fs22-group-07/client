@@ -147,17 +147,19 @@ const UserPage = () =>{
                         <td> Gender Preferences: </td>
                         <td className="userPage td"> Preferred Gender(s) </td>
                     </tr>
+                    <tr>
+                        <td colSpan="2">
+                            <Button
+                                className="invert"
+                                width="100%"
+                                onClick={() => goToEdit()}
+                            >
+                                Edit Profile
+                            </Button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-            <div>
-                <Button
-                    className="invert"
-                    width="100%"
-                    onClick={() => goToEditPreferences()}
-                >
-                    Edit Preferences
-                </Button>
-            </div>
         </div>
     )
 
