@@ -14,7 +14,7 @@
   padding: 6px;
   font-weight: 700;
   text-transform: uppercase;
-  font-size: $fontSizeExtraSmall;
+  font-size: 13px;
   text-align: center;
   height: 35px;
   border: none;
@@ -24,12 +24,4 @@
   color: $background;
   background-color: $accent;
   transition: all 0.3s ease;
-
-  &.delete {
-    background-color: #ff6969;
-  }
-  &.invert {
-    color: $accent;
-    background-color: $background;
-  }
 }
