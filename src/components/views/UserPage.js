@@ -10,7 +10,7 @@ import {Button} from "../ui/Button";
 /**
 const PlayerProfile = ({user}) =>(
     <div>
-    <div className="userPage container">
+    <div className="userPage container">d
         <ul className="userPage player-info-container">Username: {user.username}</ul>l
         <ul className="userPage player-info-container">Name: {user.name}</ul>
         <ul className="userPage player-info-container">Gender: {user.gender}</ul>
