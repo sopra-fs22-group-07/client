@@ -3,11 +3,11 @@ import Header from "./Header";
 import {api, handleError} from 'helpers/api';
 import BaseContainer from "../ui/BaseContainer";
 import 'styles/views/UserPage.scss'
-import CardButton from "../ui/CardButton";
+import 'styles/views/LoginRegistration.scss';
 import {useHistory} from "react-router-dom";
 import {Button} from "../ui/Button";
 
-/**
+/** TODO: DELETE IF SURE WE DONT NEED IT ANYMORE
 const PlayerProfile = ({user}) =>(
     <div>
     <div className="userPage container">
@@ -16,7 +16,7 @@ const PlayerProfile = ({user}) =>(
         <ul className="userPage player-info-container">Gender: {user.gender}</ul>
         <ul className="userPage player-info-container">Birthday: {displayDate(user.birthday)}</ul>
     </div>
-    <div className="userPage button-container">
+    <div className="userPage moving-button-container">
         <Button className="userPage button"
                 onClick={() => goToEdit()}
         >
@@ -45,7 +45,7 @@ const UserPage = () =>{
     const history = useHistory()
 
     const[user, setUser] = useState(null);
-    const [blackCard, setBlackCard] = useState(null)
+    const[preferences, setPreferences] = useState(null);
 
     useEffect(() => {
 
@@ -63,31 +63,51 @@ const UserPage = () =>{
 
     }, []);
 
-    // fetch black card of the user
     useEffect(() => {
-        async function getBlackCard() {
-            try {
-                // if user has no black card yet, server should return null or something.
-                const response = await api.get(`/users/${id}/games/blackCards/current`)
-                setBlackCard(response.data)
-            } catch (error) {
+        async function getPreferences(){
+            try{
+                const response = await api.get(`/users/${id}/preferences`)
+                setPreferences(response.data)
+                console.log(response.data)
+                console.log(response.data.minAge)
+                console.log(response.data.maxAge)
+                console.log(response.data.genderPreferences.includes("MALE"))
+            }catch (error){
                 console.error("Details:", error);
+                alert("Couldn't get user preferences" + handleError(error))
             }
         }
-        getBlackCard()
+        getPreferences()
     }, [])
 
     let profile = (
-        <div className="userPage container">
         <div>
-            <ul className="userPage player-info-container">Username: </ul>
-            <ul className="userPage player-info-container">Name: </ul>
-            <ul className="userPage player-info-container">Gender: </ul>
-            <ul className="userPage player-info-container">Birthday: </ul>
-        </div>
-            <div className="userPage button-container">
-                <Button className="userPage button"
-                        onClick={() => goToEdit()}
+            <div className="userPage title"> Profile </div>
+            <table className="userPage table">
+                <tbody>
+                <tr className="userPage player-info-container">
+                    <td> Username: </td>
+                    <td className="userPage td"> USERNAME </td>
+                </tr>
+                <tr className="userPage player-info-container">
+                    <td> Name: </td>
+                    <td className="userPage td"> NAME </td>
+                </tr>
+                <tr className="userPage player-info-container">
+                    <td> Gender: </td>
+                    <td className="userPage td"> GENDER </td>
+                </tr>
+                <tr className="userPage player-info-container">
+                    <td> Birthday: </td>
+                    <td className="userPage td"> BIRTHDAY </td>
+                </tr>
+                </tbody>
+            </table>
+            <div>
+                <Button
+                    className="invert"
+                    width="100%"
+                    onClick={() => goToEdit()}
                 >
                     Edit Profile
                 </Button>
@@ -95,16 +115,36 @@ const UserPage = () =>{
         </div>
     )
 
+
     if(user){
         profile  = (
-            <div className="userPage container" >
-                    <ul className="userPage player-info-container">Username: {user.username}</ul>
-                    <ul className="userPage player-info-container">Name: {user.name}</ul>
-                    <ul className="userPage player-info-container">Gender: {user.gender}</ul>
-                    <ul className="userPage player-info-container">Birthday: {displayDate(user.birthday)}</ul>
-                <div className="userPage button-container">
-                    <Button className="userPage button"
-                            onClick={() => goToEdit()}
+            <div>
+                <div className="userPage title"> Profile </div>
+                <table className="userPage table">
+                    <tbody>
+                        <tr className="userPage player-info-container">
+                            <td> Username: </td>
+                            <td className="userPage td"> {user.username} </td>
+                        </tr>
+                        <tr className="userPage player-info-container">
+                            <td> Name: </td>
+                            <td className="userPage td"> {user.name} </td>
+                        </tr>
+                        <tr className="userPage player-info-container">
+                            <td> Gender: </td>
+                            <td className="userPage td"> {user.gender} </td>
+                        </tr>
+                        <tr className="userPage player-info-container">
+                            <td> Birthday: </td>
+                            <td className="userPage td"> {displayDate(user.birthday)} </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <Button
+                        className="invert"
+                        width="100%"
+                        onClick={() => goToEdit()}
                     >
                         Edit Profile
                     </Button>
@@ -113,6 +153,64 @@ const UserPage = () =>{
         )
     }
 
+    let userPreferences = (
+        <div>
+            <div className="userPage title">Preferences</div>
+            <table className="userPage table">
+                <tbody>
+                    <tr className="userPage player-info-container">
+                        <td> Age Preference:</td>
+                        <td className="userPage td"> minAge-maxAge </td>
+                    </tr>
+                    <tr className="userPage player-info-container">
+                        <td> Gender Preferences: </td>
+                        <td className="userPage td"> Preferred Gender(s) </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                <Button
+                    className="invert"
+                    width="100%"
+                    onClick={() => goToEditPreferences()}
+                >
+                    Edit Preferences
+                </Button>
+            </div>
+        </div>
+    )
+
+    if(preferences){
+        userPreferences = (
+            <div>
+                <div className="userPage title">Preferences</div>
+                <table className="userPage table">
+                    <tbody>
+                    <tr className="userPage player-info-container">
+                        <td> Age Preference:</td>
+                        <td className="userPage td"> {preferences.minAge} Years - {preferences.maxAge} Years</td>
+                    </tr>
+                    <tr className="userPage player-info-container">
+                        <td> Gender Preferences: </td>
+                        <td className="userPage td"> {preferences.genderPreferences.join(', ')} </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <Button
+                        className="invert"
+                        width="100%"
+                        onClick={() => goToEditPreferences()}
+                    >
+                        Edit Preferences
+                    </Button>
+                </div>
+            </div>
+        )
+    }
+
+
+    /** TODO: DELETE IF SURE WE DONT NEED THIS ANYMORE
     function goToChooseBlackCard() {
         // also push the state ( does not add functionality )
         history.push(`/game/select/blackCard`,
@@ -126,41 +224,33 @@ const UserPage = () =>{
                            onClick={() => goToChooseBlackCard()}
                            >
         You haven't selected a black Card yet, click here to choose one.
-    </CardButton>
-
-    if(blackCard) {
-        card =
-                <CardButton className={"card blackCard"}
-                   disabled={true}
-                   >
-                   {blackCard.text}
-                </CardButton>
-    }
+    </CardButton>*/
 
     const goToEdit = async () =>{
         try {
-            history.push(`/users/${id}/edit`)
+            history.push(`/users/${id}/edit/userinfo`)
         }catch (error) {
             alert(`Something went wrong while navigating to the game menu: \n${handleError(error)}`);
         }
     }
 
-    let title = <div className="userPage title"> Please Choose a Black Card for the day</div>
-
-    if(blackCard){
-        title = <div className="userPage title"> Your Black Card:</div>
+    const goToEditPreferences = async () =>{
+        try {
+            history.push(`/users/${id}/edit/preferences`)
+        }catch (error) {
+            alert(`Something went wrong while navigating to the game menu: \n${handleError(error)}`);
+        }
     }
 
     return(
         <React.Fragment>
-            <Header view="userPage"/>
-            <BaseContainer className="userPage">
-                {title}
-                <div className="userPage card-container">
-                    {card}
-                </div>
+            <Header view="somePage"/>
+            <BaseContainer className="userPage main-container">
                 <div className="userPage main-container">
                     {profile}
+                </div>
+                <div className="userPage main-container">
+                    {userPreferences}
                 </div>
             </BaseContainer>
         </React.Fragment>

@@ -43,7 +43,7 @@ const Matches = () => {
 
     return (
         <React.Fragment>
-            <Header view="game"/>
+            <Header view="somePage"/>
             <div className={"game description"}>
                 <h1>You matched with:</h1>
             </div>
