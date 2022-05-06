@@ -3,10 +3,10 @@ import Header from "./Header";
 import {api, handleError} from 'helpers/api';
 import BaseContainer from "../ui/BaseContainer";
 import 'styles/views/UserPage.scss'
-import 'styles/views/LoginRegistration.scss'
+import 'styles/views/Registration.scss'
 import {Button} from "../ui/Button";
 import {useHistory} from "react-router-dom";
-import {GenderPicker} from "../ui/GenderPicker";
+import Select from "react-select";
 /*
 Edit User Info Page
  */
@@ -15,12 +15,12 @@ Edit User Info Page
 const FormField = props => {
 
     return (
-        <div className="login field">
-            <label className="login label">
+        <div className="userPage edit-field">
+            <label className="userPage edit-label">
                 {props.label}
             </label>
             <input
-                className="login input"
+                className="userPage edit-input"
                 placeholder={props.username}
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
@@ -29,6 +29,31 @@ const FormField = props => {
         </div>
     );
 };
+
+//Needed for the styling of the Selector element
+const customStyles = {
+    option: (provided) => ({
+        ...provided,
+        borderBottom: '1px dotted black',
+        color: 'black',
+        padding: 10,
+    }),
+    singleValue: (provided, state) => {
+        const opacity = state.isDisabled ? 0.5 : 1;
+        const transition = 'opacity 300ms';
+
+        return { ...provided, opacity, transition };
+    }
+}
+
+
+//For the gender Picker
+const genderOptions = [
+    {value: 'MALE', label: 'Male'},
+    {value:  'FEMALE', label: 'Female'},
+    {value: 'OTHER', label: 'Other'}
+]
+
 
 const EditUserPage = () =>{
     const id = localStorage.getItem("id")
@@ -84,52 +109,51 @@ const EditUserPage = () =>{
     //As soon as User(almost instantly) render correct EditPlayerProfile View
     if(user){
          editProfile  = (
-             <div className="login form">
-                 <h2 className="login title"> Edit Profile </h2>
+             <div className="userPage container">
+
                  <FormField
                      label="Choose New Username"
                      username={user.username}
                      value={username.trim()}
                      onChange={un => setUsername(un)}
                  />
-                 <div className={"errorMessage register"}>
+                 <div className={"errorMessage"}>
                      {err}
                  </div>
-                 <div>
-                     <div className="login container-title">
+                 <p className="userPage player-info-container">
+                     <div className="userPage player-info-container-title">
                          Current Gender: {user.gender}
                      </div>
-                     <GenderPicker
+                     <Select
+                         styles={customStyles}
+                         options={genderOptions}
                          onChange={(genders)=>setGender(genders.value)}
                      />
+                 </p>
+                 <div className="userPage button-container edit">
+                     <Button
+                         className="userPage button"
+                         onClick={() => doEdit()}
+                     >
+                         Save
+                     </Button>
                  </div>
-                 <div className= "userPage fixed-button-container">
-                     <div className= "userPage moving-button-container">
-                         <Button
-                             width="100%"
-                             onClick={() => doEdit()}
+                 <div className="userPage button-container edit">
+                     <Button
+                         className="userPage button"
+                         onClick={() => doCancel()}
+                     >
+                         Cancel
+                     </Button>
+                 </div>
 
-                         >
-                             Save
-                         </Button>
-                     </div>
-                     <div className= "userPage moving-button-container">
-                         <Button
-                             width="100%"
-                             onClick={() => doCancel()}
-                         >
-                             Cancel
-                         </Button>
-                     </div>
-                     <div className= "userPage moving-button-container">
-                         <Button
-                             className = "delete"
-                             width="100%"
-                             onClick={() => doDeleteAccount()}
-                         >
-                             Delete Account
-                         </Button>
-                     </div>
+                 <div className="userPage button-container edit">
+                     <Button
+                         className="userPage delete-button"
+                        onClick={() => doDeleteAccount()}
+                     >
+                         Delete Account
+                     </Button>
                  </div>
              </div>
         )
@@ -179,7 +203,7 @@ const EditUserPage = () =>{
         <React.Fragment>
             <Header view="userPage"/>
             <BaseContainer>
-                <div className="login container">
+                <div className="userPage main-container">
                     {editProfile}
                 </div>
             </BaseContainer>
