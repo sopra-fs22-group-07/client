@@ -125,13 +125,15 @@ const Registration = () => {
               value={password}
               onChange={pw => setPassword(pw)}
           />
-          <FormField
+          {/*<FormField
               label="Birthday"
               type="date"
+              min="1900-01-01"
+              max={eighteenYearsAgo.getDate().toString() +"/" + eighteenYearsAgo.getMonth().toString() + "/" +eighteenYearsAgo.getFullYear().toString()}
               value={birthday}
               onChange={bd => setBirthday(bd)}
-          />
-          {/*<div>
+          />*/}
+          <div>
             <DatePicker className="login date-picker-container"
                 value={birthday}
                 onChange={(date)=>setBirthday(date)}
@@ -140,7 +142,7 @@ const Registration = () => {
                 maxDate={eighteenYearsAgo}
                 minDate={new Date('1900-01-01')}
             />
-          </div>*/}
+          </div>
           <div>
             <div className="login container-title">
               Gender
