@@ -1,0 +1,77 @@
+@import 'src/styles/theme';
+
+.login {
+  &.container {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    min-height: 300px;
+    /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
+    @include center;
+    flex-direction: column;
+  }
+  &.form {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    max-width: 25em;
+    height: 40em;
+    font-size: 18px;
+    font-weight: 300;
+    padding-left: 37px;
+    padding-right: 37px;
+    border-radius: 1.2em;
+    background-color: $background;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    box-shadow: $dropShadow;
+    position: relative;
+  }
+  &.field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  &.input {
+    background-color: transparent;
+    height: 35px;
+    padding-left: 15px;
+    margin-left: -4px;
+    border: none;
+    margin-bottom: 25px;
+    color: $textColor;
+    border-bottom: 1px solid #FFFFFF;
+  }
+  &.label {
+    color: $textColor;
+    margin-bottom: 5px;
+    font-weight: 300;
+  }
+  &.fixed-button-container {
+    position: absolute;
+    bottom: 20px;
+    width: 380px;
+    display: flex;
+    justify-content: center;
+    background-color: transparent;
+  }
+  &.container-title{
+    margin-bottom: 10px;
+  }
+
+  &.title{
+    position: relative;
+    font-size: 48px;
+    top:-20px;
+  }
+
+  &.date-picker-container{
+    position: center;
+  }
+}
+
+.errorMessage{
+  color: crimson;
+  margin-top: -10px;
+  &.register {
+    margin-bottom: 20px;
+  }
+}

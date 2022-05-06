@@ -7,7 +7,7 @@ import Registration from "../../views/Registration";
 import {UserGuard} from "../routeProtectors/UserGuard";
 import UserPage from "../../views/UserPage";
 import EditUserPage from "../../views/EditUserPage"
-
+import EditUserPreferencePage from "../../views/EditUserPreferencePage";
 /**
  * Main router of your application.
  * In the following class, different routes are rendered. In our case, there is a Login Route with matches the path "/login"
@@ -43,9 +43,14 @@ const AppRouter = () => {
             <UserPage/>
           </UserGuard>
         </Route>
-        <Route exact path={'/users/:id/edit'}>
+        <Route exact path={'/users/:id/edit/userinfo'}>
           <UserGuard>
             <EditUserPage/>
+          </UserGuard>
+        </Route>
+        <Route exact path={'/users/:id/edit/preferences'}>
+          <UserGuard>
+            <EditUserPreferencePage/>
           </UserGuard>
         </Route>
         <Route exact path="/">

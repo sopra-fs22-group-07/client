@@ -7,6 +7,7 @@
     min-height: 300px;
     @include center;
     flex-direction: column;
+    margin-bottom: 20px;
   }
   &.card-container{
     background-color: $accent;
@@ -20,86 +21,47 @@
     width: 60%;
     max-width: 25em;
     height: 40em;
-    font-size: $fontSizeSmall;
+    font-size: $fontSizeMedium;
     font-weight: 300;
     padding-left: 37px;
     padding-right: 37px;
     border-radius: 1.2em;
     background-color: $background;
+    transition: opacity 0.5s ease, transform 0.5s ease;
     box-shadow: $dropShadow;
+    position: relative;
   }
 
   &.player-info-container{
-    color: $textColor;
-    margin-top: 2em;
-    font-size: $fontSizeMedium;
-    margin-bottom: 1em;
+    color: $background;
+    margin-bottom: 20px;
+    font-size: $fontSizeSmall;
   }
 
-  &.player-info-container-title{
-    margin-bottom: 10px;
+  &.title{
+    color: $background;
+    position: relative;
+    font-size: 48px;
+    top:-20px;
   }
 
-  &.button-container {
+  &.moving-button-container {
     position: relative;
     margin-bottom: 20px;
     display: flex;
     justify-content: center;
-    margin-top: 10px;
     background-color: transparent;
     width: 380px;
-
-    &.edit{
-      bottom: -100px;
-    }
   }
-
-  &.button{
-    background-color: $accent;
-    width: 380px;
-    height: 50px;
-    font-size: $fontSizeMedium;
-    border-radius: 12px;
-    text-transform: capitalize;
+  &.fixed-button-container {
+    position: absolute;
+    bottom: 0;
   }
 
   &.title{
     color: $background;
     font-size: $fontSizeMedium;
     text-align: center;
-  }
-
-  &.delete-button{
-    background-color: #ff6969;
-    width: 380px;
-    height: 50px;
-    font-size: $fontSizeMedium;
-    border-radius: 12px;
-    text-transform: capitalize;
-  }
-
-  &.edit-field{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  &.edit-label{
-    color: $textColor;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    font-size: 30px;
-  }
-
-  &.edit-input{
-    background-color: transparent;
-    height: 35px;
-    padding-left: 15px;
-    margin-left: -4px;
-    font-size: $fontSizeMedium;
-    border: none;
-    color: $textColor;
-    border-bottom: 1px solid #FFFFFF;
   }
 
   .react-select {
@@ -116,10 +78,13 @@
     color: black;
   }
 
-}
+  &.td{
+    padding-left: 20px;
+    padding-bottom: 5px;
+  }
 
+  &.table{
+    margin-bottom: 20px;
+  }
 
-.errorMessage{
-  color: crimson;
-  margin-top: 10px;
 }

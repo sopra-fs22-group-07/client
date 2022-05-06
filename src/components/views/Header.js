@@ -1,5 +1,4 @@
 import React from "react";
-import {ReactLogo} from "components/ui/ReactLogo";
 import PropTypes from "prop-types";
 import "styles/views/Header.scss";
 import {Button} from "../ui/Button";
@@ -74,7 +73,6 @@ function Header(props){
         if(props.view==="login"){
             return     <div className="header container">
                 <h1 className="header title">Date Against Humanity</h1>
-                <ReactLogo width="60px" height="60px"/>
                 <div className="header button-container">
                     <Button
                             onClick={() => goToRegistration()}
@@ -87,7 +85,6 @@ function Header(props){
         if(props.view==="register"){
             return     <div className="header container">
                 <h1 className="header title">Date Against Humanity</h1>
-                <ReactLogo width="60px" height="60px"/>
                 <div className="header button-container">
                 <Button
                     onClick={() => goToLogin()}
@@ -98,7 +95,7 @@ function Header(props){
             </div>
         }
     }
-    if(props.view==="userPage"){
+    if(props.view==="somePage"){
         return <div className="header container">
             <h1 className="header title">Date Against Humanity</h1>
             <div className="header button-container">
