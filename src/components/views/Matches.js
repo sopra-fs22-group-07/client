@@ -5,10 +5,12 @@ import Header from "./Header";
 import {api, handleError} from "../../helpers/api";
 import MatchListItems from "components/ui/MatchListItems";
 import {ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_WEEK} from "../../helpers/Time";
+import {useHistory} from "react-router-dom";
 
 
 // Viewing the matches
 const Matches = () => {
+    const history = useHistory()
     // use react-router-dom's hook to access the history
     const userId = localStorage.getItem("id")
     const [matchedUsers, setMatchedUsers] = useState(null)
@@ -18,7 +20,6 @@ const Matches = () => {
     const getMatches = async () => {
         try {
             const response = await api.get(`users/${userId}/chats`);
-            console.log(response.data)
             // convert the response to an array of objects
             const matchedUsersArray = response.data.map(match => {
 
@@ -95,6 +96,7 @@ const Matches = () => {
                             return (
                                 <div>
                                     <MatchListItems
+                                        history={history}
                                         animationDelay={0.02}
                                         name={user.username}
                                         key={user.userId}
