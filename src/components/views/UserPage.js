@@ -7,24 +7,6 @@ import 'styles/views/LoginRegistration.scss';
 import {useHistory} from "react-router-dom";
 import {Button} from "../ui/Button";
 
-/** TODO: DELETE IF SURE WE DONT NEED IT ANYMORE
-const PlayerProfile = ({user}) =>(
-    <div>
-    <div className="userPage container">d
-        <ul className="userPage player-info-container">Username: {user.username}</ul>
-        <ul className="userPage player-info-container">Name: {user.name}</ul>
-        <ul className="userPage player-info-container">Gender: {user.gender}</ul>
-        <ul className="userPage player-info-container">Birthday: {displayDate(user.birthday)}</ul>
-    </div>
-    <div className="userPage moving-button-container">
-        <Button className="userPage button"
-                onClick={() => goToEdit()}
-        >
-            Edit Profile
-        </Button>
-    </div>
-    </div>
-)*/
 
 const displayDate = (date) => {
 
@@ -45,7 +27,6 @@ const UserPage = () =>{
     const history = useHistory()
 
     const[user, setUser] = useState(null);
-    const[preferences, setPreferences] = useState(null);
 
     useEffect(() => {
 
@@ -63,22 +44,6 @@ const UserPage = () =>{
 
     }, []);
 
-    useEffect(() => {
-        async function getPreferences(){
-            try{
-                const response = await api.get(`/users/${id}/preferences`)
-                setPreferences(response.data)
-                console.log(response.data)
-                console.log(response.data.minAge)
-                console.log(response.data.maxAge)
-                console.log(response.data.genderPreferences.includes("MALE"))
-            }catch (error){
-                console.error("Details:", error);
-                alert("Couldn't get user preferences" + handleError(error))
-            }
-        }
-        getPreferences()
-    }, [])
 
     let profile = (
         <div>
@@ -180,7 +145,7 @@ const UserPage = () =>{
         </div>
     )
 
-    if(preferences){
+    if(user){
         userPreferences = (
             <div>
                 <div className="userPage title">Preferences</div>
@@ -188,11 +153,11 @@ const UserPage = () =>{
                     <tbody>
                     <tr className="userPage player-info-container">
                         <td> Age Preference:</td>
-                        <td className="userPage td"> {preferences.minAge} Years - {preferences.maxAge} Years</td>
+                        <td className="userPage td"> {user.minAge} Years - {user.maxAge} Years</td>
                     </tr>
                     <tr className="userPage player-info-container">
                         <td> Gender Preferences: </td>
-                        <td className="userPage td"> {preferences.genderPreferences.join(', ')} </td>
+                        <td className="userPage td"> {user.genderPreferences.join(', ')} </td>
                     </tr>
                     </tbody>
                 </table>
@@ -210,21 +175,6 @@ const UserPage = () =>{
     }
 
 
-    /** TODO: DELETE IF SURE WE DONT NEED THIS ANYMORE
-    function goToChooseBlackCard() {
-        // also push the state ( does not add functionality )
-        history.push(`/game/select/blackCard`,
-            {
-                token: localStorage.getItem("token"),
-                id: localStorage.getItem("id")
-            })
-    }
-
-    let card = <CardButton className={"card whiteCard"}
-                           onClick={() => goToChooseBlackCard()}
-                           >
-        You haven't selected a black Card yet, click here to choose one.
-    </CardButton>*/
 
     const goToEdit = async () =>{
         try {
