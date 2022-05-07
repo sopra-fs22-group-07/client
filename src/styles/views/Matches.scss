@@ -84,12 +84,42 @@ transform: scale(1);
 
 // to change for ListItem
 .matchListItem .userMeta p {
+  text-overflow: ellipsis;
+  overflow: hidden;
   margin: 0;
   padding: 0;
   color: #000;
   font-weight: 700;
   font-size: 15px;
+  &#name {
+    margin-left: 5em;
+    max-width: 10em;
+    width: 10em;
+    margin-right: 7em;
+  }
+  &#message {
+  }
 }
+
+.matchListItem .userMeta {
+  &.readMsg p,
+  &.readMsg span{
+    font-weight: 400;
+  }
+  &.unreadMsg p,
+  &.unreadMsg span{
+    font-weight: 700;
+  }
+}
+
+#message {
+
+  //width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #000;
+}
+
 .matchListItem .userMeta span {
   margin: 0;
   padding: 0;
@@ -97,6 +127,7 @@ transform: scale(1);
   font-weight: 400;
   font-size: 12px;
   display: block;
+
 }
 .matchListItem:hover,
 .matchListItem.active {
@@ -108,19 +139,22 @@ transform: scale(1);
   position: absolute;
   width: 10px;
   height: 10px;
-  position: absolute;
   bottom: 0;
   right: 0;
-  background-color: #ddd;
+  // background-color: #ddd;
+  background-color: darkgrey;
   border-radius: 50%;
   border: 2px solid #fff;
 }
-.isOnline.active {
-  background-color: tomato;
+.isOnline.OFFLINE {
+  background-color: #fd4b2c;
+}
+.isOnline.ONLINE {
+  background-color: green;
 }
 .avatarImg {
   overflow: hidden;
   border-radius: 50%;
-  width: 100%;
-  height: 100%;
+  width: 40px;
+  height: 40px;
 }
