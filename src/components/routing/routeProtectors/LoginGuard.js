@@ -9,7 +9,7 @@ import Sidebar from "components/views/Sidebar";
 export const LoginGuard = props => {
   if (!localStorage.getItem("token")) {
     return (
-      <Sidebar mode="login">
+      <Sidebar view="login">
         {props.children}
       </Sidebar>
       );

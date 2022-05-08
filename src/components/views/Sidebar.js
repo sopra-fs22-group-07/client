@@ -154,7 +154,7 @@ const SidebarItem = ({
 
 // ==================================================
 // sidebar and header
-export default function Sidebar({mode, children}) {
+export default function Sidebar({view, children}) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const history = useHistory();
@@ -198,7 +198,7 @@ export default function Sidebar({mode, children}) {
 
 
     // ============================================================
-    // drawer components that differ in their listed sidebar items (depending on the mode prop)
+    // drawer components that differ in their listed sidebar items (depending on the view prop)
     const LoginDrawer = () => {
         return (
             <Drawer variant="permanent" open={open}>
@@ -347,8 +347,8 @@ export default function Sidebar({mode, children}) {
         </AppBar>
 
         {/* sidebar/drawer */}
-        {mode === "game" ? <GameDrawer/> : null}
-        {mode === "login" ? <LoginDrawer/> : null}
+        {view === "game" ? <GameDrawer/> : null}
+        {view === "login" ? <LoginDrawer/> : null}
 
         {/* box containing the main content of the page */}
         <Box component="main" sx={{ flexGrow: 1, p: 0 }}>

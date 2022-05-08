@@ -39,6 +39,8 @@ const AppRouter = () => {
         <Route exact path="/registration">
             <Registration/>
         </Route>
+
+        {/* user guard */}
         <Route exact path={"/users/:id"}>
           <UserGuard>
             <UserPage/>
@@ -54,6 +56,8 @@ const AppRouter = () => {
             <EditUserPreferencePage/>
           </UserGuard>
         </Route>
+
+        {/* default/fall-back */}
         <Route exact path="/">
           <Redirect to="/game"/>
         </Route>

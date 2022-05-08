@@ -14,7 +14,7 @@ import Sidebar from "components/views/Sidebar";
 export const GameGuard = props => {
   if (localStorage.getItem("token")) {
     return (
-      <Sidebar mode="game">
+      <Sidebar view="game">
         {props.children}
       </Sidebar>
       );
