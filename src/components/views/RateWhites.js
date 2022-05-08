@@ -104,7 +104,7 @@ const RateWhites = () => {
 
     return(
         <React.Fragment>
-            <Header view="game"/>
+            <Header view="somePage"/>
             <BaseContainer className="rating container">
                 <div className="row">
                     <div className="col-md-6">

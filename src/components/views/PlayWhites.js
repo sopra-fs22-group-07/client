@@ -156,7 +156,7 @@ const PlayWhites = () => {
 
   return (
     <React.Fragment>
-        <Header view="game"/>
+        <Header view="somePage"/>
         <div className={"game description"}>
             <h1>Use a White Card to fill in the Blank</h1>
         </div>
