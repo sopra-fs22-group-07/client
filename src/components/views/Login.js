@@ -5,7 +5,6 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/LoginRegistration.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import Header from "./Header";
 
 /*
 It is possible to add multiple components inside a single file,
@@ -116,7 +115,6 @@ const Login = () => {
 
   return (
       <React.Fragment>
-        <Header view="login"/>
       <BaseContainer>
         <div className="login container">
           <div className="login form">

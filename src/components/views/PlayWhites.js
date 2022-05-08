@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import BaseContainer from "components/ui/BaseContainer";
 import "styles/views/WhiteCardSelection.scss";
-import Header from "./Header";
 import CardButton from "../ui/CardButton";
 import {api, handleError} from "../../helpers/api";
 import PropTypes from "prop-types";
@@ -156,7 +155,6 @@ const PlayWhites = () => {
 
   return (
     <React.Fragment>
-        <Header view="somePage"/>
         <div className={"game description"}>
             <h1>Use a White Card to fill in the Blank</h1>
         </div>
