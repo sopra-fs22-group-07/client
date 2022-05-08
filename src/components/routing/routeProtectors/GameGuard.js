@@ -22,8 +22,6 @@ export const GameGuard = props => {
         if (id && token && token !== 'undefined' && token != null && token !== '') {
             // call api to check if the token and id match a user in the database and logged in
             const response = await api.get(`/users/${id}`)
-            console.log("checkToken response: ", response)
-            console.log(response.data)
             if (response.data.token === token && response.data.status === "ONLINE") {
                 return true;
             }
