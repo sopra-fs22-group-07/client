@@ -29,7 +29,6 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ChatIcon from '@mui/icons-material/Chat';
 import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
 import GavelIcon from '@mui/icons-material/Gavel';
-import GroupIcon from '@mui/icons-material/Group';
 import ArticleIcon from '@mui/icons-material/Article';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -224,15 +223,11 @@ export default function Sidebar({view, children}) {
                     <SidebarItem
                         open={open}
                         text="Registration"
-                        onClick={() => {history.push('/login')}}
+                        onClick={() => {history.push('/registration')}}
                         icon={<PersonAddIcon />}   
                     />
                 </List>
 
-                    {/* footer of the sidebar; this is not technically different from the list above, it's just visually separated */}
-                    <Divider />
-                <List>
-                </List>
             </Drawer>
         )
     }
@@ -285,12 +280,6 @@ export default function Sidebar({view, children}) {
                     />
                     <SidebarItem
                         open={open}
-                        text="Matches"
-                        onClick={() => {history.push('/game/matches')}}
-                        icon={<GroupIcon />}   
-                    />
-                    <SidebarItem
-                        open={open}
                         text="Chat"
                         onClick={() => {}}
                         icon={<ChatIcon />}   
@@ -326,7 +315,7 @@ export default function Sidebar({view, children}) {
         <CssBaseline />
 
         {/* header of the sidebar */}
-        <AppBar position="fixed" open={open}>
+        <AppBar position="fixed" open={open} sx={{bgcolor: "green"}}>
             <Toolbar>
             <IconButton
                 color="inherit"
