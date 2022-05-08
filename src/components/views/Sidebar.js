@@ -314,7 +314,7 @@ export default function Sidebar({view, children}) {
         <Box sx={{ display: 'flex' }}>
         <CssBaseline />
 
-        {/* header of the sidebar */}
+        {/* header */}
         <AppBar position="fixed" open={open} sx={{bgcolor: "green"}}>
             <Toolbar>
             <IconButton
