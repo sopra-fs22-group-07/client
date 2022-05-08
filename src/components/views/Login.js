@@ -72,7 +72,7 @@ const Login = () => {
   // api call to add demo users
   const addDemoUsers = async () => {
     try {
-      const response = await api.post('/users/demo')
+      await api.post('/users/demo')
       window.alert("Demo users added.")
     }
     catch (error) {
@@ -173,8 +173,8 @@ const Login = () => {
               <li>Username: demoUser3</li>
               <li>Password: demoUser3</li>
             </ul>
-
           </div>
+
         </div>
       </BaseContainer>
       </React.Fragment>
