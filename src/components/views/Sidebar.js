@@ -349,6 +349,7 @@ export default function Sidebar({view, children}) {
         {/* sidebar/drawer */}
         {view === "game" ? <GameDrawer/> : null}
         {view === "login" ? <LoginDrawer/> : null}
+        {view === "user" ? <GameDrawer/> : null}
 
         {/* box containing the main content of the page */}
         <Box component="main" sx={{ flexGrow: 1, p: 0 }}>
