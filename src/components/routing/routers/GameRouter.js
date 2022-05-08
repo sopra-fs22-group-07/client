@@ -5,6 +5,7 @@ import BlackCardSelection from "../../views/BlackCardSelection";
 import PlayWhites from "components/views/PlayWhites";
 import Matches from "components/views/Matches";
 import RateWhites from "../../views/RateWhites";
+import Sidebar from "components/views/Sidebar";
 
 const GameRouter = props => {
   /**

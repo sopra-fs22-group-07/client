@@ -1,5 +1,6 @@
 import {Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
+import Sidebar from "components/views/Sidebar";
 
 /**
  *
@@ -7,7 +8,11 @@ import PropTypes from "prop-types";
  */
 export const LoginGuard = props => {
   if (!localStorage.getItem("token")) {
-    return props.children;
+    return (
+      <Sidebar mode="login">
+        {props.children}
+      </Sidebar>
+      );
   }
   // if user is already logged in, redirects to the main /app
   return <Redirect to="/game"/>;

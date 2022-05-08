@@ -8,6 +8,7 @@ import {UserGuard} from "../routeProtectors/UserGuard";
 import UserPage from "../../views/UserPage";
 import EditUserPage from "../../views/EditUserPage"
 import EditUserPreferencePage from "../../views/EditUserPreferencePage";
+import Sidebar from "components/views/Sidebar";
 /**
  * Main router of your application.
  * In the following class, different routes are rendered. In our case, there is a Login Route with matches the path "/login"
@@ -56,6 +57,8 @@ const AppRouter = () => {
         <Route exact path="/">
           <Redirect to="/game"/>
         </Route>
+       
+
       </Switch>
     </BrowserRouter>
   );
