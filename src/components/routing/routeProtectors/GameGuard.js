@@ -17,25 +17,39 @@ export const GameGuard = props => {
 
     // check if the token and the id match a user in the data base that is currently logged in
     async function isTokenUserOnline() {
-        let token = localStorage.getItem("token");
-        let id = localStorage.getItem("id");
+        const token = localStorage.getItem("token");
+        const id = localStorage.getItem("id");
         if (id && token && token !== 'undefined' && token != null && token !== '') {
             // call api to check if the token and id match a user in the database and logged in
-            const response = await api.get(`/users/${id}`)
-            if (response.data.token === token && response.data.status === "ONLINE") {
-                return true;
+            try {
+                const response = await api.get(`/users/${id}`).then(res => {
+                    console.log("response:")
+                    console.log(response.data);
+                    if ((response.data.token === token) && (response.data.status === "ONLINE")) {
+                        console.log("user is online");
+                        return true;
+                    }
+                });
+            } catch (error) {
+                console.log("user is not online");
+                console.log(error);
+                return false;
             }
         }
         return false;
     }
 
     if (isTokenUserOnline()) {
+        console.log("a")
         return (
         <Sidebar view="game">
             {props.children}
         </Sidebar>
         );
     }
+    console.log("b")
+    localStorage.removeItem("token");
+    localStorage.removeItem("id");
     return <Redirect to="/login"/>;
 };
 
