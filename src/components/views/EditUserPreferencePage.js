@@ -3,8 +3,6 @@ import Header from "./Header";
 import BaseContainer from "../ui/BaseContainer";
 import {Button} from "../ui/Button";
 import {useHistory} from "react-router-dom";
-import Slider from 'react-rangeslider';
-import 'react-rangeslider/lib/index.css'
 import {api, handleError} from "../../helpers/api";
 
 
@@ -23,11 +21,6 @@ const EditUserPreferencePage = () =>{
     let editPreferences = (
         <div className="login form">
             <h2 className="login title"> Set Preferences </h2>
-            <Slider
-                min={18}
-                max={99}
-                step={1}
-            />
             {/*TODO: Insert Prefences here*/}
             <div className= "userPage fixed-button-container">
                 <div className= "userPage moving-button-container">
