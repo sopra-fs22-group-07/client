@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
 import "styles/views/Matches.scss";
-import Header from "./Header";
 import {api, handleError} from "../../helpers/api";
 import MatchListItems from "components/ui/MatchListItems";
 import {ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_WEEK} from "../../helpers/Time";
@@ -71,7 +70,6 @@ const Matches = () => {
     // for styling: animationDelay={index + 1}
     return (
         <React.Fragment>
-            <Header view="game"/>
             <div className="containerMatchList">
                 <div className="matchListHeading">
                     <h2>Matches</h2>
