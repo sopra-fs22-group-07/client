@@ -282,7 +282,7 @@ export default function Sidebar({view, children}) {
                     <SidebarItem
                         open={open}
                         text="Chat & Matches"
-                        onClick={() => {history.push('game/matches')}}
+                        onClick={() => {history.push('/game/matches')}}
                         icon={<ChatIcon />}   
                     />
                 </List>

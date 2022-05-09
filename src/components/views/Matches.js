@@ -21,16 +21,32 @@ const Matches = () => {
             const response = await api.get(`users/${userId}/chats`);
             // convert the response to an array of objects
             const matchedUsersArray = response.data.map(match => {
-
-                return {
-                    userId: match.user.id,
-                    username: match.user.name,
-                    status: match.user.status,
-                    messageType: match.message.messageType,
-                    content: match.message.content,
-                    otherUserId: (match.message.fromUserId === match.user.id) ? match.message.fromUserId : match.message.toUserId,
-                    read: match.message.read,
-                    creationDate: match.message.creationDate,
+                if (match.message === null) {
+                    return {
+                        chatId: match.chatId,
+                        otherUserId: match.user.id,
+                        username: match.user.name,
+                        status: match.user.status,
+                        messageType: "PLAIN_TEXT",
+                        content: "",
+                        // if last message is from me, it is own userId, else, it is otherUserId
+                        lastMessageUserId: match.user.id,
+                        read: false,
+                        creationDate: new Date(), // todo get match creation date
+                    }
+                } else {
+                    return {
+                        chatId: match.chatId,
+                        otherUserId: match.user.id,
+                        username: match.user.name,
+                        status: match.user.status,
+                        messageType: match.message.messageType,
+                        content: match.message.content,
+                        // if last message is from me, it is own userId, else, it is otherUserId
+                        lastMessageUserId: (match.message.fromUserId === match.user.id) ? match.message.fromUserId : match.message.toUserId,
+                        read: match.message.read,
+                        creationDate: match.message.creationDate,
+                    }
                 }
             })
             // sort by age of message and assign
@@ -97,15 +113,15 @@ const Matches = () => {
                                         history={history}
                                         animationDelay={0.02}
                                         name={user.username}
-                                        key={user.userId}
-                                        //active={user.status ? "ONLINE" : ""}
-                                        //isOnline={user.status ? "ONLINE" : ""}
+                                        key={user.otherUserId}
+                                        otherUserId={user.otherUserId}
                                         status={user.status}
                                         image={user.image} //todo
                                         content={content}
                                         time={time}
                                         read={user.read}
-                                        otherUserId={user.otherUserId} // own userId
+                                        lastMessageUserId={user.lastMessageUserId}
+                                        chatId={user.chatId}
                                     />
                                 </div>
 

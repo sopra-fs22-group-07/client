@@ -5,7 +5,8 @@ import {useHistory} from "react-router-dom";
 
 const MatchListItems = props => {
     const history = useHistory();
-    const userId = props.otherUserId
+    const lastMessageUserId = props.lastMessageUserId
+
     // truncate chat message to max length
     let chatContent = props.content
     const maxMsgLength = 70
@@ -13,9 +14,13 @@ const MatchListItems = props => {
 
     // go to chat
     function pushChat() {
+        console.log("otherUserId1: " + props.otherUserId)
+
         history.push("/game/chat",
             {
-                otherUserId: userId
+                chatId: props.chatId,
+                otherUserId: props.otherUserId,
+                otherUserName: props.name
             })
     }
 
@@ -44,14 +49,14 @@ const MatchListItems = props => {
             />
 
             <div className={`userMeta ${
-                props.read || props.key === props.otherUserId ? "readMsg" : "unreadMsg"
+                props.read || props.key === lastMessageUserId ? "readMsg" : "unreadMsg"
             }`}
                  onClick={() => pushChat()}>
                 <p id={"name"}>{props.name}</p>
 
             </div>
             <div className={`userMeta ${
-                props.read || props.key === props.otherUserId ? "readMsg" : "unreadMsg"
+                props.read || props.key === lastMessageUserId ? "readMsg" : "unreadMsg"
             }`}
                  onClick={() => pushChat()}>
 

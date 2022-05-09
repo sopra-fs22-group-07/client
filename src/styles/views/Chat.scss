@@ -1,0 +1,148 @@
+$headerHeight: 50px;
+$submitFieldHeight: 50px;
+
+:root {
+  --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  --msger-bg: #fff;
+  --border: 2px solid #ddd;
+  --left-msg-bg: #ececec;
+  --right-msg-bg: #579ffb;
+}
+html {
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+.page {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  width: calc(100% - 30px);
+  margin: 10px 10px;
+  height: calc(100% - 50px);
+  background: var(--msger-bg);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+  height: $headerHeight;
+  background: #123597;
+  color: #f1f1f1;
+}
+.sticky {
+  //position: fixed;
+  //width: 100%;
+}
+
+.messageContainer {
+  flex: 1;
+  // height: calc(100% - $headerHeight - $submitFieldHeight);
+  background-color: lightgrey;
+  margin-top: $headerHeight;
+  overflow-x: hidden;
+  overflow-y: scroll; // THIS SEEMS NOT TO WORK HOW I WANT IT
+  margin-bottom: $submitFieldHeight;
+  width: 100%;
+  padding: 10px;
+}
+
+.messageContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messageContainer::-webkit-scrollbar-track {
+  background: #ddd;
+}
+
+.messageContainer::-webkit-scrollbar-thumb {
+  background: #bdbdbd;
+}
+
+.message {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.message:last-of-type {
+  margin: 0;
+}
+.message-bubble {
+  max-width: 450px;
+  padding: 15px;
+  border-radius: 15px;
+  background: var(--left-msg-bg);
+}
+.message-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.message-info-name {
+  margin-right: 10px;
+  font-weight: bold;
+}
+.message-info-time {
+  font-size: 0.85em;
+}
+
+.left-message .message-bubble {
+  border-bottom-left-radius: 0;
+}
+
+.right-message {
+  flex-direction: row-reverse;
+}
+.right-message .message-bubble {
+  background: var(--right-msg-bg);
+  color: #fff;
+  border-bottom-right-radius: 0;
+}
+.right-message .message-img {
+  margin: 0 0 0 10px;
+}
+
+// MESSAGE INPUT AREA
+
+.chatInput-container {
+  display: flex;
+  padding: 10px;
+  border-top: var(--border);
+  background: #eee;
+}
+.chatInput-container * {
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  font-size: 1em;
+}
+.inputField {
+  flex: 1;
+  background: #ddd;
+}
+.submitButton {
+  margin-left: 10px;
+  background: rgb(44, 126, 194);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.23s;
+}
+.submitButton:hover {
+  background: rgb(0, 180, 50);
+}
+.submitButton:disabled {
+  background: rgba(27,41,245,0.52);
+}
