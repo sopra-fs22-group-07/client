@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import Header from "./Header";
 import CardButton from "../ui/CardButton";
 import {Button} from "../ui/Button";
 import {api} from "../../helpers/api";
@@ -104,7 +103,6 @@ const RateWhites = () => {
 
     return(
         <React.Fragment>
-            <Header view="somePage"/>
             <BaseContainer className="rating container">
                 <div className="row">
                     <div className="col-md-6">

@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import Header from "./Header";
 import {api, handleError} from 'helpers/api';
 import BaseContainer from "../ui/BaseContainer";
 import 'styles/views/UserPage.scss'
@@ -224,7 +223,6 @@ const UserPage = () =>{
 
     return(
         <React.Fragment>
-            <Header view="somePage"/>
             <BaseContainer className="userPage main-container">
                 <div className="userPage main-container">
                     <div className="userPage title"> Profile </div>

@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import Header from "./Header";
 import {api, handleError} from 'helpers/api';
 import BaseContainer from "../ui/BaseContainer";
 import 'styles/views/UserPage.scss'
@@ -177,7 +176,6 @@ const EditUserPage = () =>{
 
     return(
         <React.Fragment>
-            <Header view="userPage"/>
             <BaseContainer>
                 <div className="login container">
                     {editProfile}

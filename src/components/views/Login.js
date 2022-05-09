@@ -5,7 +5,6 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/LoginRegistration.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import Header from "./Header";
 
 /*
 It is possible to add multiple components inside a single file,
@@ -68,6 +67,22 @@ const Login = () => {
     }
   };
 
+
+  // TODO: this is a feature for development only, remove on final build
+  // api call to add demo users
+  const addDemoUsers = async () => {
+    try {
+      await api.post('/users/demo')
+      window.alert("Demo users added.")
+    }
+    catch (error) {
+      window.alert("Error: " + error.response.data.message);
+    }
+  }
+
+
+
+
   const doLogin = async () => {
     try {
       localStorage.removeItem('errorMessage');
@@ -100,7 +115,6 @@ const Login = () => {
 
   return (
       <React.Fragment>
-        <Header view="login"/>
       <BaseContainer>
         <div className="login container">
           <div className="login form">
@@ -128,7 +142,39 @@ const Login = () => {
                 Login
               </Button>
             </div>
+
+            {/* TODO: this is a feature for development only, remove on final build */}
+            <div className="login button-container">
+              <Button
+                  width="100%"
+                  onClick={() => addDemoUsers()}
+              >
+                Add Demo Users
+              </Button>
+            </div>
+
           </div>
+
+          {/* TODO: this is a feature for development only, remove on final build */}
+          <div style={{color: "black"}}>
+            <br/>
+            <br/>
+            <br/>
+            There are three demo users with credentials:
+            <ul>
+              <li>Username: demoUser1</li>
+              <li>Password: demoUser1</li>
+            </ul>
+            <ul>
+              <li>Username: demoUser2</li>
+              <li>Password: demoUser2</li>
+            </ul>
+            <ul>
+              <li>Username: demoUser3</li>
+              <li>Password: demoUser3</li>
+            </ul>
+          </div>
+
         </div>
       </BaseContainer>
       </React.Fragment>

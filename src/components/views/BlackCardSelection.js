@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import "styles/views/GameMenu.scss";
 import CardButton from "../ui/CardButton";
-import Header from "./Header";
 import {api, handleError} from "../../helpers/api";
 import {useHistory, useLocation} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
@@ -98,7 +97,6 @@ const BlackCardSelection = () => {
 
     return (
         <React.Fragment>
-            <Header view="game"/>
             <div className={"game description"}>
                 Choose a Black Card of the Day
             </div>
