@@ -1,5 +1,6 @@
 import {Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
+import Sidebar from "components/views/Sidebar";
 
 /**
  * routeProtectors interfaces can tell the router whether or not it should allow navigation to a requested route.
@@ -12,7 +13,11 @@ import PropTypes from "prop-types";
  */
 export const GameGuard = props => {
   if (localStorage.getItem("token")) {
-    return props.children;
+    return (
+      <Sidebar view="game">
+        {props.children}
+      </Sidebar>
+      );
   }
   return <Redirect to="/login"/>;
 };

@@ -5,7 +5,6 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/LoginRegistration.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import Header from "./Header";
 import DatePicker from "react-date-picker"
 import "styles/ui/DatePicker.scss"
 import {GenderPicker} from "../ui/GenderPicker";
@@ -100,7 +99,6 @@ const Registration = () => {
 
   return (
       <React.Fragment>
-        <Header view="register"/>
     <BaseContainer>
       <div className="login container">
         <div className="login form">
