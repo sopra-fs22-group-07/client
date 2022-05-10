@@ -14,7 +14,6 @@ const MatchListItems = props => {
 
     // go to chat
     function pushChat() {
-        console.log("otherUserId1: " + props.otherUserId)
 
         history.push("/game/chat",
             {
@@ -24,7 +23,7 @@ const MatchListItems = props => {
             })
     }
 
-    // view userprofile TODO
+    // view userprofile TODO //maybe add a view overlay
     function pushUser() {
         console.log("pushUser")
     }

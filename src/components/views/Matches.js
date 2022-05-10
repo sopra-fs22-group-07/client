@@ -17,50 +17,48 @@ const Matches = () => {
 
     // functions that gets the matches from the server
     const getMatches = async () => {
-        try {
-            const response = await api.get(`users/${userId}/chats`);
-            // convert the response to an array of objects
-            const matchedUsersArray = response.data.map(match => {
-                if (match.message === null) {
-                    return {
-                        chatId: match.chatId,
-                        otherUserId: match.user.id,
-                        username: match.user.name,
-                        status: match.user.status,
-                        messageType: "PLAIN_TEXT",
-                        content: "",
-                        // if last message is from me, it is own userId, else, it is otherUserId
-                        lastMessageUserId: match.user.id,
-                        read: false,
-                        creationDate: new Date(), // todo get match creation date
-                    }
-                } else {
-                    return {
-                        chatId: match.chatId,
-                        otherUserId: match.user.id,
-                        username: match.user.name,
-                        status: match.user.status,
-                        messageType: match.message.messageType,
-                        content: match.message.content,
-                        // if last message is from me, it is own userId, else, it is otherUserId
-                        lastMessageUserId: (match.message.fromUserId === match.user.id) ? match.message.fromUserId : match.message.toUserId,
-                        read: match.message.read,
-                        creationDate: match.message.creationDate,
-                    }
+        const response = await api.get(`users/${userId}/chats`);
+        // convert the response to an array of objects
+        const matchedUsersArray = response.data.map(match => {
+            if (match.message === null) {
+                return {
+                    chatId: match.chatId,
+                    otherUserId: match.user.id,
+                    username: match.user.name,
+                    status: match.user.status,
+                    messageType: "PLAIN_TEXT",
+                    content: "CLICK HERE TO START CHAT",
+                    // if last message is from me, it is own userId, else, it is otherUserId
+                    lastMessageUserId: match.user.id,
+                    read: false,
+                    creationDate: new Date(), // todo get match creation date
                 }
-            })
-            // sort by age of message and assign
-            matchedUsersArray.sort((a,b) => new Date(b.creationDate) - new Date(a.creationDate))
-            setMatchedUsers(matchedUsersArray)
-        } catch (error) {
-            console.error("Details:", error);
-            alert("Invalid Input:\n " + handleError(error));
-        }
+            } else {
+                return {
+                    chatId: match.chatId,
+                    otherUserId: match.user.id,
+                    username: match.user.name,
+                    status: match.user.status,
+                    messageType: match.message.messageType,
+                    content: match.message.content,
+                    // if last message is from me, it is own userId, else, it is otherUserId
+                    lastMessageUserId: (match.message.fromUserId === match.user.id) ? match.message.fromUserId : match.message.toUserId,
+                    read: match.message.read,
+                    creationDate: match.message.creationDate,
+                }
+            }
+        })
+        // sort by age of message and assign
+        matchedUsersArray.sort((a,b) => new Date(b.creationDate) - new Date(a.creationDate))
+        setMatchedUsers(matchedUsersArray)
     }
 
     // get all matches on page load
     useEffect(() => {
-        getMatches()
+        getMatches().catch(error => {
+            console.error("Details:", error);
+            alert("Invalid Input:\n " + handleError(error));
+        })
     }, [])
 
     /**

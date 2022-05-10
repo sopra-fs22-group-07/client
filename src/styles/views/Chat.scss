@@ -1,5 +1,7 @@
 $headerHeight: 50px;
 $submitFieldHeight: 50px;
+$pageHeight: 88vh;
+
 
 :root {
   --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -10,7 +12,8 @@ $submitFieldHeight: 50px;
 }
 html {
   box-sizing: border-box;
-  overflow-x: hidden;
+  //overflow-x: hidden;
+  //overflow-y: hidden;
 }
 
 *,
@@ -22,12 +25,14 @@ html {
 }
 
 .page {
+  overflow-y: hidden;
   display: flex;
   flex-flow: column wrap;
   justify-content: space-between;
   width: calc(100% - 30px);
   margin: 10px 10px;
-  height: calc(100% - 50px);
+  height: $pageHeight;
+  max-height: $pageHeight;
   background: var(--msger-bg);
 }
 
@@ -36,7 +41,7 @@ html {
   justify-content: space-between;
   padding: 10px 16px;
   height: $headerHeight;
-  background: #123597;
+  background: #6578ad;
   color: #f1f1f1;
 }
 .sticky {
@@ -47,17 +52,19 @@ html {
 .messageContainer {
   flex: 1;
   // height: calc(100% - $headerHeight - $submitFieldHeight);
-  background-color: lightgrey;
-  margin-top: $headerHeight;
+  // background-color: lightgrey;
+  //margin-top: $headerHeight;
   overflow-x: hidden;
-  overflow-y: scroll; // THIS SEEMS NOT TO WORK HOW I WANT IT
-  margin-bottom: $submitFieldHeight;
+  overflow-y: scroll;
+ // margin-bottom: $submitFieldHeight;
   width: 100%;
   padding: 10px;
+  height: calc(88vh - 100px);
+  max-height: 70vh;
 }
 
 .messageContainer::-webkit-scrollbar {
-  width: 6px;
+  width: 7px;
 }
 
 .messageContainer::-webkit-scrollbar-track {
@@ -79,7 +86,8 @@ html {
   margin: 0;
 }
 .message-bubble {
-  max-width: 450px;
+  word-wrap: break-word; // breaks word if it becomes too long
+  max-width: 60vw;
   padding: 15px;
   border-radius: 15px;
   background: var(--left-msg-bg);
