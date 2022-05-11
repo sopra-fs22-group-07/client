@@ -22,22 +22,17 @@ const PlayWhites = () => {
 
         // put the white Card and userId to the game on a Server, reloads useEffects
         const selectCard = async ()  => {
-            if (window.confirm("Press OK to confirm this card")){
-                let cardId = card.id
-                const requestBody = JSON.stringify({gameId});
-                // card gets played
-                try {
-                    await api.post(`users/${userId}/whiteCards/${cardId}`, requestBody);
-                } catch (error) {
-                    console.error("Details:", error);
-                    alert("Invalid Input:\n " + handleError(error));
-                }
-                // next card gets displayed, use for statistic, reloads useEffects
-                setCount(count + 1)
+            let cardId = card.id
+            const requestBody = JSON.stringify({gameId});
+            // card gets played
+            try {
+                await api.post(`users/${userId}/whiteCards/${cardId}`, requestBody);
+            } catch (error) {
+                console.error("Details:", error);
+                alert("Invalid Input:\n " + handleError(error));
             }
-            else{
-                console.log("Card was not played!")
-            }
+            // next card gets displayed, use for statistic, reloads useEffects
+            setCount(count + 1)
         }
         // design of white card
         return(
