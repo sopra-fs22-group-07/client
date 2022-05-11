@@ -282,13 +282,13 @@ export default function Sidebar({view, children}) {
                     <SidebarItem
                         open={open}
                         text="Chat & Matches"
-                        onClick={() => {history.push('game/matches')}}
+                        onClick={() => {history.push('/game/matches')}}
                         icon={<ChatIcon />}
                     />
                     <SidebarItem
                         open={open}
                         text="Current Hand"
-                        onClick={() => {history.push('game/hand')}}
+                        onClick={() => {history.push('/game/hand')}}
                         icon={<PanToolIcon />}
                     />
                 </List>
