@@ -31,7 +31,7 @@ const Matches = () => {
                     // Do as if empty chat is an unread message from the other person
                     fromUserId: match.user.id,
                     read: false,
-                    creationDate: new Date(), // todo get match creation date
+                    creationDate: match.matchCreationDate, // todo get match creation date
                 }
             } else {
                 return {
