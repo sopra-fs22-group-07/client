@@ -33,6 +33,10 @@ const GameMenu = () => {
         pushURL(`/game/matches`)
     }
 
+    function goToHand() {
+        pushURL(`/game/hand`)
+    }
+
     return (
         <React.Fragment>
             <MenuContainer className={"menu container"}>
@@ -51,6 +55,10 @@ const GameMenu = () => {
                 <CardButton className={"card whiteCard"}
                           onClick={() => goToMatches()}
                           children={"Go to Matches"}
+                />
+                <CardButton className={"card whiteCard"}
+                            onClick={() => goToHand()}
+                            children={"See Hand"}
                 />
             </MenuContainer>
         </React.Fragment>

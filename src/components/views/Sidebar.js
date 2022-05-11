@@ -32,6 +32,7 @@ import GavelIcon from '@mui/icons-material/Gavel';
 import ArticleIcon from '@mui/icons-material/Article';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
+import PanToolIcon from "@mui/icons-material/PanTool";
 
 
 
@@ -282,7 +283,13 @@ export default function Sidebar({view, children}) {
                         open={open}
                         text="Chat & Matches"
                         onClick={() => {history.push('game/matches')}}
-                        icon={<ChatIcon />}   
+                        icon={<ChatIcon />}
+                    />
+                    <SidebarItem
+                        open={open}
+                        text="Current Hand"
+                        onClick={() => {history.push('game/hand')}}
+                        icon={<PanToolIcon />}
                     />
                 </List>
 
