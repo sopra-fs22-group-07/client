@@ -9,14 +9,14 @@ import PropTypes from "prop-types";
 for playing white cards on a black Card
  */
 const PlayWhites = () => {
-  // use react-router-dom's hook to access the history
-  const[blackCard, setBlackCard] = useState(null)
-  const[gameId, setGameId] = useState(null)
-  const [cards, setCards] = useState(null)
+    // use react-router-dom's hook to access the history
+    const[blackCard, setBlackCard] = useState(null)
+    const[gameId, setGameId] = useState(null)
+    const [cards, setCards] = useState(null)
     const [count, setCount] = useState(0)
-  const userId = localStorage.getItem("id")
-  const token = localStorage.getItem("token")
-  const cardsPerHand = 8 //constant of how many cards there are in a users hand
+    const userId = localStorage.getItem("id")
+    const token = localStorage.getItem("token")
+    const cardsPerHand = 8 //constant of how many cards there are in a users hand
     // function defines what is happening, when a white card gets selected. also renders the white cards
     const WhiteCard = ({card}) => {
 
@@ -50,11 +50,11 @@ const PlayWhites = () => {
         card: PropTypes.object
     };
 
-  // define a state variable (using the state hook).
-  // if this variable changes, the component will re-render, but the variable will
-  // keep its value throughout render cycles.
-  // a component can have as many state variables as you like.
-  // more information can be found under https://reactjs.org/docs/hooks-state.html
+    // define a state variable (using the state hook).
+    // if this variable changes, the component will re-render, but the variable will
+    // keep its value throughout render cycles.
+    // a component can have as many state variables as you like.
+    // more information can be found under https://reactjs.org/docs/hooks-state.html
 
     useEffect(() => {
         // the game of a random user gets fetched
@@ -143,30 +143,30 @@ const PlayWhites = () => {
 
     let drawPile = <BaseContainer className="menu container">
         <CardButton className="card whiteCard"
-    disabled={true}>
-            {drawText}
-    </CardButton>
+                disabled={true}>
+                {drawText}
+        </CardButton>
     </BaseContainer>
 
-  return (
-    <React.Fragment>
-        <div className={"game description"}>
-            <h1>Use a White Card to fill in the Blank</h1>
-        </div>
+    return (
+        <React.Fragment>
+            <div className={"game description"}>
+                <h1>Use a White Card to fill in the Blank</h1>
+            </div>
 
-        <BaseContainer className={"menu container"}>
-            {blackCardContent}
-        </BaseContainer>
-        <div className={"game description"}>
-            <h1>Pick a white card</h1>
-        </div>
+            <BaseContainer className={"menu container"}>
+                {blackCardContent}
+            </BaseContainer>
+            <div className={"game description"}>
+                <h1>Pick a white card</h1>
+            </div>
 
-        <BaseContainer className={"menu container"}>
-            {cardsContent}
-        </BaseContainer>
-        {drawPile}
-    </React.Fragment>
-  );
+            <BaseContainer className={"menu container"}>
+                {cardsContent}
+            </BaseContainer>
+            {drawPile}
+        </React.Fragment>
+    );
 }
 
 export default PlayWhites;
