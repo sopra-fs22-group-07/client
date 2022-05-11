@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import BaseContainer from "components/ui/BaseContainer";
-import "styles/views/WhiteCardSelection.scss";
+import "styles/ui.CardButton.scss";
 import CardButton from "../ui/CardButton";
 import {api, handleError} from "../../helpers/api";
 import PropTypes from "prop-types";
