@@ -5,7 +5,8 @@ import {useHistory} from "react-router-dom";
 
 const MatchListItems = props => {
     const history = useHistory();
-    const lastMessageUserId = props.lastMessageUserId
+    const fromUserId = props.fromUserId
+    const userId = Number.parseInt(localStorage.getItem("id"))
 
     // truncate chat message to max length
     let chatContent = props.content
@@ -48,18 +49,18 @@ const MatchListItems = props => {
             />
 
             <div className={`userMeta ${
-                props.read || props.key === lastMessageUserId ? "readMsg" : "unreadMsg"
+                props.read || userId === fromUserId ? "readMsg" : "unreadMsg"
             }`}
                  onClick={() => pushChat()}>
                 <p id={"name"}>{props.name}</p>
 
             </div>
             <div className={`userMeta ${
-                props.read || props.key === lastMessageUserId ? "readMsg" : "unreadMsg"
+                props.read || userId === fromUserId ? "readMsg" : "unreadMsg"
             }`}
                  onClick={() => pushChat()}>
 
-                <span id={"message"}>{chatContent}</span>
+                <span id={"message"}>{(userId === fromUserId) ? "You: " : "" }{chatContent}</span>
                 <span className="activeTime">{props.time} ago</span>
             </div>
 

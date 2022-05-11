@@ -23,15 +23,7 @@
   width: 80%;
   padding: 15px 0 15px 15px;
 }
-.searchButton {
-  height: 46px;
-  border: none;
-  background-color: transparent;
-  outline: none;
-  width: 20%;
-  cursor: pointer;
-  font-size: 20px;
-}
+
 .matchListItem {
   margin-top: 30px;
   overflow: auto;
@@ -83,35 +75,38 @@ transform: scale(1);
   object-fit: cover;
 }
 
-// to change for ListItem
-.matchListItem .userMeta p {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  color: #000;
-  font-weight: 700;
-  font-size: 15px;
-  &#name {
-    margin-left: 5em;
-    max-width: 10em;
-    width: 10em;
-    margin-right: 7em;
+.matchListItem .userMeta {
+  p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    font-weight: 700;
+    font-size: 15px;
+    &#name {
+      margin-left: 5em;
+      max-width: 10em;
+      width: 10em;
+      margin-right: 7em;
+    }
+    &#message {}
   }
-  &#message {
+  &.readMsg {
+
+    p, span {
+      font-weight: 400;
+    }
+  }
+
+  &.unreadMsg {
+    p, span {
+      font-weight: 700;
+    }
   }
 }
 
-.matchListItem .userMeta {
-  &.readMsg p,
-  &.readMsg span{
-    font-weight: 400;
-  }
-  &.unreadMsg p,
-  &.unreadMsg span{
-    font-weight: 700;
-  }
-}
+
 
 #message {
 

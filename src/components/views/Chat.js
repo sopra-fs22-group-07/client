@@ -121,14 +121,15 @@ const Chat = () => {
             executeScroll()
         }
 
+        function getShouldScroll(tolerance) {
+            return messagesDiv && messagesDiv.scrollHeight - messagesDiv.scrollTop - messagesDiv.clientHeight < tolerance
+        }
+
         // every n milliseconds, get the newest messages. Ideally, this would be done with a Websocket.
         useEffect(() => {
             const timer = setInterval(async () => {
                 // only scroll to bottom if we have been at the bottom already, allowing for 10px offset.
-                let shouldScroll = false
-                if (messagesDiv) {
-                    shouldScroll = messagesDiv.scrollHeight - messagesDiv.scrollTop - messagesDiv.clientHeight < 10
-                }
+                const shouldScroll = getShouldScroll(50)
 
                 // Fetch new messages
                 const response = await api.get(`users/${userId}/chats/${chatId}/newMsgs`)
@@ -177,7 +178,7 @@ const Chat = () => {
                     creationDate: msg.creationDate
                 }
             })
-            // since the oldest messages appear first, we must sort them. Otherwise, the server would have to pass (=save9
+            // since the oldest messages appear first, we must sort them. Otherwise, the server would have to pass (=save)
             // them in reverse order
             receivedMessages.sort((a,b) => new Date(a.creationDate) - new Date(b.creationDate))
             return receivedMessages

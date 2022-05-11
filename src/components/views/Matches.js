@@ -28,8 +28,8 @@ const Matches = () => {
                     status: match.user.status,
                     messageType: "PLAIN_TEXT",
                     content: "CLICK HERE TO START CHAT",
-                    // if last message is from me, it is own userId, else, it is otherUserId
-                    lastMessageUserId: match.user.id,
+                    // Do as if empty chat is an unread message from the other person
+                    fromUserId: match.user.id,
                     read: false,
                     creationDate: new Date(), // todo get match creation date
                 }
@@ -41,8 +41,7 @@ const Matches = () => {
                     status: match.user.status,
                     messageType: match.message.messageType,
                     content: match.message.content,
-                    // if last message is from me, it is own userId, else, it is otherUserId
-                    lastMessageUserId: (match.message.fromUserId === match.user.id) ? match.message.fromUserId : match.message.toUserId,
+                    fromUserId: match.message.fromUserId,
                     read: match.message.read,
                     creationDate: match.message.creationDate,
                 }
@@ -118,7 +117,7 @@ const Matches = () => {
                                         content={content}
                                         time={time}
                                         read={user.read}
-                                        lastMessageUserId={user.lastMessageUserId}
+                                        fromUserId={user.fromUserId}
                                         chatId={user.chatId}
                                     />
                                 </div>
