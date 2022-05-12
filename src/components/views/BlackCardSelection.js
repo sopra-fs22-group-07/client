@@ -129,7 +129,6 @@ const BlackCardSelection = () => {
     let now = new Date();
     const diffTime = Math.abs(Date.parse(now) - Date.parse(startTime));
 
-    console.log("diff time: ", diffTime)
     const diffTimeAsString = msToHM(diffTime);
 
     if(blackCard!==null){
