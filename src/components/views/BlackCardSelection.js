@@ -39,6 +39,8 @@ const BlackCardSelection = () => {
         card: PropTypes.object
     };
     const [cards, setCards] = useState(null)
+    const [blackCard, setBlackCard] = useState(null)
+    const [startTime, setTime] = useState(new Date().toDateString())
 
     // Because of rendering reasons, we use location here, which allows passing states around components.
     // Here we get the state from Registration / Login, because the localStorage might not have been updated yet.
@@ -60,6 +62,34 @@ const BlackCardSelection = () => {
 
     // fetch the blackCards from the server (it is the server's responsibility to give us 8 cards)
     useEffect(() => {
+        async function fetchBlackCard() {
+            // get blackCard
+            try {
+                const response = await api.get(`users/${userId}/games/activeGame`,
+                    {
+                        // reconfiguration might be necessary in case token is not in localStorage here
+                        headers: {
+                            "authorization": token
+                        }
+                    });
+
+                console.log("data blackCard: ", response.data)
+
+                setBlackCard(response.data.blackCard);
+                setTime(response.data.creationDate)
+            }
+            catch (error) {
+                if(error.response.status === 404){
+                    console.error("Error 404: ", error.response.data.message)
+                    // && error.response.data.message === ""
+                }else{
+                console.error("Details:", error);
+                alert("Invalid Input:\n " + handleError(error));
+                }
+            }
+        }
+
+        // get card to choose from
         async function fetchCards() {
             try {
                 const response = await api.get(`users/${userId}/games`,
@@ -70,24 +100,42 @@ const BlackCardSelection = () => {
                         }
                     });
                 setCards(response.data)
+                console.log("data cards: ", response.data)
             }
             catch (error) {
-                // todo if user already has selected a Card, server should probably throw an error
                 console.error("Details:", error);
                 alert("Invalid Input:\n " + handleError(error));
             }
         }
+        fetchBlackCard();
         fetchCards();
+
     }, []);
 
-
-
     // placeholder in case of failure
-    let content = <div>No Content Available</div>
+    let textContent;
+    let cardContent;
+    let now = new Date().toDateString();
+    const diffTime = Math.abs(Date.parse(now) - Date.parse(startTime));
 
-    // if black cards are fetched, they get displayed
-    if(cards) {
-        content =
+    if(blackCard!==null){
+        textContent =
+        <div className={"game description"}>
+            <h1>You have already chosen a black card</h1>
+            <h2>time played on this active black card: {diffTime}</h2>
+        </div>
+
+        cardContent=
+        <CardButton className={"card blackCard"} disabled={true}>
+            {blackCard.text}
+        </CardButton>
+
+    }else if(cards){
+        textContent=
+            <div className={"game description"}>
+                <h1> Choose a Black Card of the Day</h1> </div>
+
+        cardContent =
             <ul className={"game card-list"}>
                 {cards.map(card => (
                     <BlackCard card={card} key={card.id}/>
@@ -97,11 +145,9 @@ const BlackCardSelection = () => {
 
     return (
         <React.Fragment>
-            <div className={"game description"}>
-                Choose a Black Card of the Day
-            </div>
+            {textContent}
             <BaseContainer className={"blackCard-container"}>
-                {content}
+                {cardContent}
             </BaseContainer>
         </React.Fragment>
     );
