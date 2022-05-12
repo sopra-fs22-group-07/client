@@ -142,37 +142,38 @@ const Login = () => {
                 Login
               </Button>
             </div>
-
-            {/* TODO: this is a feature for development only, remove on final build */}
-            <div className="login button-container">
-              <Button
-                  width="100%"
-                  onClick={() => addDemoUsers()}
-              >
-                Add Demo Users
-              </Button>
-            </div>
-
           </div>
 
           {/* TODO: this is a feature for development only, remove on final build */}
           <div style={{color: "black"}}>
             <br/>
             <br/>
-            <br/>
-            There are three demo users with credentials:
-            <ul>
-              <li>Username: demoUser1</li>
-              <li>Password: demoUser1</li>
-            </ul>
-            <ul>
-              <li>Username: demoUser2</li>
-              <li>Password: demoUser2</li>
-            </ul>
-            <ul>
-              <li>Username: demoUser3</li>
-              <li>Password: demoUser3</li>
-            </ul>
+            {/* TODO: this is a feature for development only, remove on final build */}
+            <div className="login button-container">
+              <Button
+                  className="invert"
+                  width="100%"
+                  onClick={() => addDemoUsers()}
+              >
+                Add Demo Users
+              </Button>
+            </div>
+            <div>
+              <br/>
+              There are three demo users with credentials:
+              <ul>
+                <li>Username: demoUser1</li>
+                <li>Password: demoUser1</li>
+              </ul>
+              <ul>
+                <li>Username: demoUser2</li>
+                <li>Password: demoUser2</li>
+              </ul>
+              <ul>
+                <li>Username: demoUser3</li>
+                <li>Password: demoUser3</li>
+              </ul>
+            </div>
           </div>
 
         </div>
