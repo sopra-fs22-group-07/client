@@ -5,6 +5,12 @@ import {useHistory} from "react-router-dom";
 import {api, handleError} from "../../helpers/api";
 import 'styles/views/LoginRegistration.scss'
 import Slider from "@mui/material/Slider";
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormHelperText from '@mui/material/FormHelperText';
+import Checkbox from '@mui/material/Checkbox';
 
 
 /*
@@ -18,12 +24,20 @@ const EditUserPreferencePage = () =>{
     const [agePreference, setAgePreference] = useState([20, 37]) //TODO: set as current age preference
     const [user, setUser] = useState(null)
     const [genderPreference, setGenderPreference] = useState(null)
+    const [genderPreferences, setGenderPreferences] = React.useState({
+        MALE: true,
+        FEMALE: false,
+        OTHER: false,
+    });
+    const { MALE, FEMALE, OTHER } = genderPreferences;
+    const noGenderSelectedError = [MALE, FEMALE, OTHER].filter((v) => v).length === 0;
 
     useEffect(() => {
         async function getUser(){
             try{
                 const response = await api.get('/users/'+id)
                 setUser(response.data);
+                setGenderPreference(response.data.genderPreferences)
                 setAgePreference([response.data.minAge, response.data.maxAge])
             } catch (error) {
                 console.error("Details:", error);
@@ -35,7 +49,7 @@ const EditUserPreferencePage = () =>{
 
 
 
-    const handleChange = (event, newValue, activeThumb) => {
+    const handleChangeAge = (event, newValue, activeThumb) => {
         if (!Array.isArray(newValue)) {
             return;
         }
@@ -47,6 +61,13 @@ const EditUserPreferencePage = () =>{
         }
     };
 
+    const handleChangeGender = (event) => {
+        setGenderPreferences({
+            ...genderPreferences,
+            [event.target.name]: event.target.checked,
+        });
+    };
+
 
     let editPreferences = (
         <div className="login form">
@@ -54,13 +75,41 @@ const EditUserPreferencePage = () =>{
             <div className="login container-title">Edit Age Preferences:</div>
             <Slider
                 value={agePreference}
-                onChange={handleChange}
+                onChange={handleChangeAge}
                 valueLabelDisplay="auto"
                 min={18}
                 max={99}
                 disableSwap
             />
             <div className="login container-title">Edit Gender Preferences:</div>
+
+            <FormControl
+                required
+                error={noGenderSelectedError}
+            >
+                <FormLabel component="legend">Pick at least 1</FormLabel>
+                <FormGroup>
+                    <FormControlLabel
+                        control={
+                            <Checkbox checked={MALE} onChange={handleChangeGender} name="MALE" />
+                        }
+                        label="Male"
+                    />
+                    <FormControlLabel
+                        control={
+                            <Checkbox checked={FEMALE} onChange={handleChangeGender} name="FEMALE" />
+                        }
+                        label="Female"
+                    />
+                    <FormControlLabel
+                        control={
+                            <Checkbox checked={OTHER} onChange={handleChangeGender} name="OTHER" />
+                        }
+                        label="Other"
+                    />
+                </FormGroup>
+                <FormHelperText>You can display an error</FormHelperText>
+            </FormControl>
 
             <div className= "userPage fixed-button-container">
                 <div className= "userPage moving-button-container">
