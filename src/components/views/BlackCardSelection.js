@@ -54,7 +54,7 @@ const BlackCardSelection = () => {
     };
     const [cards, setCards] = useState(null)
     const [blackCard, setBlackCard] = useState(null)
-    const [startTime, setTime] = useState(new Date().toDateString())
+    const [startTime, setTime] = useState(null)
 
     // Because of rendering reasons, we use location here, which allows passing states around components.
     // Here we get the state from Registration / Login, because the localStorage might not have been updated yet.
@@ -112,7 +112,6 @@ const BlackCardSelection = () => {
                         }
                     });
                 setCards(response.data)
-                console.log("data cards: ", response.data)
             }
             catch (error) {
                 console.error("Details:", error);
@@ -127,8 +126,10 @@ const BlackCardSelection = () => {
     // placeholder in case of failure
     let textContent;
     let cardContent;
-    let now = new Date().toDateString();
+    let now = new Date();
     const diffTime = Math.abs(Date.parse(now) - Date.parse(startTime));
+
+    console.log("diff time: ", diffTime)
     const diffTimeAsString = msToHM(diffTime);
 
     if(blackCard!==null){
