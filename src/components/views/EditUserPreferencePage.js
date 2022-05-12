@@ -45,8 +45,8 @@ const EditUserPreferencePage = () =>{
 
     const doEditPreferences = async () =>{
         try{
-            let minAge = 30
-            let maxAge = 40
+            let minAge = 18
+            let maxAge = 2143
             let genderPreferences = ["OTHER"]
             const requestBody = JSON.stringify({minAge, maxAge, genderPreferences})
             await api.put(`/users/${id}/preferences`, requestBody);
