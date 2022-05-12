@@ -6,6 +6,20 @@ import {useHistory, useLocation} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import PropTypes from "prop-types";
 
+function msToHM( ms ) {
+    // convert milliseconds to seonds:
+    let secs = ms / 1000;
+    // get hours
+    const hours = parseInt( secs/3600);
+    // secs left
+    secs = secs % 3600;
+    // get minutes
+    const minutes = parseInt( secs/60);
+    return( hours+"h:"+minutes+"min");
+}
+
+
+
 const BlackCardSelection = () => {
 
     const BlackCard = ({card}) => {
@@ -72,9 +86,7 @@ const BlackCardSelection = () => {
                             "authorization": token
                         }
                     });
-
-                console.log("data blackCard: ", response.data)
-
+                // set black card and time from blackcard, if no blackcard an error gets thrown
                 setBlackCard(response.data.blackCard);
                 setTime(response.data.creationDate)
             }
@@ -117,12 +129,13 @@ const BlackCardSelection = () => {
     let cardContent;
     let now = new Date().toDateString();
     const diffTime = Math.abs(Date.parse(now) - Date.parse(startTime));
+    const diffTimeAsString = msToHM(diffTime);
 
     if(blackCard!==null){
         textContent =
         <div className={"game description"}>
             <h1>You have already chosen a black card</h1>
-            <h2>time played on this active black card: {diffTime}</h2>
+            <h2>time played on this active black card: {diffTimeAsString}</h2>
         </div>
 
         cardContent=
