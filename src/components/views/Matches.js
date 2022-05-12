@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import BaseContainer from "components/ui/BaseContainer";
 import "styles/views/WhiteCardSelection.scss";
-import Header from "./Header";
 import CardButton from "../ui/CardButton";
 import {api, handleError} from "../../helpers/api";
 
@@ -43,7 +42,6 @@ const Matches = () => {
 
     return (
         <React.Fragment>
-            <Header view="somePage"/>
             <div className={"game description"}>
                 <h1>You matched with:</h1>
             </div>

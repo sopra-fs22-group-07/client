@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import Header from "./Header";
 import {api, handleError} from 'helpers/api';
 import BaseContainer from "../ui/BaseContainer";
 import 'styles/views/UserPage.scss'
@@ -46,45 +45,18 @@ const UserPage = () =>{
 
 
     let profile = (
-        <div>
-            <div className="userPage title"> Profile </div>
-            <table className="userPage table">
-                <tbody>
-                <tr className="userPage player-info-container">
-                    <td> Username: </td>
-                    <td className="userPage td"> USERNAME </td>
-                </tr>
-                <tr className="userPage player-info-container">
-                    <td> Name: </td>
-                    <td className="userPage td"> NAME </td>
-                </tr>
-                <tr className="userPage player-info-container">
-                    <td> Gender: </td>
-                    <td className="userPage td"> GENDER </td>
-                </tr>
-                <tr className="userPage player-info-container">
-                    <td> Birthday: </td>
-                    <td className="userPage td"> BIRTHDAY </td>
-                </tr>
-                </tbody>
-            </table>
-            <div>
-                <Button
-                    className="invert"
-                    width="100%"
-                    onClick={() => goToEdit()}
-                >
-                    Edit Profile
-                </Button>
-            </div>
-        </div>
+        <table className="userPage table">
+            <div className="userPage player-info-container">Username: </div>
+            <div className="userPage player-info-container">Name: </div>
+            <div className="userPage player-info-container">Gender: </div>
+            <div className="userPage player-info-container">Birthday: </div>
+        </table>
+
     )
 
 
     if(user){
         profile  = (
-            <div>
-                <div className="userPage title"> Profile </div>
                 <table className="userPage table">
                     <tbody>
                         <tr className="userPage player-info-container">
@@ -103,18 +75,25 @@ const UserPage = () =>{
                             <td> Birthday: </td>
                             <td className="userPage td"> {displayDate(user.birthday)} </td>
                         </tr>
-                    </tbody>
+                        <tr>
+                            <td colspan="2">
+                                <Button
+                                    className="invert"
+                                    width="100%"
+                                    onClick={() => goToEdit()}
+                                >
+                                    Edit Profile
+                                </Button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr className="userPage player-info-container">
+                            <td colSpan="2">Do same for preferences</td>
+                        </tr>
+                </tbody>
                 </table>
-                <div>
-                    <Button
-                        className="invert"
-                        width="100%"
-                        onClick={() => goToEdit()}
-                    >
-                        Edit Profile
-                    </Button>
-                </div>
-            </div>
         )
     }
 
@@ -194,9 +173,9 @@ const UserPage = () =>{
 
     return(
         <React.Fragment>
-            <Header view="somePage"/>
             <BaseContainer className="userPage main-container">
                 <div className="userPage main-container">
+                    <div className="userPage title"> Profile </div>
                     {profile}
                 </div>
                 <div className="userPage main-container">

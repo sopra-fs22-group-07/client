@@ -2,7 +2,6 @@ import React from 'react';
 
 import "styles/views/GameMenu.scss";
 import CardButton from "../ui/CardButton";
-import Header from "./Header";
 import MenuContainer from "../ui/MenuContainer";
 import {handleError} from "../../helpers/api";
 import {useHistory} from "react-router-dom";
@@ -39,7 +38,6 @@ const GameMenu = () => {
 
     return (
       <React.Fragment>
-          <Header view="game"/>
 
           <MenuContainer className={"menu container"}>
               <CardButton className={"card whiteCard"}
