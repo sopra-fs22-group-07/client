@@ -40,7 +40,6 @@ const UserPage = () =>{
             }
         }
         getUser()
-
     }, []);
 
 
