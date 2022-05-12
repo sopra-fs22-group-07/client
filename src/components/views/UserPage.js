@@ -225,7 +225,7 @@ const UserPage = () =>{
         <React.Fragment>
             <BaseContainer className="userPage main-container">
                 <div className="userPage main-container">
-                    <div className="userPage title"> Profile </div>
+                    <div className="userPage bigTitle"> Profile </div>
                     {profile}
                 </div>
                 <div className="userPage main-container">
