@@ -14,6 +14,12 @@
         transform: none;
       }
     }
+    &.simple {
+      cursor: default;
+      &:hover {
+        transform: none;
+      }
+    }
   }
 
   &.blackCard {
@@ -21,6 +27,9 @@
     color: $BLACK_CARD_TEXT_COLOR;
     &:disabled {
       cursor: default;
+      &.grey {
+        opacity: 0.4;
+      }
       &:hover {
         transform: none;
       }
