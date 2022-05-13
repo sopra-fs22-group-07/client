@@ -2,25 +2,34 @@ import React, {useEffect, useState} from 'react';
 import "styles/views/GameMenu.scss";
 import CardButton from "../ui/CardButton";
 import {api, handleError} from "../../helpers/api";
-import {useHistory, useLocation} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import PropTypes from "prop-types";
+import {ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND} from "../../helpers/Time";
 
-function msToHM( ms ) {
-    // convert milliseconds to seonds:
-    let secs = ms / 1000;
-    // get hours
-    const hours = parseInt( secs/3600);
-    // secs left
-    secs = secs % 3600;
-    // get minutes
-    const minutes = parseInt( secs/60);
-    return( hours+"h:"+minutes+"min");
+
+// converts ms to HH:MM:SS
+function msToHHMMSS (ms) {
+    // converts milliseconds in normal time
+    let hours = Math.floor(ms / (ONE_HOUR))
+    let minutes = Math.floor((ms / ONE_MINUTE) % 60)
+    let seconds = Math.floor((ms / ONE_SECOND) % 60)
+
+    // add styling
+    if(hours<10){
+        hours = '0' + hours;
+    }
+    if(minutes<10){
+        minutes = '0'+ minutes;
+    }
+    if(seconds<10){
+        seconds = '0'+ seconds;
+    }
+    return hours+":"+minutes+":"+seconds;
 }
 
-
-
 const BlackCardSelection = () => {
+
 
     const BlackCard = ({card}) => {
         // use react-router-dom's hook to access the history
@@ -52,51 +61,32 @@ const BlackCardSelection = () => {
     BlackCard.propTypes = {
         card: PropTypes.object
     };
-    const [cards, setCards] = useState(null)
-    const [blackCard, setBlackCard] = useState(null)
-    const [startTime, setTime] = useState(null)
+    const [cards, setCards] = useState(null);
+    const [blackCard, setBlackCard] = useState(null);
+    const [creationDate, setCreationDate] = useState(new Date());
+    const [timeLeft, setTimeLeft] = useState(ONE_DAY);
+    // newGame: if countdown is finished, the site gets the card again (because know able to choose)
+    const [countdown, setCountdown] = useState(false);
 
-    // Because of rendering reasons, we use location here, which allows passing states around components.
-    // Here we get the state from Registration / Login, because the localStorage might not have been updated yet.
-    // If token / userId is in localStorage, we use this, else we use the state passed from login / registration
-    // if we're coming from these components, else we use null and trigger a call to the server which we shall then handle.
-    const location = useLocation()
-    let userId = null
-    let token = null
-    try {
-        userId = (localStorage.getItem("id")) ? localStorage.getItem("id") : location.state.id
-    } catch (e) {
-        console.log("No userId found!")
-    }
-    try {
-        token = (localStorage.getItem("token")) ? localStorage.getItem("token") : location.state.token
-    } catch (e) {
-        console.log("No token found!")
-    }
+    // get the userID from the localStorage
+    const userId = localStorage.getItem("id")
 
     // fetch the blackCards from the server (it is the server's responsibility to give us 8 cards)
     useEffect(() => {
         async function fetchBlackCard() {
             // get blackCard
             try {
-                const response = await api.get(`users/${userId}/games/activeGame`,
-                    {
-                        // reconfiguration might be necessary in case token is not in localStorage here
-                        headers: {
-                            "authorization": token
-                        }
-                    });
+                const response = await api.get(`users/${userId}/games/activeGame`);
+
                 // set black card and time from blackcard, if no blackcard an error gets thrown
                 setBlackCard(response.data.blackCard);
-                setTime(response.data.creationDate)
+                setCreationDate(response.data.creationDate)
             }
             catch (error) {
-                if(error.response.status === 404){
-                    console.error("Error 404: ", error.response.data.message)
+                if(!(error.response.status === 404)){
                     // && error.response.data.message === ""
-                }else{
-                console.error("Details:", error);
-                alert("Invalid Input:\n " + handleError(error));
+                    console.error("Details:", error);
+                    alert("Invalid Input:\n " + handleError(error));
                 }
             }
         }
@@ -104,13 +94,7 @@ const BlackCardSelection = () => {
         // get card to choose from
         async function fetchCards() {
             try {
-                const response = await api.get(`users/${userId}/games`,
-                    {
-                        // reconfiguration might be necessary in case token is not in localStorage here
-                        headers: {
-                            "authorization": token
-                        }
-                    });
+                const response = await api.get(`users/${userId}/games`)
                 setCards(response.data)
             }
             catch (error) {
@@ -121,21 +105,48 @@ const BlackCardSelection = () => {
         fetchBlackCard();
         fetchCards();
 
-    }, []);
+    }, [countdown]); // when countdown is reached, new call to useEffects
 
-    // placeholder in case of failure
+    // stops the interval call
+    function checkIfIntervalStop() {
+        // the cals get stopped if the countdown is finished or the url is changed
+        if(countdown===true || !window.location.href.includes("/game/select/blackCard"))
+        {
+            clearInterval(timeInterval);
+    }}
+
+    // gets called all seconds and updates the countdown
+    function calcTimeLeft(creationDate){
+        // difference between now and creationDate
+        const differenceInMs = new Date() - new Date(creationDate);
+        // calculate the time left
+        const timeLeft = ONE_DAY-differenceInMs;
+        // when there is no time left, the black cards get fetched again
+        if(timeLeft===0){
+            // TODO: this leads to en error in the moment.
+            //  Can the activeGame not be pushed to the past games?
+            // useEffect gets fetched again
+            setCountdown(true);
+        }
+        // checks if the function call stops
+        checkIfIntervalStop();
+        // set the time
+        setTimeLeft(timeLeft);
+    }
+
+    // calls the calcTimeLeft function each second with the parameter creationDate
+    let timeInterval = setInterval(calcTimeLeft, ONE_SECOND, creationDate);
+    // changes time in HH:MM:SS
+    let timeInHHMMSS =  msToHHMMSS(timeLeft);
+
+    // define content variables
     let textContent;
     let cardContent;
-    let now = new Date();
-    const diffTime = Math.abs(Date.parse(now) - Date.parse(startTime));
-
-    const diffTimeAsString = msToHM(diffTime);
-
+    // get content
     if(blackCard!==null){
         textContent =
         <div className={"game description"}>
-            <h1>You have already chosen a black card</h1>
-            <h2>time played on this active black card: {diffTimeAsString}</h2>
+            <h1> You can choose a new black card in {timeInHHMMSS} </h1>
         </div>
 
         cardContent=
