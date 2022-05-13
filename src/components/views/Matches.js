@@ -80,6 +80,8 @@ const Matches = () => {
         setSearchParam(event.target.value)
     }
 
+
+
     // for styling: animationDelay={index + 1}
     return (
         <React.Fragment>
@@ -121,7 +123,6 @@ const Matches = () => {
                                         chatId={user.chatId}
                                     />
                                 </div>
-
                             );
                         }
                     }): "No Matches Found"}
