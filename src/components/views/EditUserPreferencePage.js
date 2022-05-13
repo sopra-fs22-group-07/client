@@ -21,15 +21,14 @@ const EditUserPreferencePage = () =>{
 
     const history = useHistory();
 
-    const [agePreference, setAgePreference] = useState([20, 37]) //TODO: set as current age preference
-    const [user, setUser] = useState(null)
-    const [genderPreference, setGenderPreference] = useState(null)
-    const [genderPreferences, setGenderPreferences] = React.useState({
+    const [agePreference, setAgePreference] = useState([1,100])
+    const [distance, setDistance] = useState([0,100])
+    const [genderPreference, setGenderPreference] = React.useState({
         MALE: true,
         FEMALE: false,
         OTHER: false,
     });
-    const { MALE, FEMALE, OTHER } = genderPreferences;
+    const { MALE, FEMALE, OTHER } = genderPreference;
     const noGenderSelectedError = [MALE, FEMALE, OTHER].filter((v) => v).length === 0;
 
     useEffect(() => {
@@ -37,7 +36,12 @@ const EditUserPreferencePage = () =>{
             try{
                 const response = await api.get('/users/'+id)
                 setUser(response.data);
-                setGenderPreference(response.data.genderPreferences)
+                setGenderPreference({
+                    MALE: response.data.genderPreferences.includes("MALE"),
+                    FEMALE: response.data.genderPreferences.includes("FEMALE"),
+                    OTHER: response.data.genderPreferences.includes("OTHER"),
+                })
+                console.log(response.data.genderPreferences)
                 setAgePreference([response.data.minAge, response.data.maxAge])
             } catch (error) {
                 console.error("Details:", error);
@@ -56,14 +60,30 @@ const EditUserPreferencePage = () =>{
 
         if (activeThumb === 0) {
             setAgePreference([Math.min(newValue[0], agePreference[1]), agePreference[1]]);
+            console.log(agePreference)
         } else {
             setAgePreference([agePreference[0], Math.max(newValue[1], agePreference[0])]);
+            console.log(agePreference)
+        }
+    };
+
+    const handleChangeDistance = (event, newValue, activeThumb) => {
+        if (!Array.isArray(newValue)) {
+            return;
+        }
+
+        if (activeThumb === 0) {
+            setDistance([Math.min(newValue[0], distance[1]), distance[1]]);
+            console.log(distance)
+        } else {
+            setDistance([distance[0], Math.max(newValue[1], distance[0])]);
+            console.log(distance)
         }
     };
 
     const handleChangeGender = (event) => {
-        setGenderPreferences({
-            ...genderPreferences,
+        setGenderPreference({
+            ...genderPreference,
             [event.target.name]: event.target.checked,
         });
     };
@@ -81,6 +101,7 @@ const EditUserPreferencePage = () =>{
                 max={99}
                 disableSwap
             />
+                Mininum Age: {agePreference[0]} - Maximum Age: {agePreference[1]}
             <div className="login container-title">Edit Gender Preferences:</div>
 
             <FormControl
@@ -108,14 +129,25 @@ const EditUserPreferencePage = () =>{
                         label="Other"
                     />
                 </FormGroup>
-                <FormHelperText>You can display an error</FormHelperText>
+                <FormHelperText>Select at Least 1 Preference</FormHelperText>
             </FormControl>
+
+            <div className="login container-title">Edit Distance</div>
+            <Slider
+                value={distance}
+                onChange={handleChangeDistance}
+                valueLabelDisplay="auto"
+                min={18}
+                max={99}
+                disableSwap
+            />
 
             <div className= "userPage fixed-button-container">
                 <div className= "userPage moving-button-container">
                     <Button
                         width="100%"
                         onClick={() => doEditPreferences()}
+                        disabled={noGenderSelectedError}
                     >
                         Save
                     </Button>
@@ -132,12 +164,20 @@ const EditUserPreferencePage = () =>{
         </div>
     )
 
+    const createGenderPreferencesList = (gp) =>{
+        let genderPreferenceList = []
+        if(gp.MALE){genderPreferenceList.push("MALE")}
+        if(gp.FEMALE){genderPreferenceList.push("FEMALE")}
+        if(gp.OTHER){genderPreferenceList.push("OTHER")}
+        return genderPreferenceList
+    }
+
     const doEditPreferences = async () =>{
         try{
-            let minAge = 30
-            let maxAge = 52
-            let genderPreferences = ["OTHER"]
-            const requestBody = JSON.stringify({minAge, maxAge, genderPreferences})
+            const genderPreferences = createGenderPreferencesList(genderPreference)
+            let minAge = agePreference[0]
+            let maxAge = agePreference[1]
+            const requestBody = JSON.stringify({minAge, maxAge, genderPreferences: genderPreferences})
             await api.put(`/users/${id}/preferences`, requestBody);
 
             // Editing users preferences successfully worked --> navigate to the route /userprofile in the router
