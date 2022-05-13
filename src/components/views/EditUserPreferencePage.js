@@ -31,28 +31,29 @@ const EditUserPreferencePage = () =>{
     const { MALE, FEMALE, OTHER } = genderPreference;
     const noGenderSelectedError = [MALE, FEMALE, OTHER].filter((v) => v).length === 0;
 
+
+    //Gets all the preferences of the user
     useEffect(() => {
-        async function getUser(){
+        async function getPreferences(){
             try{
                 const response = await api.get('/users/'+id)
-                setUser(response.data);
                 setGenderPreference({
                     MALE: response.data.genderPreferences.includes("MALE"),
                     FEMALE: response.data.genderPreferences.includes("FEMALE"),
                     OTHER: response.data.genderPreferences.includes("OTHER"),
                 })
-                console.log(response.data.genderPreferences)
                 setAgePreference([response.data.minAge, response.data.maxAge])
+                //TODO: Add distance preferences for the user when GeoLocation API gets installed
             } catch (error) {
                 console.error("Details:", error);
                 alert("Invalid Input:\n " + handleError(error));
             }
         }
-        getUser()
+        getPreferences()
     }, []);
 
 
-
+    //Method to change the age for ageRangeslider
     const handleChangeAge = (event, newValue, activeThumb) => {
         if (!Array.isArray(newValue)) {
             return;
@@ -67,6 +68,7 @@ const EditUserPreferencePage = () =>{
         }
     };
 
+    //Method to changes distances for distance range slider
     const handleChangeDistance = (event, newValue, activeThumb) => {
         if (!Array.isArray(newValue)) {
             return;
@@ -81,6 +83,7 @@ const EditUserPreferencePage = () =>{
         }
     };
 
+    //Method to handle changes for the checkboxes gender
     const handleChangeGender = (event) => {
         setGenderPreference({
             ...genderPreference,
@@ -133,15 +136,15 @@ const EditUserPreferencePage = () =>{
             </FormControl>
 
             <div className="login container-title">Edit Distance</div>
-            <Slider
+            <Slider //TODO: Maybe add logarithmic scaling to the rangeslider
                 value={distance}
                 onChange={handleChangeDistance}
                 valueLabelDisplay="auto"
-                min={18}
-                max={99}
+                min={0}
+                max={20000}
                 disableSwap
             />
-
+            {distance[0]} Km - {distance[1]} Km
             <div className= "userPage fixed-button-container">
                 <div className= "userPage moving-button-container">
                     <Button
