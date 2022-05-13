@@ -22,7 +22,7 @@ const EditUserPreferencePage = () =>{
     const history = useHistory();
 
     const [agePreference, setAgePreference] = useState([1,100])
-    const [distance, setDistance] = useState([0,100])
+    const [distance, setDistance] = useState([0,10000])
     const [genderPreference, setGenderPreference] = React.useState({
         MALE: true,
         FEMALE: false,
