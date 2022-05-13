@@ -9,6 +9,7 @@ import {UserProfile} from "../views/UserProfile";
 const MatchListItems = props => {
     const history = useHistory();
     const fromUserId = props.fromUserId
+    const onDelete = props.onDelete
     const userId = Number.parseInt(localStorage.getItem("id"))
     const [showUserProfile, setShowUserProfile] = useState(false)
 
@@ -77,6 +78,7 @@ const MatchListItems = props => {
                     otherUserId = {props.otherUserId}
                     name = {props.name}
                     onGoBack = {() => setShowUserProfile(false)}
+                    onDelete = {onDelete}
                 />
             </div>
 

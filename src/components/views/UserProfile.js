@@ -11,6 +11,7 @@ export const UserProfile = props => {
     const otherUserId = props.otherUserId
     const userName = props.name
     const goBack = props.onGoBack
+    const onDelete = props.onDelete
     console.log(userName)
 
     async function unmatch() {
@@ -18,7 +19,7 @@ export const UserProfile = props => {
             await api.delete(`users/${userId}/matches/${otherUserId}`).catch(error => {
                 console.error("Details:", error);
                 alert("An Error occurred:\n " + handleError(error));
-            })
+            }).then(onDelete)
         }
     }
 
@@ -27,7 +28,7 @@ export const UserProfile = props => {
             await api.put(`users/${userId}/matches/${otherUserId}/block`).catch(error => {
                 console.error("Details:", error);
                 alert("An Error occurred:\n " + handleError(error));
-            })
+            }).then(onDelete)
         }
     }
 
