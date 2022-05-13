@@ -1,0 +1,156 @@
+@import 'src/styles/theme';
+
+
+.containerMatchList {
+  border-right: 1px solid #ebe7fb;
+  padding: 0 40px 0 0px;
+  margin-left: 2em;
+}
+.matchListHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.searchWrap {
+  background-color: #e6e5ea;
+  border-radius: 5px;
+}
+.searchWrap input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 80%;
+  padding: 15px 0 15px 15px;
+}
+
+.matchListItem {
+  margin-top: 30px;
+  overflow: auto;
+  max-height: calc(100vh - calc(100vh / 2));
+}
+
+.matchListItem {
+  display: flex;
+  border-bottom: 1px solid #ebe7fb;
+  margin-top: 10px;
+  cursor: pointer;
+  padding: 10px 10px 10px 20px;
+  transition: all 0.3s cubic-bezier(0.88, 0.19, 0.37, 1.11);
+  transform: scale(0);
+  animation-name: showIn;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-timing-function: cubic-bezier(
+    0.88,
+    0.19,
+    0.37,
+    1.11
+);
+  animation-fill-mode: both;
+  animation-delay: 0.1s;
+}
+@keyframes showIn {
+0% {
+transform: scale(0);
+}
+100% {
+transform: scale(1);
+}
+}
+.matchListItem:first-child {
+  margin-top: 1px;
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  margin-right: 20px;
+  position: relative;
+}
+.avatar img {
+  max-width: 100%;
+  object-fit: cover;
+}
+
+.matchListItem .userMeta {
+  p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    font-weight: 700;
+    font-size: 15px;
+    &#name {
+      margin-left: 5em;
+      max-width: 10em;
+      width: 10em;
+      margin-right: 7em;
+    }
+    &#message {}
+  }
+  &.readMsg {
+
+    p, span {
+      font-weight: 400;
+    }
+  }
+
+  &.unreadMsg {
+    p, span {
+      font-weight: 700;
+    }
+  }
+}
+
+
+
+#message {
+
+  //width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #000;
+}
+
+.matchListItem .userMeta span {
+  margin: 0;
+  padding: 0;
+  color: #ceccd3;
+  font-weight: 400;
+  font-size: 12px;
+  display: block;
+
+}
+.matchListItem:hover,
+.matchListItem.active {
+  background: #fff;
+
+  border-radius: 10px;
+}
+.isOnline {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  bottom: 0;
+  right: 0;
+  // background-color: #ddd;
+  background-color: darkgrey;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+.isOnline.OFFLINE {
+  background-color: #fd4b2c;
+}
+.isOnline.ONLINE {
+  background-color: green;
+}
+.avatarImg {
+  overflow: hidden;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}

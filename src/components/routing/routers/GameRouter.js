@@ -5,6 +5,7 @@ import BlackCardSelection from "../../views/BlackCardSelection";
 import PlayWhites from "components/views/PlayWhites";
 import Matches from "components/views/Matches";
 import RateWhites from "../../views/RateWhites";
+import Chat from "../../views/Chat";
 
 const GameRouter = props => {
   /**
@@ -37,6 +38,10 @@ const GameRouter = props => {
       <Route exact path={`${props.base}/rateWhites`}>
         <RateWhites/>
       </Route>
+
+        <Route exact path={`${props.base}/chat`}>
+            <Chat/>
+        </Route>
 
       {/* fallback option */}
       <Route exact path={`${props.base}`}>
