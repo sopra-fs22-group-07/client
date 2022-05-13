@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import {useHistory} from "react-router-dom";
 import {api, handleError} from "../../helpers/api";
+import 'styles/_theme.scss'
 
 // import mui components
 import { styled, useTheme } from '@mui/material/styles';
@@ -283,7 +284,7 @@ export default function Sidebar({view, children}) {
                         open={open}
                         text="Chat & Matches"
                         onClick={() => {history.push('/game/matches')}}
-                        icon={<ChatIcon />}
+                        icon={<ChatIcon />}   
                     />
                     <SidebarItem
                         open={open}
@@ -322,7 +323,7 @@ export default function Sidebar({view, children}) {
         <CssBaseline />
 
         {/* header */}
-        <AppBar position="fixed" open={open} sx={{bgcolor: "green"}}>
+        <AppBar position="fixed" open={open} sx={{bgcolor: "blue-grey"}}>
             <Toolbar>
             <IconButton
                 color="inherit"
