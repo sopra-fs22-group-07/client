@@ -78,7 +78,7 @@ const BlackCardSelection = () => {
             try {
                 const response = await api.get(`users/${userId}/games/activeGame`);
 
-                // set black card and time from blackcard, if no blackcard an error gets thrown
+                // set blackCard and time from blackCard, if no blackCard an error gets thrown
                 setBlackCard(response.data.blackCard);
                 setCreationDate(response.data.creationDate)
             }
