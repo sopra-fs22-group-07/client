@@ -1,7 +1,7 @@
 import {Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
 import Sidebar from "components/views/Sidebar";
-import {api} from 'helpers/api';
+import { isTokenUserOnline } from "helpers/isTokenUserOnline";
 
 /**
  * routeProtectors interfaces can tell the router whether or not it should allow navigation to a requested route.
@@ -14,43 +14,22 @@ import {api} from 'helpers/api';
  */
 export const GameGuard = props => {
 
+    // if the user is online, render all game routes
+    const isUserOnline = isTokenUserOnline();
+    console.log("isUserOnline: " + isUserOnline);
 
-    // check if the token and the id match a user in the data base that is currently logged in
-    async function isTokenUserOnline() {
-        const token = localStorage.getItem("token");
-        const id = localStorage.getItem("id");
-        if (id && token && token !== 'undefined' && token != null && token !== '') {
-            // call api to check if the token and id match a user in the database and logged in
-            try {
-                const response = await api.get(`/users/${id}`).then(res => {
-                    console.log("response:")
-                    console.log(response.data);
-                    if ((response.data.token === token) && (response.data.status === "ONLINE")) {
-                        console.log("user is online");
-                        return true;
-                    }
-                });
-            } catch (error) {
-                console.log("user is not online");
-                console.log(error);
-                return false;
-            }
-        }
-        return false;
-    }
-
-    if (isTokenUserOnline()) {
-        console.log("a")
+    if (isUserOnline) {
         return (
         <Sidebar view="game">
             {props.children}
         </Sidebar>
         );
+    } else {
+        // else, redirect to the login screen and remove the token and id from the local storage
+        localStorage.removeItem("token");
+        localStorage.removeItem("id");
+        return <Redirect to="/login"/>;
     }
-    console.log("b")
-    localStorage.removeItem("token");
-    localStorage.removeItem("id");
-    return <Redirect to="/login"/>;
 };
 
 GameGuard.propTypes = {

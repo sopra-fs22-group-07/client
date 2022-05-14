@@ -1,34 +1,21 @@
 import {Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
 import Sidebar from "components/views/Sidebar";
-import {api} from 'helpers/api';
+import { isTokenUserOnline } from "helpers/isTokenUserOnline";
 
 export const LoginGuard = props => {
 
-    // check if the token and the id match a user in the data base that is currently logged in
-    async function isTokenUserOnline() {
-        let token = localStorage.getItem("token");
-        let id = localStorage.getItem("id");
-        if (id && token && token !== 'undefined' && token != null && token !== '') {
-            // call api to check if the token and id match a user in the database and logged in
-            const response = await api.get(`/users/${id}`)
-            if (response.data.token === token && response.data.status === "ONLINE") {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
+    // if the user is not online, then render the login screen and registration screen
     if (!isTokenUserOnline()) {
         return (
         <Sidebar view="login">
             {props.children}
         </Sidebar>
         );
+    } else {
+        // if user is already logged in, redirects to the main /app
+        return <Redirect to="/game"/>;
     }
-    // if user is already logged in, redirects to the main /app
-    return <Redirect to="/game"/>;
 };
 
 LoginGuard.propTypes = {
