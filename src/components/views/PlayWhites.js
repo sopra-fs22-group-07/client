@@ -53,11 +53,11 @@ const PlayWhites = () => {
         card: PropTypes.object
     };
 
-    // define a state variable (using the state hook).
-    // if this variable changes, the component will re-render, but the variable will
-    // keep its value throughout render cycles.
-    // a component can have as many state variables as you like.
-    // more information can be found under https://reactjs.org/docs/hooks-state.html
+  // define a state variable (using the state hook).
+  // if this variable changes, the component will re-render, but the variable will
+  // keep its value throughout render cycles.
+  // a component can have as many state variables as you like.
+  // more information can be found under https://reactjs.org/docs/hooks-state.html
 
     useEffect(() => {
         // the game of a random user gets fetched
@@ -167,25 +167,25 @@ const PlayWhites = () => {
         </CardButton>
     </BaseContainer>
 
-    return (
-        <React.Fragment>
-            <div className={"game description"}>
-                <h1>Use a White Card to fill in the Blank</h1>
-            </div>
+  return (
+    <React.Fragment>
+        <div className={"game description"}>
+            <h1>Use a White Card to fill in the Blank</h1>
+        </div>
 
-            <BaseContainer className={"menu container"}>
-                {blackCardContent}
-            </BaseContainer>
-            <div className={"game description"}>
-                <h1>Pick a white card</h1>
-            </div>
+        <BaseContainer className={"menu container"}>
+            {blackCardContent}
+        </BaseContainer>
+        <div className={"game description"}>
+            <h1>Pick a white card</h1>
+        </div>
 
-            <BaseContainer className={"menu container"}>
-                {cardsContent}
-            </BaseContainer>
-            {drawPile}
-        </React.Fragment>
-    );
+        <BaseContainer className={"menu container"}>
+            {cardsContent}
+        </BaseContainer>
+        {drawPile}
+    </React.Fragment>
+  );
 }
 
 export default PlayWhites;
