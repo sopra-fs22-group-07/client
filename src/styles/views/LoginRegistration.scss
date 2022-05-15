@@ -61,6 +61,8 @@
     position: relative;
     font-size: $fontSizeLarge;
     top:-20px;
+    margin-bottom: -5px;
+    color: $textColor;
   }
 
   &.date-picker-container{
