@@ -10,7 +10,6 @@ const UserHand = () => {
   const [blackCard, setBlackCard] = useState(null)
   const [whiteCards, setWhiteCards] = useState(null)
   const userId = localStorage.getItem("id")
-  //const token = localStorage.getItem("token")
   const cardsPerHand = 8 //constant of how many cards there are in a users hand
   const history = useHistory();
 
@@ -38,17 +37,6 @@ const UserHand = () => {
             alert("Invalid Input:\n " + handleError(error));
           }
         });
-      /*try {
-        const response = await api.get(`/users/${userId}/games/blackCards/current`);
-        setBlackCard(response.data);
-      } catch (error) {
-        if (error.response.status === 401 || error.response.status === 404) {
-          setBlackCard(null);
-        } else {
-          console.error("Details: ", error);
-          alert("Invalid Input:\n " + handleError(error));
-        }
-      }*/
     }
     async function getWhiteCards() {
       await api.get(`/users/${userId}/games/whiteCards`)
@@ -61,17 +49,6 @@ const UserHand = () => {
             alert("Invalid Input:\n " + handleError(error));
           }
         });
-      /*try {
-        const response = await api.get(`/users/${userId}/games/whiteCards`);
-        setWhiteCards(response.data);
-      } catch (error) {
-        if(error.response.status === 401 || error.response.status === 404) {
-          setWhiteCards(null);
-        } else {
-          console.error("Details: ", error);
-          alert("Invalid Input:\n " + handleError(error));
-        }
-      }*/
     }
     getBlackCard();
     getWhiteCards();

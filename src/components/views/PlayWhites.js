@@ -15,7 +15,6 @@ const PlayWhites = () => {
   const [cards, setCards] = useState(0)
   const [count, setCount] = useState(0)
   const userId = localStorage.getItem("id")
-  //const token = localStorage.getItem("token")
   const cardsPerHand = 8 //constant of how many cards there are in a users hand
     // function defines what is happening, when a white card gets selected. also renders the white cards
     const WhiteCard = ({card}) => {
@@ -28,12 +27,6 @@ const PlayWhites = () => {
             await api.post(`users/${userId}/whiteCards/${cardId}`, requestBody)
                 .catch(error => {console.error("Details:", error);
                     alert("Invalid Input:\n " + handleError(error));});
-            /*try {
-              await api.post(`users/${userId}/whiteCards/${cardId}`, requestBody);
-            } catch (error) {
-              console.error("Details:", error);
-              alert("Invalid Input:\n " + handleError(error));
-            }*/
             // next card gets displayed, use for statistic, reloads useEffects
             setCount(count + 1)
         }
@@ -45,7 +38,6 @@ const PlayWhites = () => {
                         key={card.id}
             />
         );
-
     };
 
     // test if white card is of type card
@@ -77,45 +69,12 @@ const PlayWhites = () => {
                         alert("Invalid Input:\n " + handleError(error));
                     }
                 });
-            /*try {
-              const response = await api.get(`users/${userId}/games/blackCards`,
-                {
-                  headers: {
-                    "authorization": token
-                  }
-                });
-              setBlackCard(response.data.blackCard)
-              setGameId(response.data.gameId)
-            }
-            catch (error) {
-              if(error.response.status === 404){
-                setBlackCard(null);
-                console.error("Error 404: ", error.response.data.message)
-                // && error.response.data.message === "There is no black card of another user left"
-              }
-              else{
-                console.error("Details:", error);
-                alert("Invalid Input:\n " + handleError(error));}
-            }*/
         }
 
         // the white cards of the user who is playing gets fetched
         async function fetchWhiteCards() {
             await api.get(`users/${userId}/games/whiteCards`).then(response => {setCards(response.data)})
                 .catch(error => {console.error("Details:", error); alert("Invalid Input:\n " + handleError(error));});
-            /* try {
-               const response = await api.get(`users/${userId}/games/whiteCards`,
-                 {
-                   headers: {
-                     "authorization": token
-                   }
-                 });
-               setCards(response.data)
-             }
-             catch (error) {
-               console.error("Details:", error);
-               alert("Invalid Input:\n " + handleError(error));
-             }*/
         }
 
         fetchGame();
@@ -158,7 +117,6 @@ const PlayWhites = () => {
         }
         else(drawText="No more Cards left to draw today")
     }
-
 
     let drawPile = <BaseContainer className="menu container">
         <CardButton className="card whiteCard"
