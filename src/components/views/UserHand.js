@@ -87,26 +87,32 @@ const UserHand = () => {
         </CardButton>
     }
 
-    if (whiteCards !== [] && !blackCard) {
-        whiteCardsContent = <CardButton className="card whiteCard simple"
-                                        onClick={() => {history.push('/game/select/blackCard')}}>
-            No white Card available, Did you choose a black Card?
-        </CardButton>
-    } else if (whiteCards && whiteCards !== []) {
-        if (whiteCards.length > cardsPerHand) {
-            const diff = whiteCards.length - cardsPerHand;
-            cardsOnPile = <CardButton className="card whiteCard" disabled={true} style={{justifySelf:"flex-end"}}>
-                You can draw {diff} more cards.
+    if (whiteCards){
+        if (whiteCards.length === 0 && !blackCard) {
+            whiteCardsContent = <CardButton className="card whiteCard simple"
+                                            onClick={() => {history.push('/game/select/blackCard')}}>
+                No white Card available, Did you choose a black Card?
             </CardButton>
+        } else if (whiteCards.length === 0 && blackCard) {
+            whiteCardsContent = <CardButton className="card whiteCard" disabled={true}>
+                No more white Cards available for today
+            </CardButton>
+        } else if (whiteCards.length > 0) {
+            if (whiteCards.length > cardsPerHand) {
+                const diff = whiteCards.length - cardsPerHand;
+                cardsOnPile = <CardButton className="card whiteCard" disabled={true} style={{justifySelf: "flex-end"}}>
+                    You can draw {diff} more cards.
+                </CardButton>
+            }
+            const cardsOnHand = whiteCards.slice(0, cardsPerHand);
+            whiteCardsContent =
+                <ul className={"hand card-list"}>
+                    {cardsOnHand.map(card => (
+                        <WhiteCard card={card} key={card.id}/>
+                    ))}
+                    {cardsOnPile}
+                </ul>
         }
-        const cardsOnHand = whiteCards.slice(0, cardsPerHand);
-        whiteCardsContent =
-            <ul className={"hand card-list"}>
-                {cardsOnHand.map(card => (
-                    <WhiteCard card={card} key={card.id}/>
-                ))}
-                {cardsOnPile}
-            </ul>
     }
 
 
