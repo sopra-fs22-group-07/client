@@ -10,9 +10,9 @@ for playing white cards on a black Card
  */
 const PlayWhites = () => {
    // use react-router-dom's hook to access the history
-  const[blackCard, setBlackCard] = useState(0)
+  const[blackCard, setBlackCard] = useState(null)
   const[gameId, setGameId] = useState(0)
-  const [cards, setCards] = useState(0)
+  const [cards, setCards] = useState(null)
   const [count, setCount] = useState(0)
   const userId = localStorage.getItem("id")
   const cardsPerHand = 8 //constant of how many cards there are in a users hand

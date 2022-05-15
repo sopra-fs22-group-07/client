@@ -41,7 +41,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorResponse, setErrorResponse] = useState("");
 
-
   const pushUser = async () => {
     try {
       const id =  localStorage.getItem('id')
@@ -61,7 +60,6 @@ const Login = () => {
     }
   };
 
-
   // TODO: this is a feature for development only, remove on final build
   // api call to add demo users
   const addDemoUsers = async () => {
@@ -73,9 +71,6 @@ const Login = () => {
       window.alert("Error: " + error.response.data.message);
     }
   }
-
-
-
 
   const doLogin = async () => {
     try {
