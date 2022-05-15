@@ -2,10 +2,9 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from "prop-types";
 import {useHistory} from "react-router-dom";
 import {api, handleError} from "../../helpers/api";
-import BaseContainer from "../ui/BaseContainer";
 import CardButton from "../ui/CardButton";
 import "styles/ui/CardButton.scss";
-import "styles/views/GameMenu.scss";
+import "styles/views/UserHand.scss";
 
 const UserHand = () => {
     const [blackCard, setBlackCard] = useState(null)
@@ -31,32 +30,35 @@ const UserHand = () => {
         async function getBlackCard() {
             try {
                 const response = await api.get(`/users/${userId}/games/blackCards/current`,
-                        {
+                    {
                         headers: {
                             "authorization": token
                         }
                     });
                 setBlackCard(response.data);
             } catch (error) {
-                if(error.response.status === 401 || error.response.status === 404) {
+                if (error.response.status === 401 || error.response.status === 404) {
                     setBlackCard(null);
-                    console.error("Error " , error.response.status, ": ", error.response.message);
+                    console.error("Error ", error.response.status, ": ", error.response.message);
                 } else {
                     console.error("Details: ", error);
                     alert("Invalid Input:\n " + handleError(error));
                 }
             }
         }
+        getBlackCard();
+    }, []);
+
+    useEffect( () => {
         async function getWhiteCards() {
             try {
-                const response = await api.get(`users/${userId}/games/whiteCards`,
+                const response = await api.get(`/users/${userId}/games/whiteCards`,
                     {
                         headers: {
                             "authorization": token
                         }
                     });
                 setWhiteCards(response.data);
-                console.log(response)
             } catch (error) {
                 if(error.response.status === 401 || error.response.status === 404) {
                     setWhiteCards(null);
@@ -67,12 +69,12 @@ const UserHand = () => {
                 }
             }
         }
-        getBlackCard();
         getWhiteCards();
     }, []);
 
     let blackCardContent
-    let whiteCardsContent = <div className="hand">No white Cards available</div>
+    let whiteCardsContent = <div className="hand">No more white Cards available</div>
+    let cardsOnPile;
 
     if(blackCard) {
         blackCardContent = <CardButton className="card blackCard" disabled={true}>
@@ -85,46 +87,45 @@ const UserHand = () => {
         </CardButton>
     }
 
-    if(whiteCards) {
+    if (whiteCards !== [] && !blackCard) {
+        whiteCardsContent = <CardButton className="card whiteCard simple"
+                                        onClick={() => {history.push('/game/select/blackCard')}}>
+            No white Card available, Did you choose a black Card?
+        </CardButton>
+    } else if (whiteCards && whiteCards !== []) {
+        if (whiteCards.length > cardsPerHand) {
+            const diff = whiteCards.length - cardsPerHand;
+            cardsOnPile = <CardButton className="card whiteCard" disabled={true} style={{justifySelf:"flex-end"}}>
+                You can draw {diff} more cards.
+            </CardButton>
+        }
         const cardsOnHand = whiteCards.slice(0, cardsPerHand);
         whiteCardsContent =
-            <ul className={"game card-list"}>
+            <ul className={"hand card-list"}>
                 {cardsOnHand.map(card => (
                     <WhiteCard card={card} key={card.id}/>
                 ))}
+                {cardsOnPile}
             </ul>
     }
 
+
     return (
         <React.Fragment>
-            <BaseContainer className="base-container userPage main-container">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div className="userPage text">
-                                    <h2>Your Black Cards:</h2>
-                                </div>
-                            </td>
-                            <td>
-                                <div className="userPage text">
-                                    <h2>Your White Cards:</h2>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                {blackCardContent}
-                            </td>
-                            <td>
-                                <div className={"menu container"}>
-                                    {whiteCardsContent}
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </BaseContainer>
+            <div className="hand main-container">
+                <div className={"hand card-container black"}>
+                    <div className="hand text">
+                        <h2>Your Black Cards:</h2>
+                    </div>
+                    {blackCardContent}
+                </div>
+                <div className={"hand card-container white"}>
+                    <div className="hand text">
+                        <h2>Your White Cards:</h2>
+                    </div>
+                    {whiteCardsContent}
+                </div>
+            </div>
         </React.Fragment>
     );
 }
