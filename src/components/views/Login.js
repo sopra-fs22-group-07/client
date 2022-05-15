@@ -39,8 +39,8 @@ const Login = () => {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorResponse, setErrorResponse] = useState("");
 
-  let errorResponse = null;
 
   const pushUser = async () => {
     try {
@@ -53,13 +53,7 @@ const Login = () => {
       });
     } catch (error) {
       if(error.response.status === 404){
-        history.push({
-          pathname: `/game/select/blackCard`,
-          state: {
-            id: localStorage.getItem('id'),
-            token: localStorage.getItem('token')
-          }
-        });
+        history.push(`/game/select/blackCard`);
       }
       else{
         console.error("Details:", error);
@@ -85,13 +79,11 @@ const Login = () => {
 
   const doLogin = async () => {
     try {
-      localStorage.removeItem('errorMessage');
+      setErrorResponse("")
       const requestBody = JSON.stringify({username, password});
       const response = await api.post('/users/login', requestBody);
 
       // Get the returned user and update a new object.
-      // const user = new User(response.data);
-
 
       // Store the token into the local storage.
       localStorage.setItem('token', response.headers.token);
@@ -103,10 +95,7 @@ const Login = () => {
     } catch (error) {
       const response = error.response;
       if (response && `${response.status}`.toString() === "401") {
-        errorResponse = "username or password incorrect.";
-        console.log(errorResponse);
-        localStorage.setItem('errorMessage', errorResponse);
-        window.location.assign(window.location);
+        setErrorResponse("username or password incorrect.");
       } else {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
       }
@@ -131,7 +120,7 @@ const Login = () => {
                 onChange={pw => setPassword(pw)}
             />
             <div className= "errorMessage">
-              {localStorage.getItem("errorMessage")}
+              {errorResponse}
             </div>
             <div className="login fixed-button-container">
               <Button
