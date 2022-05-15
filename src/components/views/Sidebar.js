@@ -120,8 +120,8 @@ const SidebarItem = ({
     const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
 
     return (
-      <Tooltip 
-        title={text} 
+      <Tooltip
+        title={text}
         placement="right"
         open={tooltipIsOpen && !open}
         onOpen={() => setTooltipIsOpen(true)}
@@ -219,14 +219,14 @@ export default function Sidebar({view, children}) {
                     <SidebarItem
                         open={open}
                         text="Login"
-                        onClick={() => {history.push('/login')}}
-                        icon={<LoginIcon />}   
+                        onClick={() => {history.push('/login'); localStorage.removeItem('errorMessage');}}
+                        icon={<LoginIcon />}
                     />
                     <SidebarItem
                         open={open}
                         text="Registration"
-                        onClick={() => {history.push('/registration')}}
-                        icon={<PersonAddIcon />}   
+                        onClick={() => {history.push('/registration'); localStorage.removeItem('errorMessage');}}
+                        icon={<PersonAddIcon />}
                     />
                 </List>
 
@@ -254,37 +254,37 @@ export default function Sidebar({view, children}) {
                         open={open}
                         text="Menu"
                         onClick={() => {history.push('/game/menu')}}
-                        icon={<MenuIcon />}   
+                        icon={<MenuIcon />}
                     />
                     <SidebarItem
                         open={open}
                         text="Select Black Card"
                         onClick={() => {history.push('/game/select/blackCard')}}
-                        icon={<ArticleIcon />}   
+                        icon={<ArticleIcon />}
                     />
                     <SidebarItem
                         open={open}
                         text="Play White Cards"
                         onClick={() => {history.push('/game/playWhites')}}
-                        icon={<ArticleOutlinedIcon />}   
+                        icon={<ArticleOutlinedIcon />}
                     />
                     <SidebarItem
                         open={open}
                         text="Rate Cards"
                         onClick={() => {history.push('/game/rateWhites')}}
-                        icon={<ThumbsUpDownIcon />}   
+                        icon={<ThumbsUpDownIcon />}
                     />
                     <SidebarItem
                         open={open}
                         text="Rules"
                         onClick={() => {history.push('/game/rules')}}
-                        icon={<GavelIcon />}   
+                        icon={<GavelIcon />}
                     />
                     <SidebarItem
                         open={open}
                         text="Chat & Matches"
                         onClick={() => {history.push('/game/matches')}}
-                        icon={<ChatIcon />}   
+                        icon={<ChatIcon />}
                     />
                     <SidebarItem
                         open={open}
@@ -301,13 +301,13 @@ export default function Sidebar({view, children}) {
                         open={open}
                         text="Personal Profile"
                         onClick={() => {goToUserPage()}}
-                        icon={<AccountBoxIcon />}   
+                        icon={<AccountBoxIcon />}
                     />
                     <SidebarItem
                         open={open}
                         text="Logout"
                         onClick={() => {logout()}}
-                        icon={<LogoutIcon />}   
+                        icon={<LogoutIcon />}
                     />
                 </List>
             </Drawer>
