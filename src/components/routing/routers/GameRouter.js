@@ -10,8 +10,8 @@ import Chat from "../../views/Chat";
 
 const GameRouter = props => {
   /**
-  * "this.props.base" is "/app" because as been passed as a prop in the parent of GameRouter, i.e., App.js
-  */
+   * "this.props.base" is "/app" because as been passed as a prop in the parent of GameRouter, i.e., App.js
+   */
   return (
     <div style={{display: 'flex', flexDirection: 'column'}}>
 
