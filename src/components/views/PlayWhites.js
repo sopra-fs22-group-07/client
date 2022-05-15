@@ -62,7 +62,7 @@ const PlayWhites = () => {
     useEffect(() => {
         // the game of a random user gets fetched
         async function fetchGame() {
-            api.get(`users/${userId}/games/blackCards`)
+            await api.get(`users/${userId}/games/blackCards`)
                 .then(response => {
                     setBlackCard(response.data.blackCard);
                     setGameId(response.data.gameId)
@@ -101,7 +101,7 @@ const PlayWhites = () => {
 
         // the white cards of the user who is playing gets fetched
         async function fetchWhiteCards() {
-            api.get(`users/${userId}/games/whiteCards`).then(response => {setCards(response.data)})
+            await api.get(`users/${userId}/games/whiteCards`).then(response => {setCards(response.data)})
                 .catch(error => {console.error("Details:", error); alert("Invalid Input:\n " + handleError(error));});
             /* try {
                const response = await api.get(`users/${userId}/games/whiteCards`,
