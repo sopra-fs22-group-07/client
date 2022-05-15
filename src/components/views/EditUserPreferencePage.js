@@ -24,7 +24,7 @@ const EditUserPreferencePage = () =>{
     const [agePreference, setAgePreference] = useState([1,100])
     const [distance, setDistance] = useState([0,10000])
     const [genderPreference, setGenderPreference] = React.useState({
-        MALE: true,
+        MALE: false,
         FEMALE: false,
         OTHER: false,
     });
@@ -54,17 +54,15 @@ const EditUserPreferencePage = () =>{
 
 
     //Method to change the age for ageRangeslider
-    const handleChangeAge = (event, newValue, activeThumb) => {
+    const handleChangeAge = (_event, newValue, activeThumb) => {
         if (!Array.isArray(newValue)) {
             return;
         }
 
         if (activeThumb === 0) {
             setAgePreference([Math.min(newValue[0], agePreference[1]), agePreference[1]]);
-            console.log(agePreference)
         } else {
             setAgePreference([agePreference[0], Math.max(newValue[1], agePreference[0])]);
-            console.log(agePreference)
         }
     };
 
@@ -94,8 +92,8 @@ const EditUserPreferencePage = () =>{
 
     let editPreferences = (
         <div className="login form">
-            <h2 className="login title"> Set Preferences </h2>
-            <div className="login container-title">Edit Age Preferences:</div>
+            <h2 className="userPage title"> Set Preferences </h2>
+            <div className="userPage container-title">Edit Age Preferences:
             <Slider
                 value={agePreference}
                 onChange={handleChangeAge}
@@ -104,8 +102,8 @@ const EditUserPreferencePage = () =>{
                 max={99}
                 disableSwap
             />
-                Mininum Age: {agePreference[0]} - Maximum Age: {agePreference[1]}
-            <div className="login container-title">Edit Gender Preferences:</div>
+                <p className="userPage container-text">Mininum Age: {agePreference[0]} - Maximum Age: {agePreference[1]}</p></div>
+            <div className="userPage container-title">Edit Gender Preferences:
 
             <FormControl
                 required
@@ -133,9 +131,9 @@ const EditUserPreferencePage = () =>{
                     />
                 </FormGroup>
                 <FormHelperText>Select at Least 1 Preference</FormHelperText>
-            </FormControl>
+            </FormControl></div>
 
-            <div className="login container-title">Edit Distance</div>
+            <div className="userPage container-title">Edit Distance</div>
             <Slider //TODO: Maybe add logarithmic scaling to the rangeslider
                 value={distance}
                 onChange={handleChangeDistance}

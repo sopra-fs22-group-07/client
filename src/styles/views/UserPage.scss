@@ -38,12 +38,7 @@
     font-size: $fontSizeSmall;
   }
 
-  &.title{
-    color: $background;
-    position: relative;
-    font-size: $fontSizeLarge;
-    top:-20px;
-  }
+
 
   &.moving-button-container {
     position: relative;
@@ -59,9 +54,11 @@
   }
 
   &.title{
-    color: $background;
-    font-size: $fontSizeMedium;
-    text-align: center;
+    position: relative;
+    color: $textColor;
+    font-size: $fontSizeLarge;
+    top: -20px;
+    margin-bottom: -15px;
   }
 
   .react-select {
@@ -82,9 +79,22 @@
     padding-left: 20px;
     padding-bottom: 5px;
   }
+  &.td-gender{
+    padding-left: 20px;
+    padding-bottom: 5px;
+    text-transform: capitalize;
+  }
 
   &.table{
     margin-bottom: 20px;
+  }
+
+  &.container-title{
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  &.container-text{
+    font-weight: normal;
   }
 
 }

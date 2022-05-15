@@ -68,7 +68,7 @@ const UserPage = () =>{
                         </tr>
                         <tr className="userPage player-info-container">
                             <td> Gender: </td>
-                            <td className="userPage td"> {user.gender} </td>
+                            <td className="userPage td-gender"> {user.gender.toLowerCase()} </td>
                         </tr>
                         <tr className="userPage player-info-container">
                             <td> Birthday: </td>
@@ -88,9 +88,6 @@ const UserPage = () =>{
                         <tr>
                             <td>&nbsp;</td>
                         </tr>
-                        <tr className="userPage player-info-container">
-                            <td colSpan="2">Do same for preferences</td>
-                        </tr>
                 </tbody>
                 </table>
         )
@@ -107,7 +104,7 @@ const UserPage = () =>{
                     </tr>
                     <tr className="userPage player-info-container">
                         <td> Gender Preferences: </td>
-                        <td className="userPage td"> Preferred Gender(s) </td>
+                        <td className="userPage"> Preferred Gender(s) </td>
                     </tr>
                 </tbody>
             </table>
@@ -130,12 +127,12 @@ const UserPage = () =>{
                 <table className="userPage table">
                     <tbody>
                     <tr className="userPage player-info-container">
-                        <td> Age Preference:</td>
+                        <td> Age:</td>
                         <td className="userPage td"> {user.minAge} Years - {user.maxAge} Years</td>
                     </tr>
                     <tr className="userPage player-info-container">
-                        <td> Gender Preferences: </td>
-                        <td className="userPage td"> {user.genderPreferences.join(', ')} </td>
+                        <td> Gender: </td>
+                        <td className="userPage td-gender"> {(user.genderPreferences.join(', ')).toLowerCase()} </td>
                     </tr>
                     </tbody>
                 </table>

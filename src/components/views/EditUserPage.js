@@ -95,8 +95,8 @@ const EditUserPage = () =>{
                      {err}
                  </div>
                  <div>
-                     <div className="login container-title">
-                         Current Gender: {user.gender}
+                     <div className="userPage td-gender">
+                         Current Gender: {user.gender.toLowerCase()}
                      </div>
                      <GenderPicker
                          onChange={(genders)=>setGender(genders.value)}
