@@ -9,59 +9,59 @@ import UserHand from "../../views/UserHand";
 import Chat from "../../views/Chat";
 
 const GameRouter = props => {
-    /**
-    * "this.props.base" is "/app" because as been passed as a prop in the parent of GameRouter, i.e., App.js
-    */
-    return (
-        <div style={{display: 'flex', flexDirection: 'column'}}>
+  /**
+  * "this.props.base" is "/app" because as been passed as a prop in the parent of GameRouter, i.e., App.js
+  */
+  return (
+    <div style={{display: 'flex', flexDirection: 'column'}}>
 
-            {/* menu */}
-            <Route exact path={`${props.base}/menu`}>
-                <GameMenu/>
-            </Route>
+      {/* menu */}
+      <Route exact path={`${props.base}/menu`}>
+        <GameMenu/>
+      </Route>
 
-            {/* black card selection */}
-            <Route exact path={`${props.base}/select/blackCard`}>
-                <BlackCardSelection />
-            </Route>
+      {/* black card selection */}
+      <Route exact path={`${props.base}/select/blackCard`}>
+        <BlackCardSelection />
+      </Route>
 
-            {/* play white cards */}
-            <Route exact path={`${props.base}/playWhites`}>
-                <PlayWhites/>
-            </Route>
+      {/* play white cards */}
+      <Route exact path={`${props.base}/playWhites`}>
+        <PlayWhites/>
+      </Route>
 
-            {/* matches */}
-            <Route exact path={`${props.base}/matches`}>
-                <Matches/>
-            </Route>
+      {/* matches */}
+      <Route exact path={`${props.base}/matches`}>
+        <Matches/>
+      </Route>
 
-            {/* hand */}
-            <Route exact path={`${props.base}/hand`}>
-                <UserHand/>
-            </Route>
+      {/* hand */}
+      <Route exact path={`${props.base}/hand`}>
+        <UserHand/>
+      </Route>
 
-            {/* rate white cards */}
-            <Route exact path={`${props.base}/rateWhites`}>
-                <RateWhites/>
-            </Route>
+      {/* rate white cards */}
+      <Route exact path={`${props.base}/rateWhites`}>
+        <RateWhites/>
+      </Route>
 
-            <Route exact path={`${props.base}/chat`}>
-                <Chat/>
-            </Route>
+      <Route exact path={`${props.base}/chat`}>
+        <Chat/>
+      </Route>
 
-            {/* fallback option */}
-            <Route exact path={`${props.base}`}>
-                <Redirect to={`${props.base}/menu`}/>
-            </Route>
-        </div>
-    );
+      {/* fallback option */}
+      <Route exact path={`${props.base}`}>
+        <Redirect to={`${props.base}/menu`}/>
+      </Route>
+    </div>
+  );
 };
 /*
 * Don't forget to export your component!
  */
 
 GameRouter.propTypes = {
-    base: PropTypes.string
+  base: PropTypes.string
 }
 
 export default GameRouter;
