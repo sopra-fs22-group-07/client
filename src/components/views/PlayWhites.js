@@ -154,7 +154,7 @@ const PlayWhites = () => {
     let drawText = "Somehow there don't seem to be any cards today"
     if(cards){ //If there are cards then display how many are left to draw today
         if(cards.length>cardsPerHand){
-            drawText= "You can play " +(cards.length) + " more cards today"
+            drawText= "You can play " +(cards.length) + " more card" + ((cards.length === 1) ? "" : "s") + " today"
         }
         else(drawText="No more Cards left to draw today")
     }
