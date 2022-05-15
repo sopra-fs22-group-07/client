@@ -122,7 +122,7 @@ const BlackCardSelection = () => {
         // calculate the time left
         const timeLeft = ONE_DAY-differenceInMs;
         // when there is no time left, the black cards get fetched again
-        if(timeLeft===0){
+        if(timeLeft<=0){
             // TODO: this leads to en error in the moment.
             //  Can the activeGame not be pushed to the past games?
             // useEffect gets fetched again
