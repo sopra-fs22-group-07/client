@@ -38,7 +38,12 @@
     font-size: $fontSizeSmall;
   }
 
-
+  &.bigTitle{
+    color: $background;
+    position: relative;
+    font-size: $fontSizeLarge;
+    top:-20px;
+  }
 
   &.moving-button-container {
     position: relative;

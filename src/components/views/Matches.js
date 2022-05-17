@@ -15,6 +15,12 @@ const Matches = () => {
     const [matchedUsers, setMatchedUsers] = useState(null)
     const [searchParam, setSearchParam] = useState("")
 
+    function handleUpdate() {
+        // This is just a hack to refresh the page (feel free to propose a solution where the deletion
+        // of the child component is handled) (it's easier to re-fetch all the users)
+        window.location.assign(window.location);
+    }
+
     // functions that gets the matches from the server
     const getMatches = async () => {
         const response = await api.get(`users/${userId}/chats`);
@@ -80,6 +86,8 @@ const Matches = () => {
         setSearchParam(event.target.value)
     }
 
+
+
     // for styling: animationDelay={index + 1}
     return (
         <React.Fragment>
@@ -119,9 +127,9 @@ const Matches = () => {
                                         read={user.read}
                                         fromUserId={user.fromUserId}
                                         chatId={user.chatId}
+                                        onDelete={() => handleUpdate()}
                                     />
                                 </div>
-
                             );
                         }
                     }): "No Matches Found"}
