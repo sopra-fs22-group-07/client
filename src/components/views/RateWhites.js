@@ -31,8 +31,6 @@ const RateWhites = () => {
                 setBlackCard(response.data.blackCard)
                 setPlays(response.data.plays)
                 setCurrentPLay(response.data.plays.shift()) //This removes the first item of the array, which is the first play
-                console.log("STUFF IS: ")
-                console.log(response.data.plays)
             }
             catch(error){
                 console.error("Details", error);
