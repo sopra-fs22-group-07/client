@@ -134,6 +134,10 @@ const UserPage = () =>{
                         <td> Gender: </td>
                         <td className="userPage td-gender"> {(user.genderPreferences.join(', ')).toLowerCase()} </td>
                     </tr>
+                    <tr className="userPage player-info-container">
+                        <td> Range: </td>
+                        <td className="userPage td"> {(user.maxRange)} km</td>
+                    </tr>
                     </tbody>
                 </table>
                 <div>

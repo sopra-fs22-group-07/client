@@ -23,7 +23,7 @@ const EditUserPreferencePage = () =>{
 
     const [agePreference, setAgePreference] = useState([1,100])
     const [distance, setDistance] = useState(1)
-    const [finalDistance, setFinalDistance] = useState(1)
+    const [maxRange, setMaxRange] = useState(1)
     const [genderPreference, setGenderPreference] = React.useState({
         MALE: false,
         FEMALE: false,
@@ -44,7 +44,8 @@ const EditUserPreferencePage = () =>{
                     OTHER: response.data.genderPreferences.includes("OTHER"),
                 })
                 setAgePreference([response.data.minAge, response.data.maxAge])
-                //TODO: Add distance preferences for the user when GeoLocation API gets installed
+                setMaxRange(response.data.maxRange)
+                setDistance(convertMaxRangeToDistance(response.data.maxRange))
             } catch (error) {
                 console.error("Details:", error);
                 alert("Invalid Input:\n " + handleError(error));
@@ -70,8 +71,24 @@ const EditUserPreferencePage = () =>{
     //Method to changes distances for distance range slider
     const handleChangeDistance = (_event, newValue) => {
         setDistance(newValue);
-        setFinalDistance(scale(newValue))
+        if(scale(newValue)>1000){setMaxRange(Math.floor(scale(newValue)/1000)*1000)}
+        else{setMaxRange(scale(newValue))}
     };
+
+    const convertMaxRangeToDistance = (maxRange) =>{
+        if(maxRange <= 10){
+            return maxRange
+        }
+        if(maxRange <= 100){
+            return ((maxRange-10)/9) + 9
+        }
+        if(maxRange <= 1000){
+            return ((maxRange-100)/90) + 18
+        }
+        else{
+            return ((maxRange-1000)/2210) + 27
+        }
+    }
 
     const distanceMarks = [
         {
@@ -187,7 +204,7 @@ const EditUserPreferencePage = () =>{
                 valueLabelDisplay="auto"
                 aria-labelledby="non-linear-slider"
             />
-            Maximum Range: {numFormatter(finalDistance)}
+            Maximum Range: {numFormatter(maxRange)}
             <div className= "userPage fixed-button-container">
                 <div className= "userPage moving-button-container">
                     <Button
@@ -223,8 +240,7 @@ const EditUserPreferencePage = () =>{
             const genderPreferences = createGenderPreferencesList(genderPreference)
             let minAge = agePreference[0]
             let maxAge = agePreference[1]
-            let maxDistance = finalDistance //TODO: add this to request body once implemented in backend
-            const requestBody = JSON.stringify({minAge, maxAge, genderPreferences: genderPreferences})
+            const requestBody = JSON.stringify({minAge, maxAge, genderPreferences: genderPreferences, maxRange})
             await api.put(`/users/${id}/preferences`, requestBody);
 
             // Editing users preferences successfully worked --> navigate to the route /userprofile in the router
