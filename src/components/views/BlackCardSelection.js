@@ -100,12 +100,7 @@ const BlackCardSelection = () => {
                     console.error("Details:", error);
                     alert("Invalid Input:\n " + handleError(error));
                 })
-        }
-
-    }, [isCountdownActive]); // when countdown is reached, new call to useEffects
-
-    useEffect(() => {
-        if (isCountdownActive) {
+        } else {
             const timer = setInterval(async () => {
                 const tL = calcTimeLeft()
                 setTimeLeft(tL)
@@ -115,7 +110,10 @@ const BlackCardSelection = () => {
             }, ONE_SECOND)
             return () => clearInterval(timer)
         }
-    }, [isCountdownActive])
+
+    }, [isCountdownActive]); // new call to content if state changes
+
+
 
 
     // define content variables
