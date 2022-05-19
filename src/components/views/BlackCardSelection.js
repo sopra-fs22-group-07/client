@@ -81,10 +81,13 @@ const BlackCardSelection = () => {
                 // set blackCard and time from blackCard, if no blackCard an error gets thrown
                 setBlackCard(response.data.blackCard);
                 setCreationDate(response.data.creationDate)
+
             }
             catch (error) {
-                if(!(error.response.status === 404)){
+                if(error.response.status === 404){
+                    setBlackCard(null);
                     // && error.response.data.message === ""
+                }else{
                     console.error("Details:", error);
                     alert("Invalid Input:\n " + handleError(error));
                 }
@@ -113,7 +116,8 @@ const BlackCardSelection = () => {
         if(countdown===true || !window.location.href.includes("/game/select/blackCard"))
         {
             clearInterval(timeInterval);
-    }}
+        }
+    }
 
     // gets called all seconds and updates the countdown
     function calcTimeLeft(creationDate){
@@ -123,8 +127,6 @@ const BlackCardSelection = () => {
         const timeLeft = ONE_DAY-differenceInMs;
         // when there is no time left, the black cards get fetched again
         if(timeLeft<=0){
-            // TODO: this leads to en error in the moment.
-            //  Can the activeGame not be pushed to the past games?
             // useEffect gets fetched again
             setCountdown(true);
         }
@@ -146,7 +148,7 @@ const BlackCardSelection = () => {
     if(blackCard!==null){
         textContent =
         <div className={"game description"}>
-            <h1> You can choose a new black card in {timeInHHMMSS} </h1>
+            <h1> You can choose a new black card in {timeInHHMMSS}</h1>
         </div>
 
         cardContent=
