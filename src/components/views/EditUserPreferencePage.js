@@ -99,7 +99,7 @@ const EditUserPreferencePage = () =>{
                 onChange={handleChangeAge}
                 valueLabelDisplay="auto"
                 min={18}
-                max={99}
+                max={110}
                 disableSwap
             />
                 <p className="userPage container-text">Mininum Age: {agePreference[0]} - Maximum Age: {agePreference[1]}</p></div>
