@@ -7,25 +7,21 @@ import BaseContainer from "../ui/BaseContainer";
 import PropTypes from "prop-types";
 import {ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND} from "../../helpers/Time";
 
+// zero pads a number and returns a string with min length 2.
+function pad(number) {
+    return String(number).padStart(2, "0")
+}
 
 // converts ms to HH:MM:SS
 function msToHHMMSS (ms) {
+    if (ms <= 0) return "00:00:00"
+
     // converts milliseconds in normal time
     let hours = Math.floor(ms / (ONE_HOUR))
     let minutes = Math.floor((ms / ONE_MINUTE) % 60)
     let seconds = Math.floor((ms / ONE_SECOND) % 60)
 
-    // add styling
-    if(hours<10){
-        hours = '0' + hours;
-    }
-    if(minutes<10){
-        minutes = '0'+ minutes;
-    }
-    if(seconds<10){
-        seconds = '0'+ seconds;
-    }
-    return hours+":"+minutes+":"+seconds;
+    return pad(hours)+":"+pad(minutes)+":"+pad(seconds);
 }
 
 const BlackCardSelection = () => {
@@ -64,82 +60,63 @@ const BlackCardSelection = () => {
     const [cards, setCards] = useState(null);
     const [blackCard, setBlackCard] = useState(null);
     const [creationDate, setCreationDate] = useState(new Date());
+    const [gameDuration, setGameDuration] = useState(-1);
     const [timeLeft, setTimeLeft] = useState(ONE_DAY);
     // newGame: if countdown is finished, the site gets the card again (because know able to choose)
-    const [countdown, setCountdown] = useState(false);
+    const [isCountdownActive, setIsCountdownActive] = useState(false);
 
     // get the userID from the localStorage
     const userId = localStorage.getItem("id")
 
+    function calcTimeLeft() {
+        return (gameDuration - (new Date() - new Date(creationDate)))
+    }
+
     // fetch the blackCards from the server (it is the server's responsibility to give us 8 cards)
     useEffect(() => {
-        async function fetchBlackCard() {
-            // get blackCard
-            try {
-                const response = await api.get(`users/${userId}/games/activeGame`);
 
-                // set blackCard and time from blackCard, if no blackCard an error gets thrown
-                setBlackCard(response.data.blackCard);
-                setCreationDate(response.data.creationDate)
+        if (!isCountdownActive) {
+            api.get(`users/${userId}/games/activeGame`)
+                .then(response => {
+                    setBlackCard(response.data.blackCard);
+                    setCreationDate(response.data.creationDate)
+                    setGameDuration(response.data.gameDuration)
+                    setTimeLeft(response.data.gameDuration - (new Date() - new Date(response.data.creationDate)))
+                    setIsCountdownActive(true)
+                })
+                .catch(error => {
+                    if(error.response.status === 404){
+                        setBlackCard(null);
+                        // && error.response.data.message === ""
+                    }else{
+                        console.error("Details:", error);
+                        alert("Invalid Input:\n " + handleError(error));
+                    }
+                })
 
-            }
-            catch (error) {
-                if(error.response.status === 404){
-                    setBlackCard(null);
-                    // && error.response.data.message === ""
-                }else{
+            api.get(`users/${userId}/games`)
+                .then(response => setCards(response.data))
+                .catch(error => {
                     console.error("Details:", error);
                     alert("Invalid Input:\n " + handleError(error));
+                })
+        }
+
+    }, [isCountdownActive]); // when countdown is reached, new call to useEffects
+
+    useEffect(() => {
+        if (isCountdownActive) {
+            const timer = setInterval(async () => {
+                const tL = calcTimeLeft()
+                setTimeLeft(tL)
+                if (tL <= 0) {
+                    setIsCountdownActive(false)
                 }
-            }
+            }, ONE_SECOND)
+            return () => clearInterval(timer)
         }
+    }, [isCountdownActive])
 
-        // get card to choose from
-        async function fetchCards() {
-            try {
-                const response = await api.get(`users/${userId}/games`)
-                setCards(response.data)
-            }
-            catch (error) {
-                console.error("Details:", error);
-                alert("Invalid Input:\n " + handleError(error));
-            }
-        }
-        fetchBlackCard();
-        fetchCards();
-
-    }, [countdown]); // when countdown is reached, new call to useEffects
-
-    // stops the interval call
-    function checkIfIntervalStop() {
-        // the cals get stopped if the countdown is finished or the url is changed
-        if(countdown===true || !window.location.href.includes("/game/select/blackCard"))
-        {
-            clearInterval(timeInterval);
-        }
-    }
-
-    // gets called all seconds and updates the countdown
-    function calcTimeLeft(creationDate){
-        // difference between now and creationDate
-        const differenceInMs = new Date() - new Date(creationDate);
-        // calculate the time left
-        const timeLeft = ONE_DAY-differenceInMs;
-        // when there is no time left, the black cards get fetched again
-        if(timeLeft<=0){
-            // useEffect gets fetched again
-            setCountdown(true);
-        }
-        // checks if the function call stops
-        checkIfIntervalStop();
-        // set the time
-        setTimeLeft(timeLeft);
-    }
-
-    // calls the calcTimeLeft function each second with the parameter creationDate
-    let timeInterval = setInterval(calcTimeLeft, ONE_SECOND, creationDate);
-    // changes time in HH:MM:SS
-    let timeInHHMMSS =  msToHHMMSS(timeLeft);
 
     // define content variables
     let textContent;
@@ -147,14 +124,14 @@ const BlackCardSelection = () => {
     // get content
     if(blackCard!==null){
         textContent =
-        <div className={"game description"}>
-            <h1> You can choose a new black card in {timeInHHMMSS}</h1>
-        </div>
+            <div className={"game description"}>
+                <h1> You can choose a new black card in {msToHHMMSS(timeLeft)}</h1>
+            </div>
 
         cardContent=
-        <CardButton className={"card blackCard"} disabled={true}>
-            {blackCard.text}
-        </CardButton>
+            <CardButton className={"card blackCard"} disabled={true}>
+                {blackCard.text}
+            </CardButton>
 
     }else if(cards){
         textContent=
