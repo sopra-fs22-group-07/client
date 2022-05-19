@@ -123,7 +123,7 @@ const UserPage = () =>{
     if(user){
         userPreferences = (
             <div>
-                <div className="userPage title">Preferences</div>
+                <div className="userPage bigTitle">Preferences</div>
                 <table className="userPage table">
                     <tbody>
                     <tr className="userPage player-info-container">

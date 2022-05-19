@@ -132,9 +132,9 @@ const EditUserPreferencePage = () =>{
 
     function numFormatter(num) {
         if(num > 1000){
-            return Math.floor((num/1000))*1000 + "km"
+            return Math.floor((num/1000))*1000 + " km"
         }
-        return num.toFixed(0) + "km"; // if value < 1000, nothing to do
+        return num.toFixed(0) + " km"; // if value < 1000, nothing to do
 
     }
 
