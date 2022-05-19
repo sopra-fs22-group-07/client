@@ -44,6 +44,8 @@ const Registration = () => {
   const [err, setErr] = useState("")
   let eighteenYearsAgo = new Date()
   eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18)
+  let hundredYearsAgo = new Date()
+  hundredYearsAgo.setFullYear(hundredYearsAgo.getFullYear() - 100)
   const [birthday, setBirthday] = useState(eighteenYearsAgo);
 
 
@@ -123,14 +125,6 @@ const Registration = () => {
               value={password}
               onChange={pw => setPassword(pw)}
           />
-          {/*<FormField
-              label="Birthday"
-              type="date"
-              min="1900-01-01"
-              max={eighteenYearsAgo.getDate().toString() +"/" + eighteenYearsAgo.getMonth().toString() + "/" +eighteenYearsAgo.getFullYear
-              value={birthday}
-              onChange={bd => setBirthday(bd)}
-          />*/}
           <div>
             <DatePicker className="login date-picker-container"
                 value={birthday}
@@ -138,7 +132,7 @@ const Registration = () => {
                 dateFormat="dd/MM/yyyy"
                 // restrict age:
                 maxDate={eighteenYearsAgo}
-                minDate={new Date('1900-01-01')}
+                minDate={hundredYearsAgo}
             />
           </div>
           <div>
