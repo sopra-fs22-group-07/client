@@ -123,7 +123,7 @@ const UserPage = () =>{
     if(user){
         userPreferences = (
             <div>
-                <div className="userPage title">Preferences</div>
+                <div className="userPage bigTitle">Preferences</div>
                 <table className="userPage table">
                     <tbody>
                     <tr className="userPage player-info-container">
@@ -133,6 +133,10 @@ const UserPage = () =>{
                     <tr className="userPage player-info-container">
                         <td> Gender: </td>
                         <td className="userPage td-gender"> {(user.genderPreferences.join(', ')).toLowerCase()} </td>
+                    </tr>
+                    <tr className="userPage player-info-container">
+                        <td> Range: </td>
+                        <td className="userPage td"> {(user.maxRange)} km</td>
                     </tr>
                     </tbody>
                 </table>

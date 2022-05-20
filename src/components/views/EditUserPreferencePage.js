@@ -22,7 +22,8 @@ const EditUserPreferencePage = () =>{
     const history = useHistory();
 
     const [agePreference, setAgePreference] = useState([1,100])
-    const [distance, setDistance] = useState([0,10000])
+    const [distance, setDistance] = useState(1)
+    const [maxRange, setMaxRange] = useState(1)
     const [genderPreference, setGenderPreference] = React.useState({
         MALE: false,
         FEMALE: false,
@@ -43,7 +44,8 @@ const EditUserPreferencePage = () =>{
                     OTHER: response.data.genderPreferences.includes("OTHER"),
                 })
                 setAgePreference([response.data.minAge, response.data.maxAge])
-                //TODO: Add distance preferences for the user when GeoLocation API gets installed
+                setMaxRange(response.data.maxRange)
+                setDistance(convertMaxRangeToDistance(response.data.maxRange))
             } catch (error) {
                 console.error("Details:", error);
                 alert("Invalid Input:\n " + handleError(error));
@@ -67,19 +69,74 @@ const EditUserPreferencePage = () =>{
     };
 
     //Method to changes distances for distance range slider
-    const handleChangeDistance = (event, newValue, activeThumb) => {
-        if (!Array.isArray(newValue)) {
-            return;
-        }
-
-        if (activeThumb === 0) {
-            setDistance([Math.min(newValue[0], distance[1]), distance[1]]);
-            console.log(distance)
-        } else {
-            setDistance([distance[0], Math.max(newValue[1], distance[0])]);
-            console.log(distance)
-        }
+    const handleChangeDistance = (_event, newValue) => {
+        setDistance(newValue);
+        if(scale(newValue)>1000){setMaxRange(Math.floor(scale(newValue)/1000)*1000)}
+        else{setMaxRange(scale(newValue))}
     };
+
+    const convertMaxRangeToDistance = (maxRange) =>{
+        if(maxRange <= 10){
+            return maxRange
+        }
+        if(maxRange <= 100){
+            return ((maxRange-10)/9) + 9
+        }
+        if(maxRange <= 1000){
+            return ((maxRange-100)/90) + 18
+        }
+        else{
+            return ((maxRange-1000)/2210) + 27
+        }
+    }
+
+    const distanceMarks = [
+        {
+            value: 0,
+            scaledValue: 1,
+            label: "1km"
+        },
+        {
+            value: 9,
+            scaledValue: 10,
+            label: "10km"
+        },
+        {
+            value: 18,
+            scaledValue: 100,
+            label: "100km"
+        },
+        {
+            value: 27,
+            scaledValue: 1000,
+            label: "1000km"
+        },
+        {
+            value: 36,
+            scaledValue: 20008,
+            label: "20000Km"
+        }
+    ];
+
+    const scale = (distance) => {
+        const previousMarkIndex = Math.floor(distance / 9);
+        const previousMark = distanceMarks[previousMarkIndex];
+        const remainder = distance % 9;
+        if (remainder === 0) {
+            return previousMark.scaledValue;
+        }
+        const nextMark = distanceMarks[previousMarkIndex + 1];
+        const increment = (nextMark.scaledValue - previousMark.scaledValue) /9;
+        return remainder * increment + previousMark.scaledValue;
+    };
+
+    function numFormatter(num) {
+        if(num > 1000){
+            return Math.floor((num/1000))*1000 + " km"
+        }
+        return num.toFixed(0) + " km"; // if value < 1000, nothing to do
+
+    }
 
     //Method to handle changes for the checkboxes gender
     const handleChangeGender = (event) => {
@@ -134,15 +191,20 @@ const EditUserPreferencePage = () =>{
             </FormControl></div>
 
             <div className="userPage container-title">Edit Distance</div>
-            <Slider //TODO: Maybe add logarithmic scaling to the rangeslider
+            <Slider
+                style={{ maxWidth: 500 }}
                 value={distance}
+                min={0}
+                step={1}
+                max={36}
+                valueLabelFormat={numFormatter}
+                marks={distanceMarks}
+                scale={scale}
                 onChange={handleChangeDistance}
                 valueLabelDisplay="auto"
-                min={0}
-                max={20000}
-                disableSwap
+                aria-labelledby="non-linear-slider"
             />
-            {distance[0]} Km - {distance[1]} Km
+            Maximum Range: {numFormatter(maxRange)}
             <div className= "userPage fixed-button-container">
                 <div className= "userPage moving-button-container">
                     <Button
@@ -178,7 +240,7 @@ const EditUserPreferencePage = () =>{
             const genderPreferences = createGenderPreferencesList(genderPreference)
             let minAge = agePreference[0]
             let maxAge = agePreference[1]
-            const requestBody = JSON.stringify({minAge, maxAge, genderPreferences: genderPreferences})
+            const requestBody = JSON.stringify({minAge, maxAge, genderPreferences: genderPreferences, maxRange})
             await api.put(`/users/${id}/preferences`, requestBody);
 
             // Editing users preferences successfully worked --> navigate to the route /userprofile in the router
