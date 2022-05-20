@@ -2,11 +2,18 @@
 
 .card {
   &:hover {
-    transform: translateY(-2em);
+    transform: translateY(-1.5em);
   }
   &.whiteCard {
     background-color: $WHITE_CARD_BACKGROUND_COLOR;
     color: $WHITE_CARD_TEXT_COLOR;
+
+    .scrollable-div {
+      overflow-y: auto;
+      height: 225px;
+      word-break: break-all;
+    }
+
     &:disabled {
       cursor: default;
       opacity: 0.4;
@@ -25,6 +32,11 @@
   &.blackCard {
     background-color: $BLACK_CARD_BACKGROUND_COLOR;
     color: $BLACK_CARD_TEXT_COLOR;
+    .scrollable-div {
+      overflow-y: auto;
+      height: 225px;
+      word-break: break-all;
+    }
     &:disabled {
       cursor: default;
       &.grey {
@@ -36,15 +48,12 @@
     }
   }
 
-
   box-shadow: -2px 6px 10px 0px rgba(0,0,0,0.49);
-  // text-align: center;
   align-items: flex-start;
   display: inline-flex;
   font-weight: 700;
   text-transform: uppercase;
-  // font-size: 13px;  // original
-  font-size: 20px;
+  font-size: 19px;
   text-align: left;
   padding: 0.7em;
   height: 225px;
@@ -57,19 +66,6 @@
   color: $background;
   transition: all 0.3s ease;
 
-  /* FONT (MUST BE DESIGNED)*/
-  /*
-  font-family: Georgia, serif;
-  font-size: 13px;
-  letter-spacing: 1.8px;
-  font-weight: 400;
-  text-decoration: none;
-  font-style: normal;
-  font-variant: normal;
-  text-transform: none;
-
-   */
-
   &.container {
     background: $accent;
     padding: 1.5em;
@@ -79,7 +75,5 @@
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
-    // box-shadow: $dropShadow;
-    // height: flex;
   }
 }
