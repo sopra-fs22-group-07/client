@@ -102,7 +102,7 @@ const PlayWhites = () => {
         if(cards) {
             const cardsOnHand = cards.slice(0, cardsPerHand);
             cardsContent =
-                <ul className={"game card-list"}>
+                <ul className={"hand card-list"}>
                     {cardsOnHand.map(card => (
                         <WhiteCard card={card} key={card.id}/>
                     ))}
