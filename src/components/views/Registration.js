@@ -47,6 +47,7 @@ const Registration = () => {
   let hundredYearsAgo = new Date()
   hundredYearsAgo.setFullYear(hundredYearsAgo.getFullYear() - 100)
   const [birthday, setBirthday] = useState(eighteenYearsAgo);
+  const [location, setLocation] = useState([0, 0]);
 
 
   // This little function asks the server if the typed in username is available and sets an error message accordingly
@@ -67,6 +68,40 @@ const Registration = () => {
     checkAvailability()
   }, [username]) // the function gets called whenever the username changes
 
+
+  const getGeoLocation = async (userId) => {
+
+    // how to handle if we get user location
+    const successCallback = (position) => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      setLocation([latitude, longitude]);
+    };
+
+    // how to handle if user denies access to location
+    const errorCallback = (error) => {
+      console.log(`Error: ${error.code}`);
+      console.log(`Error Message: ${error.message}`);
+      window.alert("Your location could not be determined. You were set to the default location (0\"N, 0\"E).");
+    };
+
+    // if geolocation is not supported by the browser, do so
+    if (!navigator.geolocation) {
+      window.alert("Geolocation is not supported by your browser. You were set to the default location (0\"N, 0\"E).");
+    } else {
+      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    }
+
+    console.log(location);
+    await api.post(`/users/${userId}/location`, {
+      latitude: location[0],
+      longitude: location[1]
+    });
+
+  }
+
+
+
   const doRegister = async () => {
     try {
 
@@ -82,6 +117,9 @@ const Registration = () => {
 
       // do the login (especially change the status to online)
       await api.post('/users/login', JSON.stringify({username, password}))
+
+      // get the user's location
+      getGeoLocation(response.data.id)
 
       // Registration successfully worked --> navigate to the route /game in the GameRouter
       history.push({

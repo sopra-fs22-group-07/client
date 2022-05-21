@@ -40,6 +40,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorResponse, setErrorResponse] = useState("");
+  const [location, setLocation] = useState([0, 0]);
 
   const pushUser = async () => {
     try {
@@ -72,7 +73,39 @@ const Login = () => {
     }
   }
 
+  const getGeoLocation = async (userId) => {
+
+    // how to handle if we get user location
+    const successCallback = (position) => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      setLocation([latitude, longitude]);
+    };
+
+    // how to handle if user denies access to location
+    const errorCallback = (error) => {
+      console.log(`Error: ${error.code}`);
+      console.log(`Error Message: ${error.message}`);
+      window.alert("Your location could not be determined. You were set to the default location (0\"N, 0\"E).");
+    };
+
+    // if geolocation is not supported by the browser, do so
+    if (!navigator.geolocation) {
+      window.alert("Geolocation is not supported by your browser. You were set to the default location (0\"N, 0\"E).");
+    } else {
+      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    }
+
+    console.log(location);
+    await api.post(`/users/${userId}/location`, {
+      latitude: location[0],
+      longitude: location[1]
+    });
+
+  }
+
   const doLogin = async () => {
+
     try {
       setErrorResponse("")
       const requestBody = JSON.stringify({username, password});
@@ -83,6 +116,8 @@ const Login = () => {
       // Store the token into the local storage.
       localStorage.setItem('token', response.headers.token);
       localStorage.setItem('id', response.data.id)
+
+      getGeoLocation(response.data.id);
 
       // Login successfully worked --> navigate to the route /game in the GameRouter
       await pushUser();
@@ -95,6 +130,8 @@ const Login = () => {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
       }
     }
+
+
   };
 
   return (
