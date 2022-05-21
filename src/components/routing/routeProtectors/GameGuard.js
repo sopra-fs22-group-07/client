@@ -16,7 +16,6 @@ export const GameGuard = props => {
 
     // if the user is online, render all game routes
     const isUserOnline = isTokenUserOnline();
-    console.log("isUserOnline: " + isUserOnline);
 
     if (isUserOnline) {
         return (
