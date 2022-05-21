@@ -97,8 +97,6 @@ const Login = () => {
       localStorage.setItem('token', response.headers.token);
       localStorage.setItem('id', response.data.id)
 
-      console.log("token: " + response.headers.token);
-
       // Login successfully worked --> navigate to the route /game in the GameRouter
       await pushUser();
 
