@@ -3,7 +3,7 @@ import "styles/views/GameMenu.scss";
 import CardButton from "../ui/CardButton";
 import {api, handleError} from "../../helpers/api";
 import {useHistory} from "react-router-dom";
-import BaseContainer from "../ui/BaseContainer";
+import CardContainer from "../ui/CardContainer";
 import PropTypes from "prop-types";
 import {ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND} from "../../helpers/Time";
 
@@ -122,7 +122,7 @@ const BlackCardSelection = () => {
     // get content
     if(blackCard!==null){
         textContent =
-            <div className={"game description"}>
+            <div className={"game description"} style={{marginTop: "2em", textAlign: "center"}}>
                 <h1> You can choose a new black card in {msToHHMMSS(timeLeft)}</h1>
             </div>
 
@@ -133,7 +133,7 @@ const BlackCardSelection = () => {
 
     }else if(cards){
         textContent=
-            <div className={"game description"}>
+            <div className={"game description"} style={{marginTop: "2em", textAlign: "center"}}>
                 <h1> Choose a Black Card of the Day</h1> </div>
 
         cardContent =
@@ -147,9 +147,9 @@ const BlackCardSelection = () => {
     return (
         <React.Fragment>
             {textContent}
-            <BaseContainer className={"blackCard-container"}>
+            <CardContainer className={"blackCard-container"}>
                 {cardContent}
-            </BaseContainer>
+            </CardContainer>
         </React.Fragment>
     );
 }

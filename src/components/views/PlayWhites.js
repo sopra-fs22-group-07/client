@@ -129,14 +129,13 @@ const PlayWhites = () => {
 
   return (
     <React.Fragment>
-        <div className={"index"}>
+        <div className={"index div"} style={{marginTop: "2em", textAlign: "center"}}>
             <h1>Use a White Card to fill in the Blank</h1>
         </div>
-
         <CardContainer className={"container"}>
-            {blackCardContent}
+                {blackCardContent}
         </CardContainer>
-        <div className={"index"}>
+        <div className={"index"} style={{marginTop: "2em", textAlign: "center"}}>
             <h1>Pick a white card</h1>
         </div>
 
