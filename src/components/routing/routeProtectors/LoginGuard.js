@@ -5,8 +5,10 @@ import { isTokenUserOnline } from "helpers/isTokenUserOnline";
 
 export const LoginGuard = props => {
 
+    const isUserOnline = isTokenUserOnline();
+
     // if the user is not online, then render the login screen and registration screen
-    if (!isTokenUserOnline()) {
+    if (!isUserOnline) {
         return (
         <Sidebar view="login">
             {props.children}

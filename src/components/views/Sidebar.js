@@ -224,7 +224,7 @@ export default function Sidebar({view, children}) {
                     <SidebarItem
                         open={open}
                         text="Registration"
-                        onClick={() => {history.push('/login')}}
+                        onClick={() => {history.push('/registration')}}
                         icon={<PersonAddIcon />}   
                     />
                 </List>

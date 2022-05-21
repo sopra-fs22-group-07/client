@@ -12,7 +12,9 @@ import { isTokenUserOnline } from "helpers/isTokenUserOnline";
  * @Guard
  * @param props
  */
-export const GameGuard = props => {
+
+
+export const GameGuard = (props) => {
 
     // if the user is online, render all game routes
     const isUserOnline = isTokenUserOnline();

@@ -37,7 +37,9 @@ const AppRouter = () => {
           </LoginGuard>
         </Route>
         <Route exact path="/registration">
+          <LoginGuard>
             <Registration/>
+          </LoginGuard>
         </Route>
 
         {/* user guard */}
