@@ -1,7 +1,8 @@
-@import "src/styles/theme";
+@import 'src/styles/theme';
 
-.menu-container {
-  margin-top: 250px;
+.card-container {
+
+  // margin-top: 250px;
   margin-left: auto;
   margin-right: auto;
   color: $textColor;
@@ -9,6 +10,4 @@
   display: flex;
   border: 10px greenyellow;
   justify-content: center;
-
-  // for designing :
 }

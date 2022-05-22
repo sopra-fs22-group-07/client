@@ -5,7 +5,8 @@ import {api} from "../../helpers/api";
 
 
 import 'styles/views/UserPage.scss'
-import BaseContainer from 'components/ui/MenuContainer';
+import CardContainer from 'components/ui/CardContainer';
+import ViewTitle from "../ui/ViewTitle";
 
 /*
 For Rating the White Cards that got played on your Black Cards
@@ -101,20 +102,19 @@ const RateWhites = () => {
 
     return(
         <React.Fragment>
-            <BaseContainer className="rating container">
-                <div className="row">
-                    <div className="col-md-6">
-                        {blackCardContent}
-                    </div>
-                    <div className="col-md-6">
-                        {whiteCardContent}
-                    </div>
-                    <div className="col-md-6">
-                        {acceptButton}
-                        {declineButton}
-                    </div>
-                </div>
-            </BaseContainer>
+            <ViewTitle>
+                Rate white cards
+            </ViewTitle>
+            <CardContainer className={"container"}>
+                {blackCardContent}
+            </CardContainer>
+            <CardContainer className={"container"}>
+                {whiteCardContent}
+            </CardContainer>
+            <div className={"center"}>
+                {acceptButton}
+                {declineButton}
+            </div>
         </React.Fragment>
     )
 }
