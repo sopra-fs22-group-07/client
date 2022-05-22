@@ -4,14 +4,9 @@ const isDefined = (value) => {
     return value !== undefined && value !== null;
 };
 
-async function callAPI(token, id) {
-    const message = {
-        headers: {
-            "Authorization": token,
-        }
-    };
+async function callAPI(id) {
 
-    await api.get(`/users/${id}/loginStatus`, message).then(res => {
+    await api.get(`/users/${id}/loginStatus`).then(res => {
         // check if user is online and matches the token
         if (res.data === "online") {
             return true;
@@ -34,7 +29,7 @@ export function isTokenUserOnline() {
 
     if (isDefined(token) && isDefined(id)) {
         // call api to check if the token and id match a user in the database and check if that user is logged in
-        return callAPI(token, id).valueOf();
+        return callAPI(id).valueOf();
     } else {
         // if no token or id is stored in the local storage, the user is not logged in
         return false;
