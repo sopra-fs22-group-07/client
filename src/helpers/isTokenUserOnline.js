@@ -8,11 +8,7 @@ async function callAPI(id) {
 
     await api.get(`/users/${id}/loginStatus`).then(res => {
         // check if user is online and matches the token
-        if (res.data === "online") {
-            return true;
-        } else {
-            return false;
-        }
+        return res.data === "online"
     }).catch(error => {
         console.error("Details:", error);
         return false;
