@@ -1,0 +1,47 @@
+$profileWidth: 120px;
+
+.profile {
+  cursor: default;
+  display: flex;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.profilePicture {
+
+  width: $profileWidth;
+  margin-left: 75px;
+
+  position: relative;
+  &.username{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  img {
+    max-width: 100%;
+    object-fit: cover;
+  }
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 135px;
+  width: 150px;
+}
+
+.bi-arrow-left-circle {
+  margin-right: 20px;
+  position: relative;
+
+  &:hover{
+    cursor: pointer;
+  }
+}
+

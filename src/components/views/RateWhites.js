@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import CardButton from "../ui/CardButton";
 import {Button} from "../ui/Button";
-import {api} from "../../helpers/api";
+import {api, handleError} from "../../helpers/api";
 
 
 import 'styles/views/UserPage.scss'
-import BaseContainer from 'components/ui/MenuContainer';
+import CardContainer from 'components/ui/CardContainer';
+import ViewTitle from "../ui/ViewTitle";
 
 /*
 For Rating the White Cards that got played on your Black Cards
@@ -27,16 +28,21 @@ const RateWhites = () => {
         async function fetchVote() {
             try { //Getting a "Vote" which is a game (BlackCard with all it's played WhiteCards)
                 const response = await api.get(`users/${userId}/games/vote`);
-
                 setBlackCard(response.data.blackCard)
                 setPlays(response.data.plays)
                 setCurrentPLay(response.data.plays.shift()) //This removes the first item of the array, which is the first play
-                console.log("STUFF IS: ")
-                console.log(response.data.plays)
             }
             catch(error){
-                console.error("Details", error);
-                alert("Problem with getting the Game");
+                // when no active game left or past game with open plays
+                if (error.response.status === 404) {
+                    // message: when no active game left or past game with open plays
+                    setBlackCard(null);
+                    setCurrentPLay(null);
+                    console.error("Error 404: ", error.response.data.message)
+                } else {
+                    console.error("Details:", error);
+                    alert("Invalid Input:\n " + handleError(error));
+                }
             }
 
         }
@@ -103,20 +109,19 @@ const RateWhites = () => {
 
     return(
         <React.Fragment>
-            <BaseContainer className="rating container">
-                <div className="row">
-                    <div className="col-md-6">
-                        {blackCardContent}
-                    </div>
-                    <div className="col-md-6">
-                        {whiteCardContent}
-                    </div>
-                    <div className="col-md-6">
-                        {acceptButton}
-                        {declineButton}
-                    </div>
-                </div>
-            </BaseContainer>
+            <ViewTitle>
+                Rate white cards
+            </ViewTitle>
+            <CardContainer className={"container"}>
+                {blackCardContent}
+            </CardContainer>
+            <CardContainer className={"container"}>
+                {whiteCardContent}
+            </CardContainer>
+            <div className={"center"}>
+                {acceptButton}
+                {declineButton}
+            </div>
         </React.Fragment>
     )
 }

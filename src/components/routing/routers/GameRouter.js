@@ -5,7 +5,8 @@ import BlackCardSelection from "../../views/BlackCardSelection";
 import PlayWhites from "components/views/PlayWhites";
 import Matches from "components/views/Matches";
 import RateWhites from "../../views/RateWhites";
-import Sidebar from "components/views/Sidebar";
+import UserHand from "../../views/UserHand";
+import Chat from "../../views/Chat";
 
 const GameRouter = props => {
   /**
@@ -21,7 +22,7 @@ const GameRouter = props => {
 
       {/* black card selection */}
       <Route exact path={`${props.base}/select/blackCard`}>
-          <BlackCardSelection />
+        <BlackCardSelection />
       </Route>
 
       {/* play white cards */}
@@ -34,9 +35,18 @@ const GameRouter = props => {
         <Matches/>
       </Route>
 
+      {/* hand */}
+      <Route exact path={`${props.base}/hand`}>
+        <UserHand/>
+      </Route>
+
       {/* rate white cards */}
       <Route exact path={`${props.base}/rateWhites`}>
         <RateWhites/>
+      </Route>
+
+      <Route exact path={`${props.base}/chat`}>
+        <Chat/>
       </Route>
 
       {/* fallback option */}
