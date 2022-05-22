@@ -1,18 +1,25 @@
 import {Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
+import Sidebar from "components/views/Sidebar";
+import { isTokenUserOnline } from "helpers/isTokenUserOnline";
 
-/**
- *
- * Another way to export directly your functional component.
- */
 export const LoginGuard = props => {
-  if (!localStorage.getItem("token")) {
-    return props.children;
-  }
-  // if user is already logged in, redirects to the main /app
-  return <Redirect to="/game"/>;
+
+    const isUserOnline = isTokenUserOnline();
+
+    // if the user is not online, then render the login screen and registration screen
+    if (!isUserOnline) {
+        return (
+        <Sidebar view="login">
+            {props.children}
+        </Sidebar>
+        );
+    } else {
+        // if user is already logged in, redirects to the main /app
+        return <Redirect to="/game"/>;
+    }
 };
 
 LoginGuard.propTypes = {
-  children: PropTypes.node
+    children: PropTypes.node
 }

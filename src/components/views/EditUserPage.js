@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import Header from "./Header";
 import {api, handleError} from 'helpers/api';
 import BaseContainer from "../ui/BaseContainer";
 import 'styles/views/UserPage.scss'
@@ -92,12 +91,12 @@ const EditUserPage = () =>{
                      value={username.trim()}
                      onChange={un => setUsername(un)}
                  />
-                 <div className={"errorMessage register"}>
+                 <div className={"errorMessage"}>
                      {err}
                  </div>
                  <div>
-                     <div className="login container-title">
-                         Current Gender: {user.gender}
+                     <div className="userPage td-gender">
+                         Current Gender: {user.gender.toLowerCase()}
                      </div>
                      <GenderPicker
                          onChange={(genders)=>setGender(genders.value)}
@@ -177,7 +176,6 @@ const EditUserPage = () =>{
 
     return(
         <React.Fragment>
-            <Header view="userPage"/>
             <BaseContainer>
                 <div className="login container">
                     {editProfile}

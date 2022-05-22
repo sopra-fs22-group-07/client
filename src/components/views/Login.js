@@ -5,7 +5,6 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/LoginRegistration.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import Header from "./Header";
 
 /*
 It is possible to add multiple components inside a single file,
@@ -40,8 +39,7 @@ const Login = () => {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  let errorResponse = null;
+  const [errorResponse, setErrorResponse] = useState("");
 
   const pushUser = async () => {
     try {
@@ -54,13 +52,7 @@ const Login = () => {
       });
     } catch (error) {
       if(error.response.status === 404){
-        history.push({
-          pathname: `/game/select/blackCard`,
-          state: {
-            id: localStorage.getItem('id'),
-            token: localStorage.getItem('token')
-          }
-        });
+        history.push(`/game/select/blackCard`);
       }
       else{
         console.error("Details:", error);
@@ -68,15 +60,25 @@ const Login = () => {
     }
   };
 
+  // TODO: this is a feature for development only, remove on final build
+  // api call to add demo users
+  const addDemoUsers = async () => {
+    try {
+      await api.post('/users/demo')
+      window.alert("Demo users added.")
+    }
+    catch (error) {
+      window.alert("Error: " + error.response.data.message);
+    }
+  }
+
   const doLogin = async () => {
     try {
-      localStorage.removeItem('errorMessage');
+      setErrorResponse("")
       const requestBody = JSON.stringify({username, password});
       const response = await api.post('/users/login', requestBody);
 
       // Get the returned user and update a new object.
-      // const user = new User(response.data);
-
 
       // Store the token into the local storage.
       localStorage.setItem('token', response.headers.token);
@@ -88,10 +90,7 @@ const Login = () => {
     } catch (error) {
       const response = error.response;
       if (response && `${response.status}`.toString() === "401") {
-        errorResponse = "username or password incorrect.";
-        console.log(errorResponse);
-        localStorage.setItem('errorMessage', errorResponse);
-        window.location.assign(window.location);
+        setErrorResponse("username or password incorrect.");
       } else {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
       }
@@ -100,7 +99,6 @@ const Login = () => {
 
   return (
       <React.Fragment>
-        <Header view="login"/>
       <BaseContainer>
         <div className="login container">
           <div className="login form">
@@ -117,7 +115,7 @@ const Login = () => {
                 onChange={pw => setPassword(pw)}
             />
             <div className= "errorMessage">
-              {localStorage.getItem("errorMessage")}
+              {errorResponse}
             </div>
             <div className="login fixed-button-container">
               <Button
@@ -129,6 +127,39 @@ const Login = () => {
               </Button>
             </div>
           </div>
+
+          {/* TODO: this is a feature for development only, remove on final build */}
+          <div style={{color: "black"}}>
+            <br/>
+            <br/>
+            {/* TODO: this is a feature for development only, remove on final build */}
+            <div className="login button-container">
+              <Button
+                  className="invert"
+                  width="100%"
+                  onClick={() => addDemoUsers()}
+              >
+                Add Demo Users
+              </Button>
+            </div>
+            <div>
+              <br/>
+              There are three demo users with credentials:
+              <ul>
+                <li>Username: demoUser1</li>
+                <li>Password: demoUser1</li>
+              </ul>
+              <ul>
+                <li>Username: demoUser2</li>
+                <li>Password: demoUser2</li>
+              </ul>
+              <ul>
+                <li>Username: demoUser3</li>
+                <li>Password: demoUser3</li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </BaseContainer>
       </React.Fragment>

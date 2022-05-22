@@ -15,7 +15,7 @@
     width: 60%;
     max-width: 25em;
     height: 40em;
-    font-size: 18px;
+    font-size: $fontSizeSmall;
     font-weight: 300;
     padding-left: 37px;
     padding-right: 37px;
@@ -59,8 +59,10 @@
 
   &.title{
     position: relative;
-    font-size: 48px;
+    font-size: $fontSizeLarge;
     top:-20px;
+    margin-bottom: -5px;
+    color: $textColor;
   }
 
   &.date-picker-container{
@@ -70,8 +72,6 @@
 
 .errorMessage{
   color: crimson;
-  margin-top: -10px;
-  &.register {
-    margin-bottom: 20px;
-  }
+  margin-top: -20px;
+  margin-bottom: 20px;
 }

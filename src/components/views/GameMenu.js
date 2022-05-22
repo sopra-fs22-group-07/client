@@ -1,17 +1,13 @@
 import React from 'react';
-
 import "styles/views/GameMenu.scss";
 import CardButton from "../ui/CardButton";
-import Header from "./Header";
 import MenuContainer from "../ui/MenuContainer";
 import {handleError} from "../../helpers/api";
 import {useHistory} from "react-router-dom";
 
-
 const GameMenu = () => {
-  // use react-router-dom's hook to access the history
-
-  const history = useHistory();
+    // use react-router-dom's hook to access the history
+    const history = useHistory();
 
     function pushURL(url){
         try {
@@ -37,35 +33,36 @@ const GameMenu = () => {
         pushURL(`/game/matches`)
     }
 
-    return (
-      <React.Fragment>
-          <Header view="game"/>
+    function goToHand() {
+        pushURL(`/game/hand`)
+    }
 
-          <MenuContainer className={"menu container"}>
-              <CardButton className={"card whiteCard"}
+    return (
+        <React.Fragment>
+            <MenuContainer className={"menu container"}>
+                <CardButton className={"card whiteCard"}
                           onClick={() => goToPlayWhites()}
                           children={"Play White Cards"}
-              />
-
-              <CardButton className={"card whiteCard"}
+                />
+                <CardButton className={"card whiteCard"}
                           onClick={() => goToRateWhites()}
                           children={"Rate Cards"}
-              />
-
-              <CardButton className={"card whiteCard"}
+                />
+                <CardButton className={"card whiteCard"}
                           onClick={() => goToRules()}
                           children={"Rules"}
-              />
-
-              <CardButton className={"card whiteCard"}
+                />
+                <CardButton className={"card whiteCard"}
                           onClick={() => goToMatches()}
                           children={"Go to Matches"}
-              />
-
-
-          </MenuContainer>
-      </React.Fragment>
-  );
+                />
+                <CardButton className={"card whiteCard"}
+                            onClick={() => goToHand()}
+                            children={"See Hand"}
+                />
+            </MenuContainer>
+        </React.Fragment>
+    );
 }
 
 export default GameMenu;
