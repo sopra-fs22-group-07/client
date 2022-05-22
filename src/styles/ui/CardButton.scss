@@ -1,21 +1,23 @@
 @import 'src/styles/theme';
 
 .card {
+
+  .scrollable-div {
+    overflow-y: auto;
+    height: 200px;
+    word-break: break-word;
+    padding-bottom: 0.2em;
+    padding-top: 0.2em;
+    padding-right: 0.3em;
+    scrollbar-width: thin;
+  }
+
   &:hover {
     transform: translateY(-1.5em);
   }
   &.whiteCard {
     background-color: $WHITE_CARD_BACKGROUND_COLOR;
     color: $WHITE_CARD_TEXT_COLOR;
-
-    .scrollable-div {
-      overflow-y: auto;
-      height: 240px;
-      word-break: break-word;
-      scrollbar-width: thin;
-      padding-bottom: 0.7em;
-      padding-right: 0.3em;
-    }
 
     &:disabled {
       cursor: default;
@@ -35,15 +37,7 @@
   &.blackCard {
     background-color: $BLACK_CARD_BACKGROUND_COLOR;
     color: $BLACK_CARD_TEXT_COLOR;
-    .scrollable-div {
-      overflow-y: auto;
-      height: 200px;
-      word-break: break-word;
-      padding-bottom: 0.2em;
-      padding-top: 0.2em;
-      padding-right: 0.3em;
-      scrollbar-width: thin;
-    }
+
     &:disabled {
       cursor: default;
       &.grey {
