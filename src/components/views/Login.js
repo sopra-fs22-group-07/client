@@ -84,7 +84,6 @@ const Login = () => {
 
     // how to handle if user denies access to location
     const errorCallback = (error) => {
-      console.log(`Error: ${error.code}`);
       console.log(`Error Message: ${error.message}`);
       window.alert("Your location could not be determined. You were set to the default location (0\"N, 0\"E).");
     };
