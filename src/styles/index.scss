@@ -28,12 +28,23 @@ button {
 }
 
 h1 {
-  margin: 0.5em 0 0 1em;
+  //margin: 0.5em 0 0 1em;
   font-size: 24px;
 }
 
 div {
   align-content: center;
+}
+
+div.center {
+  align-content: center;
+  text-align: center;
+}
+
+div.centerTop {
+  align-content: center;
+  text-align: center;
+  margin-top: 2em;
 }
 
 * {

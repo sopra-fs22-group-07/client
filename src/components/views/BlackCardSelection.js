@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import "styles/views/GameMenu.scss";
 import CardButton from "../ui/CardButton";
+import ViewTitle from "components/ui/ViewTitle";
 import {api, handleError} from "../../helpers/api";
 import {useHistory} from "react-router-dom";
 import CardContainer from "../ui/CardContainer";
@@ -122,10 +123,9 @@ const BlackCardSelection = () => {
     // get content
     if(blackCard!==null){
         textContent =
-            <div className={"game description"} style={{marginTop: "2em", textAlign: "center"}}>
-                <h1> You can choose a new black card in {msToHHMMSS(timeLeft)}</h1>
-            </div>
-
+            <ViewTitle>
+                You can choose a new black card in {msToHHMMSS(timeLeft)}
+            </ViewTitle>
         cardContent=
             <CardButton className={"card blackCard"} disabled={true}>
                 {blackCard.text}
@@ -133,11 +133,11 @@ const BlackCardSelection = () => {
 
     }else if(cards){
         textContent=
-            <div className={"game description"} style={{marginTop: "2em", textAlign: "center"}}>
-                <h1> Choose a Black Card of the Day</h1> </div>
-
+            <ViewTitle>
+                Choose a Black Card of the Day
+            </ViewTitle>
         cardContent =
-            <ul className={"game card-list"}>
+            <ul>
                 {cards.map(card => (
                     <BlackCard card={card} key={card.id}/>
                 ))}

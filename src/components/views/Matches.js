@@ -91,7 +91,7 @@ const Matches = () => {
     // for styling: animationDelay={index + 1}
     return (
         <React.Fragment>
-            <div className="containerMatchList" style={{marginTop: "2em"}}>
+            <div className="containerMatchList">
                 <div className="matchListHeading">
                     <h2>Matches</h2>
                 </div>

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import CardContainer from "components/ui/CardContainer";
+import ViewTitle from "components/ui/ViewTitle";
 import "styles/ui/CardButton.scss";
 import "styles/ui/CardContainer.scss";
 import "styles/views/UserHand.scss";
@@ -129,16 +130,15 @@ const PlayWhites = () => {
 
   return (
     <React.Fragment>
-        <div className={"index div"} style={{marginTop: "2em", textAlign: "center"}}>
-            <h1>Use a White Card to fill in the Blank</h1>
-        </div>
+        <ViewTitle>
+            Use a White Card to fill in the Blank
+        </ViewTitle>
         <CardContainer className={"container"}>
                 {blackCardContent}
         </CardContainer>
-        <div className={"index"} style={{marginTop: "2em", textAlign: "center"}}>
-            <h1>Pick a white card</h1>
-        </div>
-
+        <ViewTitle>
+            Pick a white card
+        </ViewTitle>
         <CardContainer className={"container"}>
             {cardsContent}
         </CardContainer>
