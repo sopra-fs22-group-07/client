@@ -1,6 +1,7 @@
 import {Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
 import Sidebar from "components/views/Sidebar";
+import { isTokenUserOnline } from "helpers/isTokenUserOnline";
 
 /**
  * routeProtectors interfaces can tell the router whether or not it should allow navigation to a requested route.
@@ -11,17 +12,27 @@ import Sidebar from "components/views/Sidebar";
  * @Guard
  * @param props
  */
-export const GameGuard = props => {
-  if (localStorage.getItem("token")) {
-    return (
-      <Sidebar view="game">
-        {props.children}
-      </Sidebar>
-      );
-  }
-  return <Redirect to="/login"/>;
+
+
+export const GameGuard = (props) => {
+
+    // if the user is online, render all game routes
+    const isUserOnline = isTokenUserOnline();
+
+    if (isUserOnline) {
+        return (
+        <Sidebar view="game">
+            {props.children}
+        </Sidebar>
+        );
+    } else {
+        // else, redirect to the login screen and remove the token and id from the local storage
+        localStorage.removeItem("token");
+        localStorage.removeItem("id");
+        return <Redirect to="/login"/>;
+    }
 };
 
 GameGuard.propTypes = {
-  children: PropTypes.node
+    children: PropTypes.node
 };
