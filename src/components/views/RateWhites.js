@@ -67,7 +67,7 @@ const RateWhites = () => {
     //If a white cards is found
     if(currentPlay){
         whiteCardContent = (
-            <CardButton disabled={true} className={"card whiteCard"}> {currentPlay.card.text}</CardButton>
+            <CardButton className={"card whiteCard simple"}> {currentPlay.card.text}</CardButton>
         )
     }
 
