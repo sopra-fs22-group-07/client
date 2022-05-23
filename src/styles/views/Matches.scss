@@ -149,6 +149,10 @@ transform: scale(1);
 .isOnline.ONLINE {
   background-color: green;
 }
+.isOnline.INACTIVE {
+  width: 0;
+  height: 0;
+}
 .avatarImg {
   overflow: hidden;
   border-radius: 50%;

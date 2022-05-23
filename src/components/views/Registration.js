@@ -46,6 +46,7 @@ const Registration = () => {
   eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18)
   let hundredYearsAgo = new Date()
   hundredYearsAgo.setFullYear(hundredYearsAgo.getFullYear() - 100)
+  hundredYearsAgo.setHours(hundredYearsAgo.getHours() + 24)
   const [birthday, setBirthday] = useState(eighteenYearsAgo);
   const [location, setLocation] = useState([0, 0]);
 
@@ -163,7 +164,10 @@ const Registration = () => {
               value={password}
               onChange={pw => setPassword(pw)}
           />
-          <div>
+          <div className={"login field"}>
+            <label className="login label">
+              Birthday
+            </label>
             <DatePicker className="login date-picker-container"
                 value={birthday}
                 onChange={(date)=>setBirthday(date)}
