@@ -13,6 +13,13 @@ const MatchListItems = props => {
     const userId = Number.parseInt(localStorage.getItem("id"))
     const [showUserProfile, setShowUserProfile] = useState(false)
 
+    // see https://avatars.dicebear.com/
+    const generateAvatar = (sprites, seed) => `https://avatars.dicebear.com/api/${sprites}/${seed}.svg`
+    // the faces:
+    // const avatar = generateAvatar("adventurer-neutral", props.otherUserId)
+    // the GitHub style avatar:
+    const avatar = generateAvatar("identicon", props.otherUserId)
+
     // truncate chat message to max length
     let chatContent = props.content
     const maxMsgLength = 70
@@ -40,7 +47,7 @@ const MatchListItems = props => {
     >
         <Avatar
             image={
-                props.image ? props.image : "https://via.placeholder.com/80"
+                props.image ? props.image : avatar
             }
             isOnline={props.status}
             onClick={() => setShowUserProfile(true)}
@@ -74,7 +81,7 @@ const MatchListItems = props => {
                              props.active ? props.active : "" // what does this do?
                          } `} >
                 <UserProfile
-                    image = {props.image ? props.image : "https://via.placeholder.com/120"}
+                    image = {props.image ? props.image : avatar}
                     otherUserId = {props.otherUserId}
                     name = {props.name}
                     onGoBack = {() => setShowUserProfile(false)}

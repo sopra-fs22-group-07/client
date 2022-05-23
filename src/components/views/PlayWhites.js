@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import BaseContainer from "components/ui/BaseContainer";
+import CardContainer from "components/ui/CardContainer";
+import ViewTitle from "components/ui/ViewTitle";
 import "styles/ui/CardButton.scss";
+import "styles/ui/CardContainer.scss";
+import "styles/views/UserHand.scss";
 import CardButton from "../ui/CardButton";
 import {api, handleError} from "../../helpers/api";
 import PropTypes from "prop-types";
@@ -102,7 +105,7 @@ const PlayWhites = () => {
         if(cards) {
             const cardsOnHand = cards.slice(0, cardsPerHand);
             cardsContent =
-                <ul className={"game card-list"}>
+                <ul >
                     {cardsOnHand.map(card => (
                         <WhiteCard card={card} key={card.id}/>
                     ))}
@@ -118,29 +121,27 @@ const PlayWhites = () => {
         else(drawText="No more Cards left to draw today")
     }
 
-    let drawPile = <BaseContainer className="menu container">
+    let drawPile = <CardContainer className="menu container">
         <CardButton className="card whiteCard"
                     disabled={true}>
             {drawText}
         </CardButton>
-    </BaseContainer>
+    </CardContainer>
 
   return (
     <React.Fragment>
-        <div className={"game description"}>
-            <h1>Use a White Card to fill in the Blank</h1>
-        </div>
-
-        <BaseContainer className={"menu container"}>
-            {blackCardContent}
-        </BaseContainer>
-        <div className={"game description"}>
-            <h1>Pick a white card</h1>
-        </div>
-
-        <BaseContainer className={"menu container"}>
+        <ViewTitle>
+            Use a White Card to fill in the Blank
+        </ViewTitle>
+        <CardContainer className={"container"}>
+                {blackCardContent}
+        </CardContainer>
+        <ViewTitle>
+            Pick a white card
+        </ViewTitle>
+        <CardContainer className={"container"}>
             {cardsContent}
-        </BaseContainer>
+        </CardContainer>
         {drawPile}
     </React.Fragment>
   );
