@@ -96,7 +96,7 @@ const Login = () => {
     }
 
     console.log(location);
-    await api.post(`/users/${userId}/location`, {
+    await api.put(`/users/${userId}/location`, {
       latitude: location[0],
       longitude: location[1]
     });
