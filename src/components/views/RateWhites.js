@@ -2,6 +2,9 @@ import React, {useEffect, useState} from 'react';
 import CardButton from "../ui/CardButton";
 import {Button} from "../ui/Button";
 import {api, handleError} from "../../helpers/api";
+import IconButton from '@mui/material/IconButton';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 
 
 import 'styles/views/UserPage.scss'
@@ -119,8 +122,22 @@ const RateWhites = () => {
                 {whiteCardContent}
             </CardContainer>
             <div className={"center"}>
-                {acceptButton}
-                {declineButton}
+                <IconButton
+                    disabled={currentPlay==null}
+                    onClick={() => acceptCard()}
+                >
+                    <ThumbUpIcon
+                        sx={{fontSize: 45}}
+                    />
+                </IconButton>
+                <IconButton
+                    disabled={currentPlay==null}
+                    onClick={() => declineCard()}
+                >
+                    <ThumbDownIcon
+                        sx={{fontSize: 45}}
+                    />
+                </IconButton>
             </div>
         </React.Fragment>
     )
