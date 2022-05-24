@@ -9,12 +9,13 @@ const Rules = () =>{
 
     let information  = (
         <table className="rules table">
-            <div className="rules smallTitle"> About </div>
+            <div className="rules largeTitle"> About: </div>
             <tr className="rules info-container">
                 <td> Date against humanity helps you meet people with the same sense of humour and allows you to network with others in a fun way.
                     The basic principle is based on the card game "Cards Against Humanity", where you play White Cards to fill the gap in the Black Cards and the funniest player wins.<br/>
                 </td>
             </tr>
+            <div className="rules largeTitle"> Rules: </div>
             <div className="rules smallTitle"> Black Cards </div>
             <tr className="rules info-container">
                 <td>Every day you get to choose one Black Card which has a Gap which will be filled by other players by playing White Cards. Other players can see you Black Card for 24 hours after you choose it. </td>

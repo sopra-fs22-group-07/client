@@ -33,15 +33,25 @@
      }
 
     &.info-container{
-         color: $background;
-         font-size: $fontSizeSmall;
+      color: $background;
+      font-size: $fontSizeSmall;
+      margin-bottom: 50px;
      }
 
     &.smallTitle{
-         color: $background;
-         position: relative;
-         font-size: $fontSizeMedium;
+       font-weight: bold;
+       color: $background;
+       position: relative;
+       font-size: $fontSizeMediumSmall;
+      margin-bottom: -10px;
      }
+
+  &.largeTitle{
+    font-weight: bold;
+    color: $background;
+    position: relative;
+    font-size: $fontSizeLarge;
+  }
 
     &.moving-button-container {
          position: relative;
@@ -66,8 +76,7 @@
 
 
     &.td{
-         padding-left: 20px;
-         padding-bottom:60px;
+         padding-left: 50px;
      }
 
 
