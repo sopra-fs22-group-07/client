@@ -67,6 +67,7 @@
   opacity: 1;
   color: $background;
   transition: all 0.3s ease;
+  position: relative;
 
   &.container {
     background: $accent;
@@ -78,11 +79,10 @@
     flex-direction: row;
     align-items: center;
   }
+}
 
-  &.icon {
-    right: 15px;
-    bottom: 0px;
-    position: absolute;
-    font-size: 45px;
-  }
+.card-icon {
+  right: 15px;
+  bottom: 0;
+  position: absolute;
 }
