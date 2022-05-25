@@ -95,7 +95,7 @@ const EditUserPage = () =>{
                      {err}
                  </div>
                  <div>
-                     <div className="userPage td-gender">
+                     <div className="userPage gender">
                          Current Gender: {user.gender.toLowerCase()}
                      </div>
                      <GenderPicker
