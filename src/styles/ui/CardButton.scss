@@ -15,6 +15,7 @@
   &:hover {
     transform: translateY(-1.5em);
   }
+
   &.whiteCard {
     background-color: $WHITE_CARD_BACKGROUND_COLOR;
     color: $WHITE_CARD_TEXT_COLOR;
@@ -66,6 +67,7 @@
   opacity: 1;
   color: $background;
   transition: all 0.3s ease;
+  position: relative;
 
   &.container {
     background: $accent;
@@ -77,4 +79,10 @@
     flex-direction: row;
     align-items: center;
   }
+}
+
+.card-icon {
+  right: 15px;
+  bottom: 0;
+  position: absolute;
 }
