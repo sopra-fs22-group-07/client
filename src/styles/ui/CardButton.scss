@@ -15,6 +15,7 @@
   &:hover {
     transform: translateY(-1.5em);
   }
+
   &.whiteCard {
     background-color: $WHITE_CARD_BACKGROUND_COLOR;
     color: $WHITE_CARD_TEXT_COLOR;
@@ -76,5 +77,12 @@
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
+  }
+
+  &.icon {
+    right: 15px;
+    bottom: 0px;
+    position: absolute;
+    font-size: 45px;
   }
 }

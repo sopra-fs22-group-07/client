@@ -10,7 +10,6 @@ import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
 import GavelIcon from '@mui/icons-material/Gavel';
 import ArticleIcon from '@mui/icons-material/Article';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
-import LogoutIcon from '@mui/icons-material/Logout';
 import PanToolIcon from "@mui/icons-material/PanTool";
 
 const GameMenu = () => {
