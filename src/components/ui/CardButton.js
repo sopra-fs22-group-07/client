@@ -10,7 +10,6 @@ const CardButton = props => (
             {props.children}
         </div>
       <div className={"card-icon"}>
-        {props.icon ? <br/> : null}
         {props.icon ? <Grid sx={{fontSize: 45}}>{props.icon}</Grid> : null}
       </div>
     </button>
