@@ -1,7 +1,7 @@
 import React from "react";
 import "styles/views/UserProfile.scss"
 import "styles/ui/Button.scss"
-import {Button} from "../ui/Button";
+import {Button} from "./Button";
 import {api, handleError} from "../../helpers/api";
 
 
@@ -12,6 +12,7 @@ export const UserProfile = props => {
     const userName = props.name
     const goBack = props.onGoBack
     const onDelete = props.onDelete
+    const view = props.view
     console.log(userName)
 
     async function unmatch() {
@@ -47,12 +48,12 @@ export const UserProfile = props => {
             <img src={img} alt="#" />
         </div>
         <div className={"button-container"} >
-            <Button className = "invert unmatch"
+            <Button className = {`invert unmatch ${view}`}
                     onClick={() => unmatch()}
             >
                 Unmatch
             </Button>
-            <Button className = "invert block"
+            <Button className = {`invert block ${view}`}
                     onClick={() => block()}
             >
                 Block

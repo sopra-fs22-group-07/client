@@ -3,7 +3,7 @@ import Avatar from "./Avatar";
 import "styles/views/Matches.scss";
 import "styles/views/UserProfile.scss"
 import {useHistory} from "react-router-dom";
-import {UserProfile} from "../views/UserProfile";
+import {UserProfile} from "./UserProfile";
 
 export const generateAvatar = (sprites, seed) => `https://avatars.dicebear.com/api/${sprites}/${seed}.svg`
 
@@ -86,6 +86,7 @@ const MatchListItems = props => {
                     name = {props.name}
                     onGoBack = {() => setShowUserProfile(false)}
                     onDelete = {onDelete}
+                    view = "matches"
                 />
             </div>
 

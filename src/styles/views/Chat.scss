@@ -36,6 +36,7 @@ html {
   //justify-content: space-between;
   padding: 10px 16px;
   height: $headerHeight;
+  max-height: $headerHeight;
   background: $headerColor;
   color: #4b4b4b;
 }
@@ -149,4 +150,10 @@ html {
 }
 .submitButton:disabled {
   background: rgba(0, 42, 203, 0.52);
+}
+
+.avatar {
+  :hover {
+    cursor: pointer;
+  }
 }

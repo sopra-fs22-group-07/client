@@ -34,12 +34,25 @@
   }
 
   &.unmatch {
-    margin-top: 20px;
-    margin-bottom: 10px;
+    &.matches{
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    &.chat {
+      min-width: 150px;
+      width: 40%;
+      margin: 0 10px;
+    }
   }
   &.block {
-    margin-top: 10px;
-    margin-bottom: 20px;
+    &.matches{
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+    &.chat {
+      min-width: 150px;
+      width: 40%;
+      margin: 0 10px;
+    }
   }
-
 }

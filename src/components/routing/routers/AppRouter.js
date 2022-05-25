@@ -4,7 +4,6 @@ import GameRouter from "components/routing/routers/GameRouter";
 import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
 import Login from "components/views/Login";
 import Registration from "../../views/Registration";
-import {UserGuard} from "../routeProtectors/UserGuard";
 import UserPage from "../../views/UserPage";
 import EditUserPage from "../../views/EditUserPage"
 import EditUserPreferencePage from "../../views/EditUserPreferencePage";
@@ -24,9 +23,7 @@ const AppRouter = () => {
 
         {/* game router: this handles everything in game. URLs are prepended with "/game" */}
         <Route path="/game">
-          <GameGuard>
             <GameRouter base="/game"/>
-          </GameGuard>
         </Route>
 
         {/* login and registration */}
@@ -43,19 +40,19 @@ const AppRouter = () => {
 
         {/* user guard */}
         <Route exact path={"/users/:id"}>
-          <UserGuard>
+          <GameGuard>
             <UserPage/>
-          </UserGuard>
+          </GameGuard>
         </Route>
         <Route exact path={'/users/:id/edit/userinfo'}>
-          <UserGuard>
+          <GameGuard>
             <EditUserPage/>
-          </UserGuard>
+          </GameGuard>
         </Route>
         <Route exact path={'/users/:id/edit/preferences'}>
-          <UserGuard>
+          <GameGuard>
             <EditUserPreferencePage/>
-          </UserGuard>
+          </GameGuard>
         </Route>
 
         {/* default/fall-back */}

@@ -1,6 +1,6 @@
 import {Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
-import Sidebar from "components/views/Sidebar";
+import Sidebar from "components/ui/Sidebar";
 import { isTokenUserOnline } from "helpers/isTokenUserOnline";
 
 export const LoginGuard = props => {
