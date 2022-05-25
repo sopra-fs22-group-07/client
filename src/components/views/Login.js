@@ -6,6 +6,37 @@ import 'styles/views/LoginRegistration.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 
+async function updateCoordinates(userId, latitude, longitude) {
+  console.log("Sending " + latitude + ", " + longitude)
+  await api.put(`/users/${userId}/location`, {
+    latitude: latitude,
+    longitude: longitude
+  });
+}
+
+export const getGeoLocation = async (userId) => {
+
+  // how to handle if we get user location
+  const successCallback = async (position) => {
+    await updateCoordinates(userId, position.coords.latitude, position.coords.longitude)
+  };
+
+  // how to handle if user denies access to location
+  const errorCallback = async (error) => {
+    console.log(`Error Message: ${error.message}`);
+    window.alert("Your location could not be determined. You were set to the default location (0\"N, 0\"E).");
+    await updateCoordinates(userId, 0, 0)
+  };
+
+  // if geolocation is not supported by the browser, do so
+  if (!navigator.geolocation) {
+    window.alert("Geolocation is not supported by your browser. You were set to the default location (0\"N, 0\"E).");
+    await updateCoordinates(userId, 0, 0)
+  } else {
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  }
+}
+
 /*
 It is possible to add multiple components inside a single file,
 however be sure not to clutter your files with an endless amount!
@@ -40,7 +71,6 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorResponse, setErrorResponse] = useState("");
-  const [location, setLocation] = useState([0, 0]);
 
   const pushUser = async () => {
     try {
@@ -71,36 +101,6 @@ const Login = () => {
     catch (error) {
       window.alert("Error: " + error.response.data.message);
     }
-  }
-
-  const getGeoLocation = async (userId) => {
-
-    // how to handle if we get user location
-    const successCallback = (position) => {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      setLocation([latitude, longitude]);
-    };
-
-    // how to handle if user denies access to location
-    const errorCallback = (error) => {
-      console.log(`Error Message: ${error.message}`);
-      window.alert("Your location could not be determined. You were set to the default location (0\"N, 0\"E).");
-    };
-
-    // if geolocation is not supported by the browser, do so
-    if (!navigator.geolocation) {
-      window.alert("Geolocation is not supported by your browser. You were set to the default location (0\"N, 0\"E).");
-    } else {
-      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    }
-
-    console.log(location);
-    await api.put(`/users/${userId}/location`, {
-      latitude: location[0],
-      longitude: location[1]
-    });
-
   }
 
   const doLogin = async () => {
