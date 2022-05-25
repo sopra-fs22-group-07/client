@@ -89,7 +89,7 @@ const Rules = () =>{
 
                 <td> Whenever someone has played a White Card on your Black Card you can {rateLink} them by giving either a Thumbs up or Thumbs down. <br/>
                     When two players give each others White Cards a Thumbs Up they get "matched". Matched Users can chat with each other. <br/>
-                    If you don't like the other user or are unsure you can either block them or unmatch them</td>
+                    If you don't like the other user you can either block them or unmatch them</td>
 
             </tr>
             <div className="rules smallTitle"> Preferences </div>
