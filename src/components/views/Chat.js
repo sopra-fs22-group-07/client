@@ -6,6 +6,8 @@ import { css } from "@emotion/react";
 import {MoonLoader} from "react-spinners";
 import Avatar from "../ui/Avatar";
 import {generateAvatar} from "../ui/MatchListItems";
+import {ONE_SECOND} from "../../helpers/Time";
+import {UserProfile} from "../ui/UserProfile";
 
 const Chat = () => {
     // get infos passed by ChatOverview
@@ -14,6 +16,9 @@ const Chat = () => {
     const chatId = location.state.chatId
     const otherUserName = location.state.otherUserName
     const history = useHistory()
+    const [isOnline, setIsOnline] = useState("INACTIVE")
+    const [showUserProfile, setShowUserProfile] = useState(false)
+
 
     // we need id as number, is stored as string.
     const userId = Number.parseInt(localStorage.getItem("id"))
@@ -145,15 +150,12 @@ const Chat = () => {
                         doErrorHandling(error)
                     })
 
+                setIsOnline(response.headers.status === undefined ? "INACTIVE" : response.headers.status)
+
                 const receivedMessages = mapMessages(response.data)
                 // read messages
                 if (receivedMessages.length > 0) {
                     await readMessages();
-                }
-
-
-
-                if (receivedMessages.length){
                     console.debug("successfully fetched " + receivedMessages.length + " message" + (receivedMessages.length === 1 ? "" : "s"))
                     // append new messages at the bottom
                     setMessages((prev => [...prev, ...receivedMessages]))
@@ -165,7 +167,7 @@ const Chat = () => {
                 if (shouldScroll) {
                     executeScroll()
                 }
-            }, 1000)
+            }, ONE_SECOND)
 
             return () => clearInterval(timer)
         }, [])
@@ -225,18 +227,37 @@ const Chat = () => {
                 }
             }
         }
+        const img = generateAvatar("identicon", otherUserId)
+        let header =
+            <header className={"header sticky"} >
+                <Avatar
+                    image={
+                        img
+                    }
+                    isOnline={isOnline}
+                    onClick={() => setShowUserProfile(true)}
+                />
+                {otherUserName}
+            </header>
+
+        if(showUserProfile) {
+            header =
+                <header className={"header"} >
+                    <UserProfile
+                        image = {img}
+                        otherUserId = {otherUserId}
+                        name = {otherUserName}
+                        onGoBack = {() => setShowUserProfile(false)}
+                        onDelete = {() => history.push("/game/matches")}
+                        view = "chat"
+                    />
+                </header>
+        }
+
 
         return (
             <main className={"page"}>
-                <header className={"header sticky"} >
-                    <Avatar
-                        image={
-                            generateAvatar("identicon", otherUserId)
-                        }
-                        isOnline={"INACTIVE"}
-                    />
-                    {otherUserName}
-                     </header>
+                {header}
                 <MoonLoader  loading={loading} css={override} size={20}/>
                 <div className={"messageContainer"} id={"messages"}
                      onScroll={handleScroll}
@@ -248,7 +269,10 @@ const Chat = () => {
                       onSubmit={sendMessage}>
                     <input className={"inputField"}
                            value={formValue}
-                           onChange={(e) => setFormValue(e.target.value)}
+                           onChange={(e) => {
+                               setFormValue(e.target.value)
+                               setShowUserProfile(false)
+                           }}
                            placeholder={"Enter your message..."}
                     />
                     <button className={"submitButton"}
