@@ -42,7 +42,7 @@ however be sure not to clutter your files with an endless amount!
 As a rule of thumb, use one file per component and only add small,
 specific components that belong to the main one in the same file.
  */
-const FormField = props => {
+export const FormField = props => {
   return (
       <div className="login field">
         <label className="login label">
@@ -52,6 +52,7 @@ const FormField = props => {
             className="login input"
             placeholder="enter here.."
             value={props.value}
+            autoComplete={props.autoComplete}
             onChange={e => props.onChange(e.target.value)}
             type={props.type}
         />
@@ -138,29 +139,34 @@ const Login = () => {
         <div className="login container">
           <div className="login form">
             <h2 className = "login title"> Login </h2>
-            <FormField
-                label="Username"
-                value={username}
-                onChange={un => setUsername(un)}
-            />
-            <FormField
-                label="Password"
-                type="password"
-                value={password}
-                onChange={pw => setPassword(pw)}
-            />
-            <div className= "errorMessage">
-              {errorResponse}
-            </div>
-            <div className="login fixed-button-container">
-              <Button
-                  disabled={!username || !password}
-                  width="100%"
-                  onClick={() => doLogin()}
-              >
-                Login
-              </Button>
-            </div>
+            <form onSubmit={() => doLogin()}>
+              <FormField
+                  label="Username"
+                  value={username}
+                  autoComplete = "username"
+                  onChange={un => setUsername(un)}
+              />
+              <FormField
+                  label="Password"
+                  type="password"
+                  autoComplete={"current-password"}
+                  value={password}
+                  onChange={pw => setPassword(pw)}
+              />
+              <div className= "errorMessage">
+                {errorResponse}
+              </div>
+              <div className="login fixed-button-container">
+                <Button
+                    disabled={!username || !password}
+                    width="100%"
+                    type={"submit"}
+                >
+                  Login
+                </Button>
+              </div>
+            </form>
+
           </div>
 
           {/* TODO: this is a feature for development only, remove on final build */}

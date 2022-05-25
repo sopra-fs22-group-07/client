@@ -8,33 +8,12 @@ import PropTypes from "prop-types";
 import DatePicker from "react-date-picker"
 import "styles/ui/DatePicker.scss"
 import {GenderPicker} from "../ui/GenderPicker";
-import {getGeoLocation} from "./Login";
+import {FormField, getGeoLocation} from "./Login";
 
 /*
 Registration Page
  */
-const FormField = props => {
-  return (
-    <div className="login field">
-      <label className="login label">
-        {props.label}
-      </label>
-      <input
-        className="login input"
-        placeholder="enter here.."
-        value={props.value}
-        onChange={e => props.onChange(e.target.value)}
-        type={props.type}
-      />
-    </div>
-  );
-};
 
-FormField.propTypes = {
-  label: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func
-};
 
 const Registration = () => {
   const history = useHistory();
@@ -108,56 +87,62 @@ const Registration = () => {
       <div className="login container">
         <div className="login form">
           <h2 className="login title"> Registration </h2>
-          <FormField
-            label="Username"
-            value={username.trim()} //can't add spaces at start or end of username, with this it is impossible to enter ""as username
-            onChange={un => setUsername(un)}
-          />
-          <div className={"errorMessage"}>
-            {err}
-          </div>
-
-          <FormField
-            label="Name"
-            value={name}
-            onChange={na => setName(na)}
-          />
-          <FormField
-              label="Password"
-              type="password"
-              value={password}
-              onChange={pw => setPassword(pw)}
-          />
-          <div className={"login field"}>
-            <label className="login label">
-              Birthday
-            </label>
-            <DatePicker className="login date-picker-container"
-                value={birthday}
-                onChange={(date)=>setBirthday(date)}
-                dateFormat="dd/MM/yyyy"
-                // restrict age:
-                maxDate={eighteenYearsAgo}
-                minDate={hundredYearsAgo}
+          <form onSubmit={() => doRegister()} >
+            <FormField
+                label="Username"
+                autoComplete={"username"}
+                value={username.trim()} //can't add spaces at start or end of username, with this it is impossible to enter ""as username
+                onChange={un => setUsername(un)}
             />
-          </div>
-          <div>
-            <div className="login container-title">
-              Gender
+            <div className={"errorMessage"}>
+              {err}
             </div>
-            <GenderPicker
-                onChange={(genders)=>setGender(genders.value)}
+
+            <FormField
+                autoComplete={"name"}
+                label="Name"
+                value={name}
+                onChange={na => setName(na)}
             />
-          </div>
-          <div className="login fixed-button-container">
-            <Button
-              disabled={err!=='' || !username || !password || !name || !birthday || !gender}
-              width="100%"
-              onClick={() => doRegister()}
-            >
-              Register
-            </Button>
-          </div>
+            <FormField
+                label="Password"
+                type="password"
+                autoComplete={"new-password"}
+                value={password}
+                onChange={pw => setPassword(pw)}
+            />
+            <div className={"login field"}>
+              <label className="login label">
+                Birthday
+              </label>
+              <DatePicker className="login date-picker-container"
+                          value={birthday}
+                          onChange={(date)=>setBirthday(date)}
+                          dateFormat="dd/MM/yyyy"
+                  // restrict age:
+                          maxDate={eighteenYearsAgo}
+                          minDate={hundredYearsAgo}
+              />
+            </div>
+            <div>
+              <div className="login container-title">
+                Gender
+              </div>
+              <GenderPicker
+                  onChange={(genders)=>setGender(genders.value)}
+              />
+            </div>
+            <div className="login fixed-button-container">
+              <Button
+                  disabled={err!=='' || !username || !password || !name || !birthday || !gender}
+                  width="100%"
+                  type={"submit"}
+              >
+                Register
+              </Button>
+            </div>
+          </form>
+
         </div>
       </div>
     </BaseContainer>
