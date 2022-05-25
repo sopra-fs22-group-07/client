@@ -15,22 +15,6 @@
          @include center;
 
      }
-    &.container {
-         display: flex;
-         flex-direction: column;
-         width: 60%;
-         max-width: 25em;
-         height: 40em;
-         font-size: $fontSizeMedium;
-         font-weight: 300;
-         padding-left: 37px;
-         padding-right: 37px;
-         border-radius: 1.2em;
-         background-color: $background;
-         transition: opacity 0.5s ease, transform 0.5s ease;
-         box-shadow: $dropShadow;
-         position: relative;
-     }
 
     &.info-container{
       color: $background;
@@ -53,26 +37,11 @@
     font-size: $fontSizeLarge;
   }
 
-    &.moving-button-container {
-         position: relative;
-         margin-bottom: 20px;
-         display: flex;
-         justify-content: center;
-         background-color: transparent;
-         width: 380px;
-     }
-
-    &.title{
-         position: relative;
-         color: $textColor;
-         font-size: $fontSizeLarge;
-         top: -20px;
-         margin-bottom: -15px;
-     }
-
-    .react-select {
-        width: 380px;
-    }
+  &.link{
+    color: $accentDark;
+    font-style: italic;
+    text-decoration: underline;
+  }
 
 
     &.td{
@@ -82,14 +51,6 @@
 
     &.table{
          margin-bottom: 30px;
-     }
-
-    &.container-title{
-         margin-bottom: 20px;
-         font-weight: bold;
-     }
-    &.container-text{
-         font-weight: normal;
      }
 
 }
