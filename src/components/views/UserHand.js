@@ -101,13 +101,13 @@ const UserHand = () => {
   return (
     <React.Fragment>
       <div className="hand main-container">
-        <div className={"hand card-container black"}>
+        <div className={"hand card-container"}>
           <div className="hand text">
             <h2>Your Black Cards:</h2>
           </div>
           {blackCardContent}
         </div>
-        <div className={"hand card-container white"}>
+        <div className={"hand card-container"}>
           <div className="hand text">
             <h2>Your White Cards:</h2>
           </div>

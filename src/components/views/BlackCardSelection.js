@@ -147,7 +147,7 @@ const BlackCardSelection = () => {
     return (
         <React.Fragment>
             {textContent}
-            <CardContainer className={"blackCard-container"}>
+            <CardContainer className={"hand card-container"}>
                 {cardContent}
             </CardContainer>
         </React.Fragment>
