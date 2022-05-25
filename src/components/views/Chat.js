@@ -1,4 +1,4 @@
-import {useLocation} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import React, {useEffect, useRef, useState} from "react";
 import {api, handleError} from "../../helpers/api";
 import "styles/views/Chat.scss";
@@ -13,12 +13,22 @@ const Chat = () => {
     const otherUserId = location.state.otherUserId
     const chatId = location.state.chatId
     const otherUserName = location.state.otherUserName
+    const history = useHistory()
 
     // we need id as number, is stored as string.
     const userId = Number.parseInt(localStorage.getItem("id"))
     // this is used for keeping track of the total number of messages loaded (possible without it)
     const [numOfMessages, setNumOfMessages] = useState(0)
 
+    function doErrorHandling(error) {
+        if (error.response.status === 404) {
+            history.push("/game/matches")
+        }
+        else {
+            console.error("Details:", error);
+            alert("An Error occurred:\n " + handleError(error));
+        }
+    }
 
     // At loading of the page, read the messages (call to server)
     useEffect(() => {
@@ -27,16 +37,14 @@ const Chat = () => {
         }
         initializeRead()
             .catch(error => {
-            console.error("Details:", error);
-            alert("An Error occurred:\n " + handleError(error));
+                doErrorHandling(error)
         })
     }, [])
 
     // read messages
     async function readMessages() {
         await api.put(`users/${userId}/chats/${chatId}/read`).catch(error => {
-            console.error("Details:", error);
-            alert("An Error occurred:\n " + handleError(error));
+            doErrorHandling(error)
         })
     }
 
@@ -84,8 +92,7 @@ const Chat = () => {
             }
             loadChat()
                 .catch(error => {
-                    console.error("Details:", error);
-                    alert("An Error occurred:\n " + handleError(error));
+                    doErrorHandling(error)
                 })
                 .then(executeScroll)
         }, [])
@@ -105,8 +112,7 @@ const Chat = () => {
             const response = await api.post(`/users/${userId}/chats/${chatId}`,
                 requestBody)
                 .catch(error => {
-                    console.error("Details:", error);
-                    alert("An Error occurred:\n " + handleError(error));
+                    doErrorHandling(error)
                 })
 
             const sentMessage = {
@@ -136,8 +142,7 @@ const Chat = () => {
                 // Fetch new messages
                 const response = await api.get(`users/${userId}/chats/${chatId}/newMsgs`)
                     .catch(error => {
-                        console.error("Details:", error);
-                        alert("An Error occurred:\n " + handleError(error));
+                        doErrorHandling(error)
                     })
 
                 const receivedMessages = mapMessages(response.data)
@@ -200,8 +205,7 @@ const Chat = () => {
                     // console.log("Fetching messages...")
                     const response = await api.get(`users/${userId}/chats/${chatId}?from=${numOfMessages}&to=${numOfMessages + 50}`)
                         .catch(error => {
-                            console.error("Details:", error);
-                            alert("An Error occurred:\n " + handleError(error));
+                            doErrorHandling(error)
                         })
                     // artificial timeout to show the loader
                     await new Promise(resolve => setTimeout(resolve, 1000));
