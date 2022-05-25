@@ -5,6 +5,7 @@ import "styles/views/UserProfile.scss"
 import {useHistory} from "react-router-dom";
 import {UserProfile} from "../views/UserProfile";
 
+export const generateAvatar = (sprites, seed) => `https://avatars.dicebear.com/api/${sprites}/${seed}.svg`
 
 const MatchListItems = props => {
     const history = useHistory();
@@ -14,7 +15,6 @@ const MatchListItems = props => {
     const [showUserProfile, setShowUserProfile] = useState(false)
 
     // see https://avatars.dicebear.com/
-    const generateAvatar = (sprites, seed) => `https://avatars.dicebear.com/api/${sprites}/${seed}.svg`
     // the faces:
     // const avatar = generateAvatar("adventurer-neutral", props.otherUserId)
     // the GitHub style avatar:

@@ -4,6 +4,8 @@ import {api, handleError} from "../../helpers/api";
 import "styles/views/Chat.scss";
 import { css } from "@emotion/react";
 import {MoonLoader} from "react-spinners";
+import Avatar from "../ui/Avatar";
+import {generateAvatar} from "../ui/MatchListItems";
 
 const Chat = () => {
     // get infos passed by ChatOverview
@@ -144,13 +146,15 @@ const Chat = () => {
                     await readMessages();
                 }
 
-                // append new messages at the bottom
-                setMessages((prev => [...prev, ...receivedMessages]))
+
 
                 if (receivedMessages.length){
                     console.debug("successfully fetched " + receivedMessages.length + " message" + (receivedMessages.length === 1 ? "" : "s"))
+                    // append new messages at the bottom
+                    setMessages((prev => [...prev, ...receivedMessages]))
+                    setNumOfMessages(prev => prev + receivedMessages.length)
                 }
-                setNumOfMessages(prev => prev + receivedMessages.length)
+
 
                 // only scroll down if we're already at the bottom (if user is reading old messages, that would disturb)
                 if (shouldScroll) {
@@ -221,7 +225,12 @@ const Chat = () => {
         return (
             <main className={"page"}>
                 <header className={"header sticky"} >
-                    You are chatting with&nbsp;
+                    <Avatar
+                        image={
+                            generateAvatar("identicon", otherUserId)
+                        }
+                        isOnline={"INACTIVE"}
+                    />
                     {otherUserName}
                      </header>
                 <MoonLoader  loading={loading} css={override} size={20}/>

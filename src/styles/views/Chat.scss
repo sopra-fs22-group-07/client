@@ -1,4 +1,6 @@
-$headerHeight: 50px;
+@import "src/styles/theme";
+
+$headerHeight: 60px;
 $submitFieldHeight: 50px;
 $pageHeight: 88vh;
 
@@ -30,11 +32,12 @@ html {
 
 .header {
   display: flex;
-  justify-content: space-between;
+  font-size: 1.7em;
+  //justify-content: space-between;
   padding: 10px 16px;
   height: $headerHeight;
-  background: #6578ad;
-  color: #f1f1f1;
+  background: $headerColor;
+  color: #4b4b4b;
 }
 .sticky {
   //position: fixed;
@@ -134,7 +137,8 @@ html {
 }
 .submitButton {
   margin-left: 10px;
-  background: rgb(44, 126, 194);
+ // background: rgb(44, 126, 194);
+  background: #1976d2; // same color as header
   color: #fff;
   font-weight: bold;
   cursor: pointer;
@@ -144,5 +148,5 @@ html {
   background: rgb(0, 180, 50);
 }
 .submitButton:disabled {
-  background: rgba(27,41,245,0.52);
+  background: rgba(0, 42, 203, 0.52);
 }
