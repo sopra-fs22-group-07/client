@@ -51,11 +51,13 @@
     display: flex;
     justify-content: center;
     background-color: transparent;
-    width: 380px;
+    width: 100%;
   }
   &.fixed-button-container {
     position: absolute;
     bottom: 0;
+    right: 37px;
+    left: 37px;
   }
 
   &.title{
@@ -86,6 +88,11 @@
   }
   &.td-gender{
     padding-left: 20px;
+    padding-bottom: 5px;
+    text-transform: capitalize;
+  }
+
+  &.gender{
     padding-bottom: 5px;
     text-transform: capitalize;
   }
