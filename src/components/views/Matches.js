@@ -106,7 +106,7 @@ const Matches = () => {
                     </div>
                 </div>
                 <div className="MatchListItem">
-                    {matchedUsers ? matchedUsers.map(user => {
+                    {matchedUsers && matchedUsers.length ? matchedUsers.map(user => {
                         // only show message if message type is plain text
                         const content = (user.messageType === "PLAIN_TEXT") ? user.content : "[...]"
                         const time = getTime(user.creationDate)
@@ -132,7 +132,7 @@ const Matches = () => {
                                 </div>
                             );
                         }
-                    }): "No Matches Found"}
+                    }): <p>&nbsp; No Matches Found</p>}
                 </div>
             </div>
         </React.Fragment>
