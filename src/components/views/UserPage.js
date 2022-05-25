@@ -26,6 +26,10 @@ const displayDate = (date) => {
     }
 }
 
+const calculateZoom = (range) => {
+    return Math.log2(21000/range)
+}
+
 const UserPage = () =>{
     const id = localStorage.getItem("id")
     const history = useHistory()
@@ -160,11 +164,10 @@ const UserPage = () =>{
 
     // MAP
     let map = null;
-    let position = [0, 0];  // default position
-    let zoomScale = 14;     // set zoom
     if(user){
-        position = [user.latitude, user.longitude]     // latitude, longitude
-        if(position[0]===0){
+        let zoomScale = calculateZoom(user.maxRange)
+        let position = [user.latitude, user.longitude] // latitude, longitude
+        if(position[0] === 0 && position[1] === 0){
             zoomScale = 4; // higher zoom because somewhere in the water
         }
         map = (
