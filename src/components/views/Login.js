@@ -7,7 +7,6 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 
 async function updateCoordinates(userId, latitude, longitude) {
-  console.log("Sending " + latitude + ", " + longitude)
   await api.put(`/users/${userId}/location`, {
     latitude: latitude,
     longitude: longitude
