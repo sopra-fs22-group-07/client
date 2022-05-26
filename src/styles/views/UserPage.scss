@@ -1,6 +1,15 @@
 @import 'src/styles/theme';
 
 .userPage {
+  .leaflet-container {
+    width: 60vw;
+    height: 60vh;
+  }
+
+  .leaflet-tile-pane {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+  }
 
   &.main-container{
     margin-top: 2em;

@@ -6,6 +6,11 @@ import 'styles/views/LoginRegistration.scss';
 import {useHistory} from "react-router-dom";
 import {Button} from "../ui/Button";
 
+// import for map
+import 'leaflet/dist/leaflet.css';
+import markerIconPng from "leaflet/dist/images/marker-icon.png"
+import {Icon} from 'leaflet'
+import { Circle, MapContainer, Marker, TileLayer} from 'react-leaflet'
 
 const displayDate = (date) => {
 
@@ -19,6 +24,10 @@ const displayDate = (date) => {
     else{
         return "No Birthday Found";
     }
+}
+
+const calculateZoom = (range) => {
+    return Math.log2(21000/range)
 }
 
 const UserPage = () =>{
@@ -75,7 +84,7 @@ const UserPage = () =>{
                             <td className="userPage td"> {displayDate(user.birthday)} </td>
                         </tr>
                         <tr>
-                            <td colspan="2">
+                            <td colSpan="2">
                                 <Button
                                     className="invert"
                                     width="100%"
@@ -153,6 +162,34 @@ const UserPage = () =>{
         )
     }
 
+    // MAP
+    let map = null;
+    if(user){
+        let zoomScale = calculateZoom(user.maxRange)
+        let position = [user.latitude, user.longitude] // latitude, longitude
+        if(position[0] === 0 && position[1] === 0){
+            zoomScale = 4; // higher zoom because somewhere in the water
+        }
+        map = (
+            <MapContainer center={position} zoom={zoomScale} scrollWheelZoom={false}
+                          className="userPage leaflet-container">
+                <TileLayer className = "userPage leaflet-tile-pane"
+                           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                />
+                <Marker position={position}
+                        icon={new Icon({iconUrl: markerIconPng, iconSize: [12, 20], iconAnchor: [6, 20]})}>
+                </Marker>
+                <Circle
+                    center={position}
+                    pathOptions={{ color: 'blue' }}
+                    fillOpacity={0.5}
+                    opacity={0.6}
+                    radius={user.maxRange*1000}>
+                </Circle >
+            </MapContainer>
+        )
+    }
 
 
     const goToEdit = async () =>{
@@ -178,9 +215,11 @@ const UserPage = () =>{
                     <div className="userPage bigTitle"> Profile </div>
                     {profile}
                 </div>
+
                 <div className="userPage main-container">
                     {userPreferences}
                 </div>
+                {map}
             </BaseContainer>
         </React.Fragment>
     )
