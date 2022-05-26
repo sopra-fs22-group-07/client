@@ -27,7 +27,7 @@
        color: $background;
        position: relative;
        font-size: $fontSizeMediumSmall;
-      margin-bottom: -10px;
+      margin-bottom: -5px;
      }
 
   &.largeTitle{
@@ -41,7 +41,9 @@
     color: $accentDark;
     font-style: italic;
     text-decoration: underline;
+    &:hover { cursor: pointer; }
   }
+
 
 
     &.td{
