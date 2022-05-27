@@ -1,6 +1,15 @@
 @import 'src/styles/theme';
 
 .userPage {
+  .leaflet-container {
+    width: 60vw;
+    height: 60vh;
+  }
+
+  .leaflet-tile-pane {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+  }
 
   &.main-container{
     margin-top: 2em;
@@ -38,7 +47,7 @@
     font-size: $fontSizeSmall;
   }
 
-  &.bigTitle{
+  &.smallTitle{
     color: $background;
     position: relative;
     font-size: $fontSizeLarge;
@@ -51,11 +60,13 @@
     display: flex;
     justify-content: center;
     background-color: transparent;
-    width: 380px;
+    width: 100%;
   }
   &.fixed-button-container {
     position: absolute;
     bottom: 0;
+    right: 37px;
+    left: 37px;
   }
 
   &.title{
@@ -86,6 +97,11 @@
   }
   &.td-gender{
     padding-left: 20px;
+    padding-bottom: 5px;
+    text-transform: capitalize;
+  }
+
+  &.gender{
     padding-bottom: 5px;
     text-transform: capitalize;
   }

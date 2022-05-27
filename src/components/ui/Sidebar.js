@@ -270,6 +270,12 @@ export default function Sidebar({view, children}) {
                     />
                     <SidebarItem
                         open={open}
+                        text="Current Hand"
+                        onClick={() => {history.push('/game/hand')}}
+                        icon={<PanToolIcon />}
+                    />
+                    <SidebarItem
+                        open={open}
                         text="Rate Cards"
                         onClick={() => {history.push('/game/rateWhites')}}
                         icon={<ThumbsUpDownIcon />}
@@ -285,12 +291,6 @@ export default function Sidebar({view, children}) {
                         text="Chat & Matches"
                         onClick={() => {history.push('/game/matches')}}
                         icon={<ChatIcon />}
-                    />
-                    <SidebarItem
-                        open={open}
-                        text="Current Hand"
-                        onClick={() => {history.push('/game/hand')}}
-                        icon={<PanToolIcon />}
                     />
                 </List>
 

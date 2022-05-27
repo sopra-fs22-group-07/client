@@ -7,6 +7,8 @@ import Matches from "components/views/Matches";
 import RateWhites from "../../views/RateWhites";
 import UserHand from "../../views/UserHand";
 import Chat from "../../views/Chat";
+import Rules from "../../views/Rules"
+import {GameGuard} from "../routeProtectors/GameGuard";
 
 const GameRouter = props => {
   /**
@@ -17,36 +19,56 @@ const GameRouter = props => {
 
       {/* menu */}
       <Route exact path={`${props.base}/menu`}>
-        <GameMenu/>
+          <GameGuard>
+              <GameMenu/>
+          </GameGuard>
       </Route>
 
       {/* black card selection */}
       <Route exact path={`${props.base}/select/blackCard`}>
-        <BlackCardSelection />
+          <GameGuard>
+              <BlackCardSelection />
+          </GameGuard>
       </Route>
 
       {/* play white cards */}
       <Route exact path={`${props.base}/playWhites`}>
-        <PlayWhites/>
+          <GameGuard>
+              <PlayWhites/>
+          </GameGuard>
       </Route>
 
       {/* matches */}
       <Route exact path={`${props.base}/matches`}>
-        <Matches/>
+          <GameGuard>
+              <Matches/>
+          </GameGuard>
       </Route>
 
       {/* hand */}
       <Route exact path={`${props.base}/hand`}>
-        <UserHand/>
+          <GameGuard>
+              <UserHand/>
+
+          </GameGuard>
       </Route>
+
+        {/* rules */}
+        <Route exact path={`${props.base}/rules`}>
+            <Rules/>
+        </Route>
 
       {/* rate white cards */}
       <Route exact path={`${props.base}/rateWhites`}>
-        <RateWhites/>
+          <GameGuard>
+              <RateWhites/>
+          </GameGuard>
       </Route>
 
       <Route exact path={`${props.base}/chat`}>
-        <Chat/>
+          <GameGuard>
+              <Chat/>
+          </GameGuard>
       </Route>
 
       {/* fallback option */}

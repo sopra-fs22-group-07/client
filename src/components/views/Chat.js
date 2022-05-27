@@ -1,9 +1,13 @@
-import {useLocation} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import React, {useEffect, useRef, useState} from "react";
 import {api, handleError} from "../../helpers/api";
 import "styles/views/Chat.scss";
 import { css } from "@emotion/react";
 import {MoonLoader} from "react-spinners";
+import Avatar from "../ui/Avatar";
+import {generateAvatar} from "../ui/MatchListItems";
+import {ONE_SECOND} from "../../helpers/Time";
+import {UserProfile} from "../ui/UserProfile";
 
 const Chat = () => {
     // get infos passed by ChatOverview
@@ -11,12 +15,25 @@ const Chat = () => {
     const otherUserId = location.state.otherUserId
     const chatId = location.state.chatId
     const otherUserName = location.state.otherUserName
+    const history = useHistory()
+    const [isOnline, setIsOnline] = useState("INACTIVE")
+    const [showUserProfile, setShowUserProfile] = useState(false)
+
 
     // we need id as number, is stored as string.
     const userId = Number.parseInt(localStorage.getItem("id"))
     // this is used for keeping track of the total number of messages loaded (possible without it)
     const [numOfMessages, setNumOfMessages] = useState(0)
 
+    function doErrorHandling(error) {
+        if (error.response.status === 404) {
+            history.push("/game/matches")
+        }
+        else {
+            console.error("Details:", error);
+            alert("An Error occurred:\n " + handleError(error));
+        }
+    }
 
     // At loading of the page, read the messages (call to server)
     useEffect(() => {
@@ -25,16 +42,14 @@ const Chat = () => {
         }
         initializeRead()
             .catch(error => {
-            console.error("Details:", error);
-            alert("An Error occurred:\n " + handleError(error));
+                doErrorHandling(error)
         })
     }, [])
 
     // read messages
     async function readMessages() {
         await api.put(`users/${userId}/chats/${chatId}/read`).catch(error => {
-            console.error("Details:", error);
-            alert("An Error occurred:\n " + handleError(error));
+            doErrorHandling(error)
         })
     }
 
@@ -82,8 +97,7 @@ const Chat = () => {
             }
             loadChat()
                 .catch(error => {
-                    console.error("Details:", error);
-                    alert("An Error occurred:\n " + handleError(error));
+                    doErrorHandling(error)
                 })
                 .then(executeScroll)
         }, [])
@@ -103,8 +117,7 @@ const Chat = () => {
             const response = await api.post(`/users/${userId}/chats/${chatId}`,
                 requestBody)
                 .catch(error => {
-                    console.error("Details:", error);
-                    alert("An Error occurred:\n " + handleError(error));
+                    doErrorHandling(error)
                 })
 
             const sentMessage = {
@@ -134,29 +147,27 @@ const Chat = () => {
                 // Fetch new messages
                 const response = await api.get(`users/${userId}/chats/${chatId}/newMsgs`)
                     .catch(error => {
-                        console.error("Details:", error);
-                        alert("An Error occurred:\n " + handleError(error));
+                        doErrorHandling(error)
                     })
+
+                setIsOnline(response.headers.status === undefined ? "INACTIVE" : response.headers.status)
 
                 const receivedMessages = mapMessages(response.data)
                 // read messages
                 if (receivedMessages.length > 0) {
                     await readMessages();
-                }
-
-                // append new messages at the bottom
-                setMessages((prev => [...prev, ...receivedMessages]))
-
-                if (receivedMessages.length){
                     console.debug("successfully fetched " + receivedMessages.length + " message" + (receivedMessages.length === 1 ? "" : "s"))
+                    // append new messages at the bottom
+                    setMessages((prev => [...prev, ...receivedMessages]))
+                    setNumOfMessages(prev => prev + receivedMessages.length)
                 }
-                setNumOfMessages(prev => prev + receivedMessages.length)
+
 
                 // only scroll down if we're already at the bottom (if user is reading old messages, that would disturb)
                 if (shouldScroll) {
                     executeScroll()
                 }
-            }, 1000)
+            }, ONE_SECOND)
 
             return () => clearInterval(timer)
         }, [])
@@ -196,8 +207,7 @@ const Chat = () => {
                     // console.log("Fetching messages...")
                     const response = await api.get(`users/${userId}/chats/${chatId}?from=${numOfMessages}&to=${numOfMessages + 50}`)
                         .catch(error => {
-                            console.error("Details:", error);
-                            alert("An Error occurred:\n " + handleError(error));
+                            doErrorHandling(error)
                         })
                     // artificial timeout to show the loader
                     await new Promise(resolve => setTimeout(resolve, 1000));
@@ -217,13 +227,37 @@ const Chat = () => {
                 }
             }
         }
+        const img = generateAvatar("identicon", otherUserId)
+        let header =
+            <header className={"header sticky"} >
+                <Avatar
+                    image={
+                        img
+                    }
+                    isOnline={isOnline}
+                    onClick={() => setShowUserProfile(true)}
+                />
+                {otherUserName}
+            </header>
+
+        if(showUserProfile) {
+            header =
+                <header className={"header"} >
+                    <UserProfile
+                        image = {img}
+                        otherUserId = {otherUserId}
+                        name = {otherUserName}
+                        onGoBack = {() => setShowUserProfile(false)}
+                        onDelete = {() => history.push("/game/matches")}
+                        view = "chat"
+                    />
+                </header>
+        }
+
 
         return (
             <main className={"page"}>
-                <header className={"header sticky"} >
-                    You are chatting with&nbsp;
-                    {otherUserName}
-                     </header>
+                {header}
                 <MoonLoader  loading={loading} css={override} size={20}/>
                 <div className={"messageContainer"} id={"messages"}
                      onScroll={handleScroll}
@@ -235,7 +269,10 @@ const Chat = () => {
                       onSubmit={sendMessage}>
                     <input className={"inputField"}
                            value={formValue}
-                           onChange={(e) => setFormValue(e.target.value)}
+                           onChange={(e) => {
+                               setFormValue(e.target.value)
+                               setShowUserProfile(false)
+                           }}
                            placeholder={"Enter your message..."}
                     />
                     <button className={"submitButton"}

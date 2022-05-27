@@ -1,0 +1,58 @@
+@import 'src/styles/theme';
+
+.rules {
+
+    &.main-container{
+         margin-top: 2em;
+         min-height: 300px;
+         @include center;
+         flex-direction: column;
+         margin-bottom: 20px;
+     }
+    &.card-container{
+         background-color: $accent;
+         display: block;
+         @include center;
+
+     }
+
+    &.info-container{
+      color: $background;
+      font-size: $fontSizeSmall;
+      margin-bottom: 50px;
+     }
+
+    &.smallTitle{
+       font-weight: bold;
+       color: $background;
+       position: relative;
+       font-size: $fontSizeMediumSmall;
+      margin-bottom: -5px;
+     }
+
+  &.largeTitle{
+    font-weight: bold;
+    color: $background;
+    position: relative;
+    font-size: $fontSizeLarge;
+  }
+
+  &.link{
+    color: $accentDark;
+    font-style: italic;
+    text-decoration: underline;
+    &:hover { cursor: pointer; }
+  }
+
+
+
+    &.td{
+         padding-left: 50px;
+     }
+
+
+    &.table{
+         margin-bottom: 30px;
+     }
+
+}

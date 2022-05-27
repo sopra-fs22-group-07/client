@@ -12,6 +12,7 @@ $accent: #FFFFFF;
 $accentDark: #123597;
 $textColor: white;
 $background: #000000;
+$headerColor: #ffffff; // update if it changes in sidebar.js
 
 /* some constants */
 
@@ -36,6 +37,7 @@ $fontMono: "Helvetica Neue", monospace;
 $fontSizeExtraLarge: 64px; /*used for banner*/
 $fontSizeLarge: 48px;
 $fontSizeMedium: 36px;
+$fontSizeMediumSmall: 28px;
 $fontSizeSmall: 18px;
 $fontSizeExtraSmall: 13px; /* used for buttons*/
 

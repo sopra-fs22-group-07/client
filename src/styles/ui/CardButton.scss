@@ -9,12 +9,24 @@
     padding-bottom: 0.2em;
     padding-top: 0.2em;
     padding-right: 0.3em;
-    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      // transparent
+      background: rgba(0, 0, 0, 0);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #ababab;
+    }
   }
 
   &:hover {
     transform: translateY(-1.5em);
   }
+
   &.whiteCard {
     background-color: $WHITE_CARD_BACKGROUND_COLOR;
     color: $WHITE_CARD_TEXT_COLOR;
@@ -66,6 +78,7 @@
   opacity: 1;
   color: $background;
   transition: all 0.3s ease;
+  position: relative;
 
   &.container {
     background: $accent;
@@ -77,4 +90,10 @@
     flex-direction: row;
     align-items: center;
   }
+}
+
+.card-icon {
+  right: 15px;
+  bottom: 0;
+  position: absolute;
 }

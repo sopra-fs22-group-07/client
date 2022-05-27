@@ -4,10 +4,18 @@ import CardButton from "../ui/CardButton";
 import MenuContainer from "../ui/MenuContainer";
 import {handleError} from "../../helpers/api";
 import {useHistory} from "react-router-dom";
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import ChatIcon from '@mui/icons-material/Chat';
+import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
+import GavelIcon from '@mui/icons-material/Gavel';
+import ArticleIcon from '@mui/icons-material/Article';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import PanToolIcon from "@mui/icons-material/PanTool";
 
 const GameMenu = () => {
     // use react-router-dom's hook to access the history
     const history = useHistory();
+    const iconStyle = {fontSize: 45, align: "center"};
 
     function pushURL(url){
         try {
@@ -41,24 +49,34 @@ const GameMenu = () => {
         <React.Fragment>
             <MenuContainer className={"menu container"}>
                 <CardButton className={"card whiteCard"}
+                          onClick={() => history.push("/game/select/blackCard")}
+                          children={"Select Black Card"}
+                          icon={<ArticleIcon sx={iconStyle}/>}
+                />
+                <CardButton className={"card whiteCard"}
                           onClick={() => goToPlayWhites()}
                           children={"Play White Cards"}
+                          icon={<ArticleOutlinedIcon sx={iconStyle}/>}
+                />
+                <CardButton className={"card whiteCard"}
+                            onClick={() => goToHand()}
+                            children={"Current Hand"}
+                            icon={<PanToolIcon sx={iconStyle}/>}
                 />
                 <CardButton className={"card whiteCard"}
                           onClick={() => goToRateWhites()}
                           children={"Rate Cards"}
+                          icon={<ThumbsUpDownIcon sx={iconStyle}/>}
                 />
                 <CardButton className={"card whiteCard"}
                           onClick={() => goToRules()}
                           children={"Rules"}
+                          icon={<GavelIcon sx={iconStyle}/>}
                 />
                 <CardButton className={"card whiteCard"}
                           onClick={() => goToMatches()}
-                          children={"Go to Matches"}
-                />
-                <CardButton className={"card whiteCard"}
-                            onClick={() => goToHand()}
-                            children={"See Hand"}
+                          children={"Chat & Matches"}
+                          icon={<ChatIcon sx={iconStyle}/>}
                 />
             </MenuContainer>
         </React.Fragment>

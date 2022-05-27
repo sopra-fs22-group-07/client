@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import DatePicker from "react-date-picker"
 import "styles/ui/DatePicker.scss"
 import {GenderPicker} from "../ui/GenderPicker";
+import {getGeoLocation} from "./Login";
 
 /*
 Registration Page
@@ -46,61 +47,25 @@ const Registration = () => {
   eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18)
   let hundredYearsAgo = new Date()
   hundredYearsAgo.setFullYear(hundredYearsAgo.getFullYear() - 100)
+  hundredYearsAgo.setHours(hundredYearsAgo.getHours() + 24)
   const [birthday, setBirthday] = useState(eighteenYearsAgo);
-  const [location, setLocation] = useState([0, 0]);
 
 
   // This little function asks the server if the typed in username is available and sets an error message accordingly
   useEffect(() => {
-    async function checkAvailability(){
-      try{
-        const response = await api.get(`/users/usernames?username=${username}`)
-        if(response.data.available === true) {
-          setErr("")
-        }
-        else {
-          setErr("username already taken")
-        }
-      } catch (error) {
-        alert(`Something went wrong during the registration: \n${handleError(error)}`);
-      }
-    }
-    checkAvailability()
-  }, [username]) // the function gets called whenever the username changes
-
-
-  const getGeoLocation = async (userId) => {
-
-    // how to handle if we get user location
-    const successCallback = (position) => {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      setLocation([latitude, longitude]);
-    };
-
-    // how to handle if user denies access to location
-    const errorCallback = (error) => {
-      console.log(`Error: ${error.code}`);
-      console.log(`Error Message: ${error.message}`);
-      window.alert("Your location could not be determined. You were set to the default location (0\"N, 0\"E).");
-    };
-
-    // if geolocation is not supported by the browser, do so
-    if (!navigator.geolocation) {
-      window.alert("Geolocation is not supported by your browser. You were set to the default location (0\"N, 0\"E).");
-    } else {
-      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    }
-
-    console.log(location);
-    await api.put(`/users/${userId}/location`, {
-      latitude: location[0],
-      longitude: location[1]
-    });
-
-  }
-
-
+        api.get(`/users/usernames?username=${username}`)
+            .then(response => {
+              if (response.data.available === true) {
+                setErr("")
+              } else {
+                setErr("username already taken")
+              }
+            })
+            .catch(error => {
+              alert(`Something went wrong during the registration: \n${handleError(error)}`);
+            })
+      }, [username]
+  )
 
   const doRegister = async () => {
     try {
@@ -119,7 +84,7 @@ const Registration = () => {
       await api.post('/users/login', JSON.stringify({username, password}))
 
       // get the user's location
-      getGeoLocation(response.data.id)
+      await getGeoLocation(response.data.id)
 
       // Registration successfully worked --> navigate to the route /game in the GameRouter
       history.push({
@@ -163,7 +128,10 @@ const Registration = () => {
               value={password}
               onChange={pw => setPassword(pw)}
           />
-          <div>
+          <div className={"login field"}>
+            <label className="login label">
+              Birthday
+            </label>
             <DatePicker className="login date-picker-container"
                 value={birthday}
                 onChange={(date)=>setBirthday(date)}
