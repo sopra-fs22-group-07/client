@@ -49,9 +49,7 @@ const Rules = () =>{
 
     const rateLink = <a className="rules link" onClick={()=>goToRateWhites()}>rate</a>;
 
-    const matchLink = <a className="rules link" onClick={()=>goToMatches()}>match</a>;
-
-    const chatLink = <a className="rules link" onClick={()=>goToMatches()}>chat</a>;
+    const matchLink = (props) => {return <a className="rules link" onClick={()=>goToMatches()}>{props.txt}</a>}
 
     const editPreferencesLink = <a className="rules link" onClick={()=>goToEditPreferences()}>changing your preferences</a>;
 
@@ -82,7 +80,7 @@ const Rules = () =>{
             <div className="rules smallTitle"> White Cards </div>
             <tr className="rules info-container">
                 <td> Whenever you choose a new Black Card you also get a fixed number of White Cards which you can {playLink} on other Users Black Cards. Try to use them in a way that is as funny or clever as possible.
-                    If the other user likes the white card you played you might {matchLink}!
+                    If the other user likes the white card you played you might {matchLink({txt: "match"})}!
                     <br/>After 24 hours your {handLink} resets and you get a new set of White Cards.</td>
 
             </tr>
@@ -90,7 +88,7 @@ const Rules = () =>{
             <tr className="rules info-container">
 
                 <td> Whenever someone has played a White Card on your Black Card, you can {rateLink} their White Card by giving either a thumbs up or thumbs down. <br/>
-                    When two players give each other's White Cards a thumbs up, they get match. Matched Users can {chatLink} with each other. <br/>
+                    When two players give each other's White Cards a thumbs up, they get match. Matched Users can {matchLink({txt: "chat"})} with each other. <br/>
                     If you don't want to be in contact with the other user anymore, you can unmatch or even block them.</td>
 
             </tr>

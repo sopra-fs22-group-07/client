@@ -4,37 +4,13 @@ import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import 'styles/views/LoginRegistration.scss';
 import BaseContainer from "components/ui/BaseContainer";
-import PropTypes from "prop-types";
 import DatePicker from "react-date-picker"
 import "styles/ui/DatePicker.scss"
 import {GenderPicker} from "../ui/GenderPicker";
-import {getGeoLocation} from "./Login";
+import {FormField} from "../ui/FormField";
+import {getGeoLocation} from "../../helpers/getGeoLocation";
 
-/*
-Registration Page
- */
-const FormField = props => {
-  return (
-    <div className="login field">
-      <label className="login label">
-        {props.label}
-      </label>
-      <input
-        className="login input"
-        placeholder="enter here.."
-        value={props.value}
-        onChange={e => props.onChange(e.target.value)}
-        type={props.type}
-      />
-    </div>
-  );
-};
 
-FormField.propTypes = {
-  label: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func
-};
 
 const Registration = () => {
   const history = useHistory();
@@ -49,7 +25,6 @@ const Registration = () => {
   hundredYearsAgo.setFullYear(hundredYearsAgo.getFullYear() - 100)
   hundredYearsAgo.setHours(hundredYearsAgo.getHours() + 24)
   const [birthday, setBirthday] = useState(eighteenYearsAgo);
-
 
   // This little function asks the server if the typed in username is available and sets an error message accordingly
   useEffect(() => {
@@ -72,7 +47,6 @@ const Registration = () => {
 
       // post the new user to the server
       const requestBody = JSON.stringify({username:username, name, password, birthday, gender});
-      console.log(requestBody)
       const response = await api.post('/users', requestBody);
       // Get the returned user and update a new object.
 

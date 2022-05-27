@@ -72,18 +72,13 @@ const RateWhites = () => {
     }
 
 
-
-
-    //Button that Accepts / Likes the Card
-    const acceptButton = <Button disabled={currentPlay==null} onClick={() => acceptCard()}> Accept/Like Card </Button>
     /**
      * Method that makes API call that the card is liked and therefore accepted - possibility for match
      */
     function acceptCard() {
         voteOnCard(true)
     }
-    //Button that declines / doesn't like the Card
-    const declineButton = <Button disabled={currentPlay==null} onClick={() => declineCard() }> Decline/Don't Like Card </Button>
+
 
     /**
      * Method that should makes the API Call that the card is not Liked by user and therefore declined

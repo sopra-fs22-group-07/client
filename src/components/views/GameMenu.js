@@ -4,7 +4,6 @@ import CardButton from "../ui/CardButton";
 import MenuContainer from "../ui/MenuContainer";
 import {handleError} from "../../helpers/api";
 import {useHistory} from "react-router-dom";
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ChatIcon from '@mui/icons-material/Chat';
 import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
 import GavelIcon from '@mui/icons-material/Gavel';
