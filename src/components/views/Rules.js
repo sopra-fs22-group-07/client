@@ -51,6 +51,8 @@ const Rules = () =>{
 
     const matchLink = <a className="rules link" onClick={()=>goToMatches()}>match</a>;
 
+    const chatLink = <a className="rules link" onClick={()=>goToMatches()}>chat</a>;
+
     const editPreferencesLink = <a className="rules link" onClick={()=>goToEditPreferences()}>changing your preferences</a>;
 
     const userProfileLink = <a className="rules link" onClick={()=>goToUserProfile()}>profile</a>;
@@ -87,8 +89,8 @@ const Rules = () =>{
             <div className="rules smallTitle"> Rating Cards & Matching </div>
             <tr className="rules info-container">
 
-                <td> Whenever someone has played a White Card on your Black Card you can {rateLink} their White Card by giving either a thumbs up or thumbs down. <br/>
-                    When two players give each other's White Cards a thumbs up, they get match. Matched Users can chat with each other. <br/>
+                <td> Whenever someone has played a White Card on your Black Card, you can {rateLink} their White Card by giving either a thumbs up or thumbs down. <br/>
+                    When two players give each other's White Cards a thumbs up, they get match. Matched Users can {chatLink} with each other. <br/>
                     If you don't want to be in contact with the other user anymore, you can unmatch or even block them.</td>
 
             </tr>
