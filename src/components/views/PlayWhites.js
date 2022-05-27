@@ -85,13 +85,28 @@ const PlayWhites = () => {
 
     }, [count]); // when count gets changed, new call to useEffects
 
+  let drawText = "Somehow there don't seem to be any cards today"
+  if(cards){ //If there are cards then display how many are left to draw today
+    if(cards.length>cardsPerHand){
+      drawText= "You can play " +(cards.length) + " more card" + ((cards.length === 1) ? "" : "s") + " today"
+    }
+    else(drawText="No more Cards left to draw today")
+  }
+
+  let drawPile = <CardContainer className="menu container">
+    <CardButton className="card whiteCard"
+                disabled={true}>
+      {drawText}
+    </CardButton>
+  </CardContainer>
+  
     // placeholder in case of failure
-    let cardsContent = <div>No white cards available</div>
+    let whiteCardsContent = <div>No white cards available</div>
 
     // If no game is left to play on (return value of blackCard is null), this is shown:
     let blackCardContent =
         <CardButton className={"card blackCard"} disabled={true}>
-            No black card available
+            No black card available would you like to change your preferences?
         </CardButton>
 
     // black card gets displayed if fetched
@@ -104,29 +119,15 @@ const PlayWhites = () => {
         // white cards get displayed if fetched and a blackCard is not null
         if(cards) {
             const cardsOnHand = cards.slice(0, cardsPerHand);
-            cardsContent =
+            whiteCardsContent =
                 <ul >
                     {cardsOnHand.map(card => (
                         <WhiteCard card={card} key={card.id}/>
                     ))}
+                  {drawPile}
                 </ul>
         }
     }
-
-    let drawText = "Somehow there don't seem to be any cards today"
-    if(cards){ //If there are cards then display how many are left to draw today
-        if(cards.length>cardsPerHand){
-            drawText= "You can play " +(cards.length) + " more card" + ((cards.length === 1) ? "" : "s") + " today"
-        }
-        else(drawText="No more Cards left to draw today")
-    }
-
-    let drawPile = <CardContainer className="menu container">
-        <CardButton className="card whiteCard"
-                    disabled={true}>
-            {drawText}
-        </CardButton>
-    </CardContainer>
 
   return (
     <React.Fragment>
@@ -140,9 +141,23 @@ const PlayWhites = () => {
             Pick a white card
         </ViewTitle>
         <CardContainer className={"container"}>
-            {cardsContent}
+            {whiteCardsContent}
         </CardContainer>
         {drawPile}
+      <div className="hand main-container">
+        <div className={"hand card-container"}>
+          <div className="hand text">
+            <h2>Given Black Cards:</h2>
+          </div>
+          {blackCardContent}
+        </div>
+        <div className={"hand card-container"}>
+          <div className="hand text">
+            <h2>Your White Cards:</h2>
+          </div>
+          {whiteCardsContent}
+        </div>
+      </div>
     </React.Fragment>
   );
 }
