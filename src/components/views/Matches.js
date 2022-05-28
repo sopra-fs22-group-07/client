@@ -120,7 +120,6 @@ const Matches = () => {
                                         key={user.otherUserId}
                                         otherUserId={user.otherUserId}
                                         status={user.status}
-                                        image={user.image} // was not implemented (future version?)
                                         content={content}
                                         time={time}
                                         read={user.read}

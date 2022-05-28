@@ -79,6 +79,7 @@ const EditUserPreferencePage = () =>{
         if(mR <= 10){
             return mR
         }
+
         if(mR <= 100){
             return ((mR-10)/9) + 9
         }
