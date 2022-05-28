@@ -175,6 +175,21 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Illustrations
 
+## Illustrations
+####Main Menu
+When Login into the Application the user gets directed to the game menu.
+![img.png](img.png)
+In this menu the user has an overview of the most important parts of our application, in the form
+of Cards Against Humanity Cards. For a first time user the "Rules" tab offers explanations and tips of how to use the application.
+A user can also go look at their hand and see their current Black Card, White Cards and how many White Cards are left to draw.
+Further a user can play and rate White Cards in the corresponding tabs.
+![img_1.png](img_1.png)
+For easy and intuitive navigation there is a sidebar with symbols which can be extended to also read what the symbols
+mean if a user struggles to understand the symbols. There is a match overview which also includes the chats. By clicking on a match a user can start chatting with another user.
+Then by clicking on the other users icon in the chat a user may unmatch or block the other user.
+
+
+
 ## Roadmap
 ###Add Black Cards with multiple gaps
 Currently only Black Cards with one gap are implemented but in Cards against Humanity there exist
