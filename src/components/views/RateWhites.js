@@ -37,8 +37,8 @@ const RateWhites = () => {
             }
             catch(error){
                 // when no active game left or past game with open plays
-                if (error.response.status === 404) {
-                    // message: when no active game left or past game with open plays
+                if (error.response.status === 404
+                    && error.response.data.message === "no active game or past game with plays left") {
                     setBlackCard(null);
                     setCurrentPLay(null);
                     console.error("Error 404: ", error.response.data.message)
