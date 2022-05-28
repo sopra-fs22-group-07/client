@@ -1,4 +1,4 @@
-# SoPra FS22 - Group 07 - Date Against Humanity - Server
+# SoPra FS22 - Group 07 - Date Against Humanity - Client
 
 ## Introduction: Date Against Humanity
 Date against humanity helps you meet people with the same sense of humour and allows you to network with others in a fun way.
