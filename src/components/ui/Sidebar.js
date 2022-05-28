@@ -29,7 +29,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ChatIcon from '@mui/icons-material/Chat';
 import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
-import GavelIcon from '@mui/icons-material/Gavel';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import ArticleIcon from '@mui/icons-material/Article';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -252,7 +252,7 @@ export default function Sidebar({view, children}) {
                 <List>
                     <SidebarItem
                         open={open}
-                        text="Menu"
+                        text="Game Menu"
                         onClick={() => {history.push('/game/menu')}}
                         icon={<MenuIcon />}
                     />
@@ -282,12 +282,6 @@ export default function Sidebar({view, children}) {
                     />
                     <SidebarItem
                         open={open}
-                        text="Rules"
-                        onClick={() => {history.push('/game/rules')}}
-                        icon={<GavelIcon />}
-                    />
-                    <SidebarItem
-                        open={open}
                         text="Chat & Matches"
                         onClick={() => {history.push('/game/matches')}}
                         icon={<ChatIcon />}
@@ -302,6 +296,12 @@ export default function Sidebar({view, children}) {
                         text="Personal Profile"
                         onClick={() => {goToUserPage()}}
                         icon={<AccountBoxIcon />}
+                    />
+                    <SidebarItem
+                        open={open}
+                        text="About & Rules"
+                        onClick={() => {history.push('/game/rules')}}
+                        icon={<QuestionMarkIcon />}
                     />
                     <SidebarItem
                         open={open}

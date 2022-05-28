@@ -108,7 +108,7 @@ const RateWhites = () => {
     return(
         <React.Fragment>
             <ViewTitle>
-                Rate white cards
+                Rate White Cards
             </ViewTitle>
             <CardContainer className={"container"}>
                 {blackCardContent}

@@ -103,7 +103,7 @@ const UserHand = () => {
       <div className="hand main-container">
         <div className={"hand card-container"}>
           <div className="hand text">
-            <h2>Your Black Cards:</h2>
+            <h2>Your Black Card:</h2>
           </div>
           {blackCardContent}
         </div>
