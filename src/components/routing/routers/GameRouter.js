@@ -7,6 +7,7 @@ import Matches from "components/views/Matches";
 import RateWhites from "../../views/RateWhites";
 import UserHand from "../../views/UserHand";
 import Chat from "../../views/Chat";
+import Rules from "../../views/Rules"
 import {GameGuard} from "../routeProtectors/GameGuard";
 
 const GameRouter = props => {
@@ -51,6 +52,11 @@ const GameRouter = props => {
 
           </GameGuard>
       </Route>
+
+        {/* rules */}
+        <Route exact path={`${props.base}/rules`}>
+            <Rules/>
+        </Route>
 
       {/* rate white cards */}
       <Route exact path={`${props.base}/rateWhites`}>
