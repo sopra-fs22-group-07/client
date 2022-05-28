@@ -13,8 +13,8 @@ for playing white cards on a black Card
  */
 const PlayWhites = () => {
    // use react-router-dom's hook to access the history
-  const[blackCard, setBlackCard] = useState(null)
-  const[gameId, setGameId] = useState(0)
+  const [blackCard, setBlackCard] = useState(null)
+  const [gameId, setGameId] = useState(0)
   const [cards, setCards] = useState(null)
   const [count, setCount] = useState(0)
   const userId = localStorage.getItem("id")
@@ -47,12 +47,6 @@ const PlayWhites = () => {
     WhiteCard.propTypes = {
         card: PropTypes.object
     };
-
-  // define a state variable (using the state hook).
-  // if this variable changes, the component will re-render, but the variable will
-  // keep its value throughout render cycles.
-  // a component can have as many state variables as you like.
-  // more information can be found under https://reactjs.org/docs/hooks-state.html
 
     useEffect(() => {
         // the game of a random user gets fetched
