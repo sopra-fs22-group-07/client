@@ -40,7 +40,7 @@ Main Classes User:
 ```
 ..\soprafs22\entity\User.java
 ..\soprafs22\controller\UserController.java
-..\soprafs22\service\UserService.java
+..\soprafs22\service\UserService.java 
 ```
 
 
@@ -60,7 +60,7 @@ Main Classes Cards:
 ..\soprafs22\controller\GameController.java
 ..\soprafs22\entity\Game.java
 ..\soprafs22\entity\WhiteCard.java
-..\soprafs22\entity\BlackCard.java
+..\soprafs22\entity\BlackCard.java 
 ```
 
 ## Chat
