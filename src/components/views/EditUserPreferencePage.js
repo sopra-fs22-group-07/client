@@ -170,19 +170,38 @@ const EditUserPreferencePage = () =>{
                 <FormGroup>
                     <FormControlLabel
                         control={
-                            <Checkbox checked={MALE} onChange={handleChangeGender} name="MALE" />
+                            <Checkbox
+                                checked={MALE}
+                                onChange={handleChangeGender}
+                                style ={{
+                                    color: "#1976d2",
+                                }}
+                                name="MALE" />
                         }
                         label="Male"
                     />
                     <FormControlLabel
                         control={
-                            <Checkbox checked={FEMALE} onChange={handleChangeGender} name="FEMALE" />
+                            <Checkbox
+                                checked={FEMALE}
+                                onChange={handleChangeGender}
+                                style ={{
+                                    color: "#1976d2",
+                                }}
+                                name="FEMALE" />
+
                         }
                         label="Female"
                     />
                     <FormControlLabel
                         control={
-                            <Checkbox checked={OTHER} onChange={handleChangeGender} name="OTHER" />
+                            <Checkbox
+                                checked={OTHER}
+                                onChange={handleChangeGender}
+                                style ={{
+                                    color: "#1976d2",
+                                }}
+                                name="OTHER" />
                         }
                         label="Other"
                     />
