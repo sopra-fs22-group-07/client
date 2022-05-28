@@ -1,9 +1,9 @@
 # SoPra FS22 - Group 07 - Date Against Humanity - Server
 
-## Introduction: Date against humanity
+## Introduction: Date Against Humanity
 Date against humanity helps you meet people with the same sense of humour and allows you to network with others in a fun way.
 
-The core principle is simple and based on Cards Against Humanity (https://www.cardsagainsthumanity.com/).
+The core principle is simple and based on [Cards Against Humanity](https://www.cardsagainsthumanity.com/).
 Each User gets to choose a Black Card every 24 hours which then gets displayed in their profile.
 The Black Cards have some text with a gap. Next to the Black Cards each user also gets a fixed number of White Cards whenever a new Black Card is chosen.
 The White Cards have some short text or phrase which gets used to fill in the gaps in the Black Cards in a funny or witty way.
@@ -12,8 +12,8 @@ When matched users can chat with each other. User can also unmatch or block prev
 Users can set preferences such as gender, age or a maximum distance which restricts whose Black Cards get presented to them.
 
 ### Links:
-- server: https://sopra-fs22-group-07-server.herokuapp.com/
-- client: https://sopra-fs22-group07-client.herokuapp.com/
+- Server: https://sopra-fs22-group-07-server.herokuapp.com/
+- Client: https://sopra-fs22-group07-client.herokuapp.com/
 - Source Code and Project board: https://github.com/orgs/sopra-fs22-group-07
 
 
@@ -46,8 +46,7 @@ Main Classes User:
 
 
 ## Cards
-The template for all our cards are from https://crhallberg.com/cah/ which uses cards from the card game
-Cards Against Humanity (https://www.cardsagainsthumanity.com/).
+The template for all our cards are from [JSON Agains Humanity](https://crhallberg.com/cah/) which uses cards from the card game [Cards Against Humanity](https://www.cardsagainsthumanity.com/).
 
 
 
@@ -209,24 +208,17 @@ from the "Family Friendly" edition but they can't play on Black Cards from users
 
 # Authors and acknowledgement
 ## Authors
-Seraina Schraff, seraina.schraff@uzh.ch, 20-710-513
-
-Andreas Huwiler, andreas.huwiler@uzh.ch , 13-921-234
-
-Laurin van den Bergh, laurin.vandenberg@uzh.ch, 16-744-401
-
-David Moser, david.moser2@uzh.ch, 19-923-929
-
-Joe Müller, joe.mueller@uzh.ch, 19-735-299
+- Seraina Schraff, seraina.schraff@uzh.ch, 20-710-513
+- Andreas Huwiler, andreas.huwiler@uzh.ch , 13-921-234
+- Laurin van den Bergh, laurin.vandenberg@uzh.ch, 16-744-401
+- David Moser, david.moser2@uzh.ch, 19-923-929
+- Joe Müller, joe.mueller@uzh.ch, 19-735-299
 
 ## Acknowledgement
-The server is built on the SoPra RESTful Service Template FS22: https://github.com/HASEL-UZH/sopra-fs22-template-server
-
-The client is built on the SoPra Client Template FS22: https://github.com/HASEL-UZH/sopra-fs22-template-client
-
-Cards Against JSON: https://crhallberg.com/cah/
-
-Cards Against Humanity: https://www.cardsagainsthumanity.com/
+- The server is built on the SoPra RESTful Service Template FS22: https://github.com/HASEL-UZH/sopra-fs22-template-server
+- The client is built on the SoPra Client Template FS22: https://github.com/HASEL-UZH/sopra-fs22-template-client
+- Cards Against JSON: https://crhallberg.com/cah/
+- Cards Against Humanity: https://www.cardsagainsthumanity.com/
 
 # Licence
 
