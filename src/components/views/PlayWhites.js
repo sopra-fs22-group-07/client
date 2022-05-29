@@ -76,7 +76,7 @@ const PlayWhites = () => {
           await api.get(`/users/${userId}/games/blackCards/current`)
             .then(() => {setBlackCardPlayed(true);})
             .catch(error => {
-              if (error.response.status === 401 || error.response.status === 404) { setBlackCardPlayed(false); }
+              if (error.response.status === 404) { setBlackCardPlayed(false); }
               else { console.error("Details: ", error); alert("Invalid Input:\n " + handleError(error)); }});
         }
 
@@ -100,7 +100,7 @@ const PlayWhites = () => {
     else(drawText="No more Cards left to draw today")
   }
   if(!blackCardPlayed) { // If the black card has not been played no white cards are available
-    drawText="White Cards will be available once you played a black card"
+    drawText="White Cards will be available once you have chosen a black card"
   } else if (!blackCard) { // own black card was played but no other black card is available
     if(whiteCards && whiteCards.length > 0){
       drawText= "You can play " +(whiteCards.length) + " more card" + ((whiteCards.length === 1) ? "" : "s") + " today"
@@ -120,7 +120,7 @@ const PlayWhites = () => {
     if (!blackCardPlayed) {
       blackCardContent = <CardButton className="card blackCard"
                                      onClick={() => {history.push('/game/select/blackCard')}}>
-        No black Card set, In order to play you need to choose a black Card
+        No black Card set <br></br><br></br> In order to play you need to choose a black Card
       </CardButton>
     }
 
@@ -128,7 +128,7 @@ const PlayWhites = () => {
     if (blackCardPlayed && !blackCard) {
       blackCardContent = <CardButton className={"card blackCard"}
                                      onClick={() => {history.push(`/users/${userId}/edit/preferences`)}}>
-        No black card available would you like to change your preferences?
+        No black card available <br></br><br></br> Would you like to change your preferences?
       </CardButton>
     }
 
@@ -165,13 +165,13 @@ const PlayWhites = () => {
       <div className="hand main-container">
         <div className={"hand card-container"}>
           <div className="hand text">
-            <h2>Given Black Cards:</h2>
+            <h2>Given Black Card:</h2>
           </div>
           {blackCardContent}
         </div>
         <div className={"hand card-container"}>
           <div className="hand text">
-            <h2>Pick a white cards:</h2>
+            <h2>Pick a White Card:</h2>
           </div>
           {whiteCardsContent}
         </div>
