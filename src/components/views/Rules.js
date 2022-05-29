@@ -121,7 +121,7 @@ const Rules = () =>{
 
             <br/>
 
-            <div className="rules largeTitle"> Licence </div>
+            <div className="rules largeTitle"> License </div>
             <tr className="rules info-container">
                 <td>
                     This project based on the work of {textLink("Cards Agains Humanity", () => window.open("https://www.cardsagainsthumanity.com/"))} and {textLink("JSON Against Humanity", ()=>window.open("https://www.crhallberg.com/cah/"))}, and is licensed under the {textLink("Creative Commons BY-NC-SA 4.0 license", () => window.open("https://creativecommons.org/licenses/by-nc-sa/4.0/"))} (as are the afore mentioned projects).
