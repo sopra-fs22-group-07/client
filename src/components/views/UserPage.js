@@ -130,7 +130,7 @@ const UserPage = () =>{
                               width="100%"
                               onClick={() => goToEditPreferences()}
                             >
-                                Edit Profile
+                                Edit Preferences
                             </Button>
                         </td>
                     </tr>
