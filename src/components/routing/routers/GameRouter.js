@@ -49,7 +49,6 @@ const GameRouter = props => {
     <Route exact path={`${props.base}/hand`}>
         <GameGuard>
             <UserHand/>
-
         </GameGuard>
     </Route>
 
