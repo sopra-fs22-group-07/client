@@ -23,10 +23,11 @@
      }
 
     &.smallTitle{
-       font-weight: bold;
-       color: $background;
-       position: relative;
-       font-size: $fontSizeMediumSmall;
+      font-weight: bold;
+      color: $background;
+      position: relative;
+      // text-align: center;
+      font-size: $fontSizeMediumSmall;
       margin-bottom: -5px;
      }
 
@@ -34,6 +35,7 @@
     font-weight: bold;
     color: $background;
     position: relative;
+    text-align: center;
     font-size: $fontSizeLarge;
   }
 

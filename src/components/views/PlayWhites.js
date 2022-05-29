@@ -51,12 +51,6 @@ const PlayWhites = () => {
         card: PropTypes.object
     };
 
-  // define a state variable (using the state hook).
-  // if this variable changes, the component will re-render, but the variable will
-  // keep its value throughout render cycles.
-  // a component can have as many state variables as you like.
-  // more information can be found under https://reactjs.org/docs/hooks-state.html
-
     useEffect(() => {
         // the game of a random user gets fetched
         async function fetchGame() {
@@ -117,7 +111,7 @@ const PlayWhites = () => {
     <CardButton className="card whiteCard" disabled={true}>
       {drawText}
     </CardButton>
-  
+
     // placeholder in case of failure
     let whiteCardsContent = <div className="hand">No white cards available</div>;
     let blackCardContent = <div className="hand">No black cards available</div>;

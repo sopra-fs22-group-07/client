@@ -49,13 +49,14 @@ const GameRouter = props => {
       <Route exact path={`${props.base}/hand`}>
           <GameGuard>
               <UserHand/>
-
           </GameGuard>
       </Route>
 
         {/* rules */}
         <Route exact path={`${props.base}/rules`}>
-            <Rules/>
+            <GameGuard>
+                <Rules/>
+            </GameGuard>
         </Route>
 
       {/* rate white cards */}

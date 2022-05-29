@@ -75,18 +75,19 @@ const EditUserPreferencePage = () =>{
         else{setMaxRange(scale(newValue))}
     };
 
-    const convertMaxRangeToDistance = (maxRange) =>{
-        if(maxRange <= 10){
-            return maxRange
+    const convertMaxRangeToDistance = (mR) => {
+        if(mR <= 10){
+            return mR
         }
-        if(maxRange <= 100){
-            return ((maxRange-10)/9) + 9
+
+        if(mR <= 100){
+            return ((mR-10)/9) + 9
         }
-        if(maxRange <= 1000){
-            return ((maxRange-100)/90) + 18
+        if(mR <= 1000){
+            return ((mR-100)/90) + 18
         }
         else{
-            return ((maxRange-1000)/2210) + 27
+            return ((mR-1000)/2210) + 27
         }
     }
 
@@ -118,10 +119,10 @@ const EditUserPreferencePage = () =>{
         }
     ];
 
-    const scale = (distance) => {
-        const previousMarkIndex = Math.floor(distance / 9);
+    const scale = (dist) => {
+        const previousMarkIndex = Math.floor(dist / 9);
         const previousMark = distanceMarks[previousMarkIndex];
-        const remainder = distance % 9;
+        const remainder = dist % 9;
         if (remainder === 0) {
             return previousMark.scaledValue;
         }
@@ -135,7 +136,6 @@ const EditUserPreferencePage = () =>{
             return Math.floor((num/1000))*1000 + " km"
         }
         return num.toFixed(0) + " km"; // if value < 1000, nothing to do
-
     }
 
     //Method to handle changes for the checkboxes gender

@@ -4,10 +4,8 @@ import CardButton from "../ui/CardButton";
 import MenuContainer from "../ui/MenuContainer";
 import {handleError} from "../../helpers/api";
 import {useHistory} from "react-router-dom";
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ChatIcon from '@mui/icons-material/Chat';
 import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
-import GavelIcon from '@mui/icons-material/Gavel';
 import ArticleIcon from '@mui/icons-material/Article';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import PanToolIcon from "@mui/icons-material/PanTool";
@@ -31,10 +29,6 @@ const GameMenu = () => {
 
     function goToRateWhites() {
         pushURL(`/game/rateWhites`)
-    }
-
-    function goToRules() {
-        pushURL(`/game/rules`)
     }
 
     function goToMatches() {
@@ -67,11 +61,6 @@ const GameMenu = () => {
                           onClick={() => goToRateWhites()}
                           children={"Rate Cards"}
                           icon={<ThumbsUpDownIcon sx={iconStyle}/>}
-                />
-                <CardButton className={"card whiteCard"}
-                          onClick={() => goToRules()}
-                          children={"Rules"}
-                          icon={<GavelIcon sx={iconStyle}/>}
                 />
                 <CardButton className={"card whiteCard"}
                           onClick={() => goToMatches()}
