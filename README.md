@@ -1,23 +1,168 @@
-# SoPra FS22 - Group 07 - Client
+# SoPra FS22 - Group 07 - Date Against Humanity - Client
 
-## Project: Date against humanity (Network and Game)
 Date against humanity helps you meet people with the same sense of humour and allows you to network with others in a fun way.
-The basic principle is simple. You can publish on your profile some gap texts (black cards) from the game "Cards against Humanity". By doing so, you give other users the chance to fill your gap text with terms (white cards). From the selection of white cards that respond to your black card you choose the funniest one and thus match with that person. This allows you to view their profile, chat and network with them.
 
-### Goal: network with other people in a fun way, play and have fun together
+The core principle is simple and based on [Cards Against Humanity](https://www.cardsagainsthumanity.com/).
+Each User gets to choose a Black Card every 24 hours which then gets displayed in their profile.
+The Black Cards have some text with a gap. Next to the Black Cards each user also gets a fixed number of White Cards whenever a new Black Card is chosen.
+The White Cards have some short text or phrase which gets used to fill in the gaps in the Black Cards in a funny or witty way.
+Users can rate the White Cards which get played to fill the gap in their Black Card and if both Users like each other's cards they match.
+When matched, users can chat with each other. User can also unmatch or block previously matched users.
+Users can set preferences such as gender, age or a maximum distance which restricts whose Black Cards get presented to them.
 
-### Rules:
-Gap text and terms are all from the game "Cards against humanity". You get dealt a total of N terms (white cards) per day, from which you can only see 8 at any given time. For each term you use, you draw another one until you have used up all your N cards for this day. Each day, you can write one term by yourself (wild card).
+### Links:
+- Server: https://sopra-fs22-group-07-server.herokuapp.com/
+- Client: https://sopra-fs22-group07-client.herokuapp.com/
+- Source Code and Project board: https://github.com/orgs/sopra-fs22-group-07
 
-More information: https://www.cardsagainsthumanity.com/
+
+# Technologies
+
+## Client
+For the client, React and JSX as well as the package manager npm are used.
+- Geolocation API: In order to retrieve the geolocation of the user, the built-in geolocation API is used (LAURIN!)
+- DiceBear API: For the Match Overview and the Chat, the Avatar Generator from https://avatars.dicebear.com/ is used 
+to create custom Avatar for every user
+- React Leaflet API: As map service react leaflet is used. It provides building between React and Leaflet. 
+Leaflet is an open-source JavaScript library for interactive maps. As source for the maps, Openstreetmap is used.
 
 
-## Prerequisites and Installation
+## Server
+For the server, we created a spring boot application with Java. We also used the build automation tool Gradle.
+
+- Database: A PostgreSQL database - fully managed from HEROKU - is used. At the moment, the connections are limited to 20, but it is possible to upgrade when needed.
+
+# High level components
+
+## User
+The user is one of our main components, as it is the component that the player (or user) of the application impersonates.
+The user model has a lot of responsibilities, ranging from having an age, gender and location and preferences
+up to having cards to play and to be played on.
+
+Main Classes User:
+```
+..\soprafs22\entity\User.java
+..\soprafs22\controller\UserController.java
+..\soprafs22\service\UserService.java 
+```
+
+
+## Cards
+The template for all our cards are from [JSON Agains Humanity](https://crhallberg.com/cah/) which uses cards from the card game [Cards Against Humanity](https://www.cardsagainsthumanity.com/).
+
+
+
+There exists two types of cards: White Cards and Black Cards. Every 24 hours, each user gets a set of White Cards and one Black
+Card. The White Cards then can be played on other users' Black Cards. This realtime interaction is used for the
+matching. When two users like each other's White Cards, a match is created. Black Cards of one user only get presented
+to another user if it fits their preferences.
+
+Main Classes Cards:
+```
+..\soprafs22\service\CardService.java
+..\soprafs22\controller\GameController.java
+..\soprafs22\entity\Game.java
+..\soprafs22\entity\WhiteCard.java
+..\soprafs22\entity\BlackCard.java 
+```
+
+## Chat
+The chat feature allows for users that are matched to interact with each other in real time. We built our own chat for this.
+Users can send and receive messages from other users they matched with in real time. A user has a chat overview, where they
+can see recent messages and all their matches. A user also has the possibility to block or unmatch any previously matched user.
+
+Main Classes Chat:
+```
+..\soprafs22\entity\Chat.java
+..\soprafs22\controller\ChatController.java
+..\soprafs22\entity\Match.java
+```
+
+
+# Launch & Deployment:
+
+## Server
+### Building with Gradle
+
+You can use the local Gradle Wrapper to build the application. If you don't have a local PotgreSQL database, and you use H2
+in memory instead, you have to work with the local branch, in order for the SQL queries to work.
+-   macOS: `./gradlew`
+-   Linux: `./gradlew`
+-   Windows: `./gradlew.bat`
+
+More Information about [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) 
+and [Gradle](https://gradle.org/docs/).
+
+#### Build
+To build the application:
+```bash
+./gradlew build
+```
+
+#### Run
+To run the application:
+```bash
+./gradlew bootRun
+```
+
+#### Test
+To run the tests:
+```bash
+./gradlew test
+```
+### Development Mode
+
+You can start the backend in development mode, this will automatically trigger a new build and reload the application
+once the content of a file has been changed and you save the file.
+
+Start two terminal windows and run:
+
+`./gradlew build --continuous`
+
+and in the other one:
+
+`./gradlew bootRun`
+
+If you want to avoid running all tests with every change, use the following command instead:
+
+`./gradlew build --continuous -xtest`
+
+### API Endpoint Testing: Postman
+
+-   We highly recommend to use [Postman](https://www.getpostman.com) in order to test your API Endpoints.
+
+### Debugging
+
+If something is not working and/or you don't know what is going on. We highly recommend that you use a debugger and step
+through the process step-by-step.
+
+To configure a debugger for SpringBoot's Tomcat servlet (i.e. the process you start with `./gradlew bootRun` command),
+do the following:
+
+1. Open Tab: **Run**/Edit Configurations
+2. Add a new Remote Configuration and name it properly
+3. Start the Server in Debug mode: `./gradlew bootRun --debug-jvm`
+4. Press `Shift + F9` or the use **Run**/Debug"Name of your task"
+5. Set breakpoints in the application where you need it
+6. Step through the process one step at a time
+
+### Setup this Project with your IDE of Your Choice
+
+Download your IDE of choice: (e.g., [Eclipse](http://www.eclipse.org/downloads/), [IntelliJ](https://www.jetbrains.com/idea/download/)), [Visual Studio Code](https://code.visualstudio.com/) and
+make sure Java 15 is installed on your system (for Windows-users, please make sure your JAVA_HOME environment variable is set to the correct version of Java).
+
+## Client
+### Prerequisites and Installation
 For your local development environment, you will need Node.js. You can download it [here](https://nodejs.org). All other dependencies, including React, get installed with:
 
 ```npm install```
 
-Run this command before you start your application for the first time. Next, you can start the app with:
+Run this command before you start your application for the first time.
+If there are any vulnerabilities be sure to run:
+
+```npm audit fix```
+
+Next, you can start the app with:
 
 ```npm run dev```
 
@@ -25,24 +170,61 @@ Now you can open [http://localhost:3000](http://localhost:3000) to view it in th
 
 Notice that the page will reload if you make any edits. You will also see any lint errors in the console (use Google Chrome).
 
-### Testing
-Testing is optional, and you can run the tests with `npm run test`.
-This launches the test runner in an interactive watch mode. See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-> For macOS user running into a 'fsevents' error: https://github.com/jest-community/vscode-jest/issues/423
-
 ### Build
 Finally, `npm run build` builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance: the build is minified, and the filenames include hashes.<br>
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Tutorials
-- To learn React, check out the [React documentation](https://reactjs.org/).
-- Read the React [Docs](https://reactjs.org/docs/getting-started.html)
-- Do this React [Getting Started](https://reactjs.org/tutorial/tutorial.html) Tutorial (it doesn’t assume any existing React knowledge)
-- Get an Understanding of [CSS](https://www.w3schools.com/Css/), [SCSS](https://sass-lang.com/documentation/syntax), and [HTML](https://www.w3schools.com/html/html_intro.asp)!
+# Illustrations
 
-* [react-router-dom](https://reacttraining.com/react-router/web/guides/quick-start) offers declarative routing for React. It is a collection of navigational components that fit nicely with the application. 
-* [react-hooks](https://reactrouter.com/web/api/Hooks) let you access the router's state and perform navigation from inside your components.
+When logging into the Application, the user gets directed to the game menu.
+![img.png](img.png)
+In this menu, the user has an overview of the most important parts of our application, in the form
+of Cards Against Humanity Cards. For a first-time user, the 'Rules' tab offers explanations and tips of how to use the application.
+A user can also go look at their hand and see their current Black Card, White Cards and how many White Cards are left to draw.
+Furthermore, a user can play and rate White Cards in the corresponding tabs.
+![img_1.png](img_1.png)
+For easy and intuitive navigation there is a sidebar with symbols which can be extended to also read what the symbols
+mean if a user struggles to understand the symbols. There is a match overview which also includes the chats. 
+By clicking on a match, a user can start chatting with another user.
+A user may unmatch or block the other user by clicking on a user profile either in the match overview or in a chat.
 
-### The client is built on the SoPra Client Template FS22: https://github.com/HASEL-UZH/sopra-fs22-template-client
+
+
+# Roadmap
+## Add Black Cards with Multiple Gaps
+Currently, only Black Cards with one gap are implemented, yet in Cards against Humanity there exist
+Black Cards with up to 3 gaps. Add the possibility for Black Cards with two and three gaps, adjust
+the drawing of cards so playing on a multiple gap Black Card doesn't mean getting to play
+on less Black Cards on that day and make sure users with only 1 (or 2) White Cards left in their Hand
+don't have to play on Black Cards with 2 (or 3) gaps.
+
+## Just for Fun Mode
+Add a separate mode where each user has an infinite amount of White Cards to play
+per day. There is no matching in this mode as it is played purely out of fun. Implement a
+scoreboard where the like/dislike ratio for players gets displayed or even consider adding a
+feature where you rate White Cards on a scale from 1-10 in the just for fun mode.
+
+## Family Friendly Filter
+Allow users to set a filter to only receive cards from the "Family Friendly" version of the Game.
+Users who set this filter only receive Black and White Cards from these packs and only get shown
+Black Cards of Users who also have this filter activated. Users who don't have this filter activated can receive cards
+from the "Family Friendly" edition, but they cannot play on Black Cards from users who have the filter on.
+
+# Authors and acknowledgement
+## Authors
+- [Seraina Schraff](mailto:seraina.schraff@uzh.ch), 20-710-513
+- [Andreas Huwiler](mailto:andreas.huwiler@uzh.ch) , 13-921-234
+- [Laurin van den Bergh](mailto:laurin.vandenberg@uzh.ch), 16-744-401
+- [David Moser](mailto:david.moser2@uzh.ch), 19-923-929
+- [Joe Müller](mailto:joe.mueller@uzh.ch), 19-735-299
+
+## Acknowledgement
+- The server is built on the SoPra RESTful Service Template FS22: https://github.com/HASEL-UZH/sopra-fs22-template-server
+- The client is built on the SoPra Client Template FS22: https://github.com/HASEL-UZH/sopra-fs22-template-client
+- Cards Against JSON: https://crhallberg.com/cah/
+- Cards Against Humanity: https://www.cardsagainsthumanity.com/
+
+# Licence
+
+This project based on the work of [Cards Agains Humanity](https://www.cardsagainsthumanity.com/) and [JSON Against Humanity](https://www.crhallberg.com/cah/), and is licensed under the [Creative Commons BY-NC-SA 4.0 license](https://creativecommons.org/licenses/by-nc-sa/4.0/) (as are the afore mentioned projects).

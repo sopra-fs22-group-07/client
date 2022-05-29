@@ -17,65 +17,66 @@ const GameRouter = props => {
   return (
     <div style={{display: 'flex', flexDirection: 'column'}}>
 
-      {/* menu */}
-      <Route exact path={`${props.base}/menu`}>
-          <GameGuard>
-              <GameMenu/>
-          </GameGuard>
-      </Route>
+    {/* menu */}
+    <Route exact path={`${props.base}/menu`}>
+        <GameGuard>
+            <GameMenu/>
+        </GameGuard>
+    </Route>
 
-      {/* black card selection */}
-      <Route exact path={`${props.base}/select/blackCard`}>
-          <GameGuard>
-              <BlackCardSelection />
-          </GameGuard>
-      </Route>
+    {/* black card selection */}
+    <Route exact path={`${props.base}/select/blackCard`}>
+        <GameGuard>
+            <BlackCardSelection />
+        </GameGuard>
+    </Route>
 
-      {/* play white cards */}
-      <Route exact path={`${props.base}/playWhites`}>
-          <GameGuard>
-              <PlayWhites/>
-          </GameGuard>
-      </Route>
+    {/* play white cards */}
+    <Route exact path={`${props.base}/playWhites`}>
+        <GameGuard>
+            <PlayWhites/>
+        </GameGuard>
+    </Route>
 
-      {/* matches */}
-      <Route exact path={`${props.base}/matches`}>
-          <GameGuard>
-              <Matches/>
-          </GameGuard>
-      </Route>
+    {/* matches */}
+    <Route exact path={`${props.base}/matches`}>
+        <GameGuard>
+            <Matches/>
+        </GameGuard>
+    </Route>
 
-      {/* hand */}
-      <Route exact path={`${props.base}/hand`}>
-          <GameGuard>
-              <UserHand/>
-          </GameGuard>
-      </Route>
+    {/* hand */}
+    <Route exact path={`${props.base}/hand`}>
+        <GameGuard>
+            <UserHand/>
 
-        {/* rules */}
-        <Route exact path={`${props.base}/rules`}>
-            <GameGuard>
-                <Rules/>
-            </GameGuard>
-        </Route>
+        </GameGuard>
+    </Route>
 
-      {/* rate white cards */}
-      <Route exact path={`${props.base}/rateWhites`}>
-          <GameGuard>
-              <RateWhites/>
-          </GameGuard>
-      </Route>
+    {/* rules */}
+    <Route exact path={`${props.base}/rules`}>
+        <GameGuard>
+            <Rules/>
+        </GameGuard>
+    </Route>
 
-      <Route exact path={`${props.base}/chat`}>
-          <GameGuard>
-              <Chat/>
-          </GameGuard>
-      </Route>
+    {/* rate white cards */}
+    <Route exact path={`${props.base}/rateWhites`}>
+        <GameGuard>
+            <RateWhites/>
+        </GameGuard>
+    </Route>
 
-      {/* fallback option */}
-      <Route exact path={`${props.base}`}>
+    <Route exact path={`${props.base}/chat`}>
+        <GameGuard>
+            <Chat/>
+        </GameGuard>
+    </Route>
+
+    {/* fallback option */}
+    <Route exact path={`${props.base}`}>
         <Redirect to={`${props.base}/menu`}/>
-      </Route>
+    </Route>
     </div>
   );
 };
