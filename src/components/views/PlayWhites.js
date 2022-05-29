@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import CardContainer from "components/ui/CardContainer";
+import {useHistory} from "react-router-dom";
 import ViewTitle from "components/ui/ViewTitle";
 import "styles/ui/CardButton.scss";
 import "styles/ui/CardContainer.scss";
@@ -13,13 +13,16 @@ for playing white cards on a black Card
  */
 const PlayWhites = () => {
    // use react-router-dom's hook to access the history
+  const [blackCardPlayed, setBlackCardPlayed] = useState(false)
   const [blackCard, setBlackCard] = useState(null)
   const [gameId, setGameId] = useState(0)
-  const [cards, setCards] = useState(null)
+  const [whiteCards, setWhiteCards] = useState(null)
   const [count, setCount] = useState(0)
   const userId = localStorage.getItem("id")
   const cardsPerHand = 8 //constant of how many cards there are in a users hand
-    // function defines what is happening, when a white card gets selected. also renders the white cards
+  const history = useHistory();
+
+  // function defines what is happening, when a white card gets selected. also renders the white cards
     const WhiteCard = ({card}) => {
 
         // put the white Card and userId to the game on a Server, reloads useEffects
@@ -68,75 +71,115 @@ const PlayWhites = () => {
                 });
         }
 
+        // check if user has played back card if not, black card needs to be played first
+        async function ownBlackCardPlayed() {
+          await api.get(`/users/${userId}/games/blackCards/current`)
+            .then(() => {setBlackCardPlayed(true);})
+            .catch(error => {
+              if (error.response.status === 404) { setBlackCardPlayed(false); }
+              else { console.error("Details: ", error); alert("Invalid Input:\n " + handleError(error)); }});
+        }
+
         // the white cards of the user who is playing gets fetched
         async function fetchWhiteCards() {
-            await api.get(`users/${userId}/games/whiteCards`).then(response => {setCards(response.data)})
+            await api.get(`users/${userId}/games/whiteCards`).then(response => {setWhiteCards(response.data)})
                 .catch(error => {console.error("Details:", error); alert("Invalid Input:\n " + handleError(error));});
         }
 
         fetchGame();
         fetchWhiteCards();
+        ownBlackCardPlayed();
 
     }, [count]); // when count gets changed, new call to useEffects
 
+  let drawText = "Somehow there don't seem to be any cards today"
+  if(whiteCards) { //If there are cards then display how many are left to draw today
+    if(whiteCards.length>cardsPerHand){
+      drawText= "You can play " +(whiteCards.length) + " more card" + ((whiteCards.length === 1) ? "" : "s") + " today"
+    }
+    else(drawText="No more Cards left to draw today")
+  }
+  if(!blackCardPlayed) { // If the black card has not been played no white cards are available
+    drawText="White Cards will be available once you have chosen a black card"
+  } else if (!blackCard) { // own black card was played but no other black card is available
+    if(whiteCards && whiteCards.length > 0){
+      drawText= "You can play " +(whiteCards.length) + " more card" + ((whiteCards.length === 1) ? "" : "s") + " today"
+    }
+  }
+
+  let drawPile =
+    <CardButton className="card whiteCard" disabled={true}>
+      {drawText}
+    </CardButton>
+
     // placeholder in case of failure
-    let cardsContent = <div>No white cards available</div>
+    let whiteCardsContent = <div className="hand">No white cards available</div>;
+    let blackCardContent = <div className="hand">No black cards available</div>;
+
+    // If the black card has not been played yet, black card needs to be played
+    if (!blackCardPlayed) {
+      blackCardContent = <CardButton className="card blackCard"
+                                     onClick={() => {history.push('/game/select/blackCard', {
+                                         origin: "/game/playWhites"
+                                     })}}>
+        No black Card set <br></br><br></br> In order to play you need to choose a black Card
+      </CardButton>
+    }
 
     // If no game is left to play on (return value of blackCard is null), this is shown:
-    let blackCardContent =
-        <CardButton className={"card blackCard"} disabled={true}>
-            No black card available
-        </CardButton>
+    if (blackCardPlayed && !blackCard) {
+      blackCardContent = <CardButton className={"card blackCard"}
+                                     onClick={() => {history.push(`/users/${userId}/edit/preferences`, {
+                                         origin: "/game/playWhites"
+                                     })}}>
+        No black card available <br></br><br></br> Would you like to change your preferences?
+      </CardButton>
+    }
 
     // black card gets displayed if fetched
-    if(blackCard){
+    if(blackCardPlayed && blackCard){
         blackCardContent =
             <CardButton className={"card blackCard"} disabled={true}>
                 {blackCard.text}
             </CardButton>
 
         // white cards get displayed if fetched and a blackCard is not null
-        if(cards) {
-            const cardsOnHand = cards.slice(0, cardsPerHand);
-            cardsContent =
-                <ul >
+        if(whiteCards) {
+            const cardsOnHand = whiteCards.slice(0, cardsPerHand);
+            whiteCardsContent =
+                <ul className={"hand card-list"}>
                     {cardsOnHand.map(card => (
                         <WhiteCard card={card} key={card.id}/>
                     ))}
+                  {drawPile}
                 </ul>
         }
     }
 
-    let drawText = "Somehow there don't seem to be any cards today"
-    if(cards){ //If there are cards then display how many are left to draw today
-        if(cards.length>cardsPerHand){
-            drawText= "You can play " +(cards.length) + " more card" + ((cards.length === 1) ? "" : "s") + " today"
-        }
-        else(drawText="No more Cards left to draw today")
+    // has to be called in case the above did not fill it
+    if (!whiteCards || !(blackCardPlayed && blackCard)) {
+      whiteCardsContent = drawPile
     }
-
-    let drawPile = <CardContainer className="menu container">
-        <CardButton className="card whiteCard"
-                    disabled={true}>
-            {drawText}
-        </CardButton>
-    </CardContainer>
 
   return (
     <React.Fragment>
-        <ViewTitle>
-            Use a White Card to fill in the Blank
-        </ViewTitle>
-        <CardContainer className={"container"}>
-                {blackCardContent}
-        </CardContainer>
-        <ViewTitle>
-            Pick a white card
-        </ViewTitle>
-        <CardContainer className={"container"}>
-            {cardsContent}
-        </CardContainer>
-        {drawPile}
+      <ViewTitle>
+        Use a White Card to fill in the Blank
+      </ViewTitle>
+      <div className="hand main-container">
+        <div className={"hand card-container"}>
+          <div className="hand text">
+            <h2>Given Black Card:</h2>
+          </div>
+          {blackCardContent}
+        </div>
+        <div className={"hand card-container"}>
+          <div className="hand text">
+            <h2>Pick a White Card:</h2>
+          </div>
+          {whiteCardsContent}
+        </div>
+      </div>
     </React.Fragment>
   );
 }

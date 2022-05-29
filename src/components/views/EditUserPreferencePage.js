@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import BaseContainer from "../ui/BaseContainer";
 import {Button} from "../ui/Button";
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import {api, handleError} from "../../helpers/api";
 import 'styles/views/LoginRegistration.scss'
 import Slider from "@mui/material/Slider";
@@ -18,6 +18,12 @@ Edit User Preferences Page
  */
 const EditUserPreferencePage = () =>{
     const id = localStorage.getItem("id")
+
+    const location = useLocation()
+    let origin = `/users/${id}`
+    if (location.state !== undefined){
+        origin = location.state.origin
+    }
 
     const history = useHistory();
 
@@ -244,14 +250,14 @@ const EditUserPreferencePage = () =>{
             await api.put(`/users/${id}/preferences`, requestBody);
 
             // Editing users preferences successfully worked --> navigate to the route /userprofile in the router
-            history.push(`/users/${id}`);
+            history.push(origin);
         } catch (error) {
             alert(`Something went wrong while changing the User Preferences: \n${handleError(error)}`);
         }
     }
 
     function doCancel() {
-        history.push(`/users/${id}`)
+        history.push(origin)
     }
 
 
