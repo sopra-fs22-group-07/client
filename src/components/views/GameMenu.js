@@ -9,6 +9,7 @@ import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
 import ArticleIcon from '@mui/icons-material/Article';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import PanToolIcon from "@mui/icons-material/PanTool";
+import ViewTitle from "components/ui/ViewTitle";
 
 const GameMenu = () => {
     // use react-router-dom's hook to access the history
@@ -41,6 +42,9 @@ const GameMenu = () => {
 
     return (
         <React.Fragment>
+            <ViewTitle>
+                Game Menu
+            </ViewTitle>
             <MenuContainer className={"menu container"}>
                 <CardButton className={"card whiteCard"}
                           onClick={() => history.push("/game/select/blackCard")}

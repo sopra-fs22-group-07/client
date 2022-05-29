@@ -92,7 +92,7 @@ const Matches = () => {
         <React.Fragment>
             <div className="containerMatchList">
                 <div className="matchListHeading">
-                    <h2>Matches</h2>
+                    <h2>Chat & Matches</h2>
                 </div>
                 <div className="messageList">
                     <div className="searchWrap">
