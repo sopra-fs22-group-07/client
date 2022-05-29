@@ -33,18 +33,6 @@ const Login = () => {
     }
   };
 
-  // TODO: this is a feature for development only, remove on final build
-  // api call to add demo users
-  const addDemoUsers = async () => {
-    try {
-      await api.post('/users/demo')
-      window.alert("Demo users added.")
-    }
-    catch (error) {
-      window.alert("Error: " + error.response.data.message);
-    }
-  }
-
   const doLogin = async () => {
 
     try {
@@ -105,39 +93,6 @@ const Login = () => {
               </Button>
             </div>
           </div>
-
-          {/* TODO: this is a feature for development only, remove on final build */}
-          <div style={{color: "black"}}>
-            <br/>
-            <br/>
-            {/* TODO: this is a feature for development only, remove on final build */}
-            <div className="login button-container">
-              <Button
-                  className="invert"
-                  width="100%"
-                  onClick={() => addDemoUsers()}
-              >
-                Add Demo Users
-              </Button>
-            </div>
-            <div>
-              <br/>
-              There are three demo users with credentials:
-              <ul>
-                <li>Username: demoUser1</li>
-                <li>Password: demoUser1</li>
-              </ul>
-              <ul>
-                <li>Username: demoUser2</li>
-                <li>Password: demoUser2</li>
-              </ul>
-              <ul>
-                <li>Username: demoUser3</li>
-                <li>Password: demoUser3</li>
-              </ul>
-            </div>
-          </div>
-
         </div>
       </BaseContainer>
       </React.Fragment>
