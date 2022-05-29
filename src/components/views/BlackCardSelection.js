@@ -3,7 +3,7 @@ import "styles/views/GameMenu.scss";
 import CardButton from "../ui/CardButton";
 import ViewTitle from "components/ui/ViewTitle";
 import {api, handleError} from "../../helpers/api";
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import CardContainer from "../ui/CardContainer";
 import PropTypes from "prop-types";
 import {ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND} from "../../helpers/Time";
@@ -27,6 +27,12 @@ function msToHHMMSS (ms) {
 
 const BlackCardSelection = () => {
 
+    const location = useLocation()
+    let origin = '/game/menu'
+    if (location.state !== undefined){
+        origin = location.state.origin
+    }
+
 
     const BlackCard = ({card}) => {
         // use react-router-dom's hook to access the history
@@ -42,7 +48,7 @@ const BlackCardSelection = () => {
                 console.error("Details:", error);
                 alert("Invalid Input:\n " + handleError(error));
             }
-            history.push(`/game/menu`)
+            history.push(origin)
         }
 
         return(
