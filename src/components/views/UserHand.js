@@ -58,29 +58,29 @@ const UserHand = () => {
   let whiteCardsContent = <div className="hand">No more white Cards available</div>
   let cardsOnPile;
 
-  if(blackCard) {
+  if(blackCard) { // black card has been played
     blackCardContent = <CardButton className="card blackCard" disabled={true}>
       {blackCard.text}
     </CardButton>
-  } else {
+  } else { // black card has not been played
     blackCardContent = <CardButton className="card blackCard"
                      onClick={() => {history.push('/game/select/blackCard')}}>
       No black Card set, Choose black Card
     </CardButton>
   }
 
-  if (whiteCards){
-    if (whiteCards.length === 0 && !blackCard) {
+  if (whiteCards){ // normally empty array is returned no null unless errors
+    if (whiteCards.length === 0 && !blackCard) { // black card needs to be played
       whiteCardsContent = <CardButton className="card whiteCard simple"
                       onClick={() => {history.push('/game/select/blackCard')}}>
         No white Card available, Did you choose a black Card?
       </CardButton>
-    } else if (whiteCards.length === 0 && blackCard) {
+    } else if (whiteCards.length === 0 && blackCard) { // all white cards have been played
       whiteCardsContent = <CardButton className="card whiteCard" disabled={true}>
         No more white Cards available for today
       </CardButton>
-    } else if (whiteCards.length > 0) {
-      if (whiteCards.length > cardsPerHand) {
+    } else if (whiteCards.length > 0) { // there are still white cards available
+      if (whiteCards.length > cardsPerHand) { // there are more white cards available than the user is allowed to see
         const diff = whiteCards.length - cardsPerHand;
         cardsOnPile = <CardButton className="card whiteCard" disabled={true} style={{justifySelf: "flex-end"}}>
           You can draw {diff} more card{(diff === 1) ? "" : "s"}.
@@ -103,7 +103,7 @@ const UserHand = () => {
       <div className="hand main-container">
         <div className={"hand card-container"}>
           <div className="hand text">
-            <h2>Your Black Cards:</h2>
+            <h2>Your Black Card:</h2>
           </div>
           {blackCardContent}
         </div>

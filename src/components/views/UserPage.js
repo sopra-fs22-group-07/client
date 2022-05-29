@@ -94,47 +94,23 @@ const UserPage = () =>{
                                 </Button>
                             </td>
                         </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                        </tr>
-                </tbody>
+                    </tbody>
                 </table>
         )
     }
 
     let userPreferences = (
-        <div>
-            <div className="userPage title">Preferences</div>
-            <table className="userPage table">
-                <tbody>
-                    <tr className="userPage player-info-container">
-                        <td> Age Preference:</td>
-                        <td className="userPage td"> minAge-maxAge </td>
-                    </tr>
-                    <tr className="userPage player-info-container">
-                        <td> Gender Preferences: </td>
-                        <td className="userPage"> Preferred Gender(s) </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div>
-                <Button
-                    className="invert"
-                    width="100%"
-                    onClick={() => goToEditPreferences()}
-                >
-                    Edit Preferences
-                </Button>
-            </div>
-        </div>
+        <table className="userPage table">
+            <div className="userPage player-info-container">Age Preference: </div>
+            <div className="userPage player-info-container">Gender Preferences: </div>
+            <div className="userPage player-info-container">Range: </div>
+        </table>
     )
 
     if(user){
         userPreferences = (
-            <div>
-                <div className="userPage bigTitle">Preferences</div>
-                <table className="userPage table">
-                    <tbody>
+            <table className="userPage table">
+                <tbody>
                     <tr className="userPage player-info-container">
                         <td> Age:</td>
                         <td className="userPage td"> {user.minAge} Years - {user.maxAge} Years</td>
@@ -147,18 +123,19 @@ const UserPage = () =>{
                         <td> Range: </td>
                         <td className="userPage td"> {(user.maxRange)} km</td>
                     </tr>
-                    </tbody>
-                </table>
-                <div>
-                    <Button
-                        className="invert"
-                        width="100%"
-                        onClick={() => goToEditPreferences()}
-                    >
-                        Edit Preferences
-                    </Button>
-                </div>
-            </div>
+                    <tr>
+                        <td colSpan="2">
+                            <Button
+                              className="invert"
+                              width="100%"
+                              onClick={() => goToEditPreferences()}
+                            >
+                                Edit Preferences
+                            </Button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         )
     }
 
@@ -202,7 +179,9 @@ const UserPage = () =>{
 
     const goToEditPreferences = async () =>{
         try {
-            history.push(`/users/${id}/edit/preferences`)
+            history.push(`/users/${id}/edit/preferences`, {
+                origin: `/users/${id}`
+            })
         }catch (error) {
             alert(`Something went wrong while navigating to the game menu: \n${handleError(error)}`);
         }
@@ -217,13 +196,13 @@ const UserPage = () =>{
                 </div>
 
                 <div className="userPage main-container">
+                    <div className="userPage bigTitle">Preferences</div>
                     {userPreferences}
                 </div>
                 {map}
             </BaseContainer>
         </React.Fragment>
     )
-
 }
 
 export default UserPage

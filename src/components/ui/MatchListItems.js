@@ -47,7 +47,7 @@ const MatchListItems = props => {
     >
         <Avatar
             image={
-                props.image ? props.image : avatar
+                avatar
             }
             isOnline={props.status}
             onClick={() => setShowUserProfile(true)}

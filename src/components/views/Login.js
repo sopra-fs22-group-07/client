@@ -4,66 +4,9 @@ import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import 'styles/views/LoginRegistration.scss';
 import BaseContainer from "components/ui/BaseContainer";
-import PropTypes from "prop-types";
+import {FormField} from "../ui/FormField";
+import {getGeoLocation} from "../../helpers/getGeoLocation";
 
-async function updateCoordinates(userId, latitude, longitude) {
-  await api.put(`/users/${userId}/location`, {
-    latitude: latitude,
-    longitude: longitude
-  });
-}
-
-export const getGeoLocation = async (userId) => {
-
-  // how to handle if we get user location
-  const successCallback = async (position) => {
-    await updateCoordinates(userId, position.coords.latitude, position.coords.longitude)
-  };
-
-  // how to handle if user denies access to location
-  const errorCallback = async (error) => {
-    console.log(`Error Message: ${error.message}`);
-    window.alert("Your location could not be determined. You were set to the default location (0\"N, 0\"E).");
-    await updateCoordinates(userId, 0, 0)
-  };
-
-  // if geolocation is not supported by the browser, do so
-  if (!navigator.geolocation) {
-    window.alert("Geolocation is not supported by your browser. You were set to the default location (0\"N, 0\"E).");
-    await updateCoordinates(userId, 0, 0)
-  } else {
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  }
-}
-
-/*
-It is possible to add multiple components inside a single file,
-however be sure not to clutter your files with an endless amount!
-As a rule of thumb, use one file per component and only add small,
-specific components that belong to the main one in the same file.
- */
-const FormField = props => {
-  return (
-      <div className="login field">
-        <label className="login label">
-          {props.label}
-        </label>
-        <input
-            className="login input"
-            placeholder="enter here.."
-            value={props.value}
-            onChange={e => props.onChange(e.target.value)}
-            type={props.type}
-        />
-      </div>
-  );
-};
-
-FormField.propTypes = {
-  label: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func
-};
 
 const Login = () => {
   const history = useHistory();
@@ -90,18 +33,6 @@ const Login = () => {
     }
   };
 
-  // TODO: this is a feature for development only, remove on final build
-  // api call to add demo users
-  const addDemoUsers = async () => {
-    try {
-      await api.post('/users/demo')
-      window.alert("Demo users added.")
-    }
-    catch (error) {
-      window.alert("Error: " + error.response.data.message);
-    }
-  }
-
   const doLogin = async () => {
 
     try {
@@ -115,7 +46,7 @@ const Login = () => {
       localStorage.setItem('token', response.headers.token);
       localStorage.setItem('id', response.data.id)
 
-      getGeoLocation(response.data.id);
+      await getGeoLocation(response.data.id);
 
       // Login successfully worked --> navigate to the route /game in the GameRouter
       await pushUser();
@@ -162,39 +93,6 @@ const Login = () => {
               </Button>
             </div>
           </div>
-
-          {/* TODO: this is a feature for development only, remove on final build */}
-          <div style={{color: "black"}}>
-            <br/>
-            <br/>
-            {/* TODO: this is a feature for development only, remove on final build */}
-            <div className="login button-container">
-              <Button
-                  className="invert"
-                  width="100%"
-                  onClick={() => addDemoUsers()}
-              >
-                Add Demo Users
-              </Button>
-            </div>
-            <div>
-              <br/>
-              There are three demo users with credentials:
-              <ul>
-                <li>Username: demoUser1</li>
-                <li>Password: demoUser1</li>
-              </ul>
-              <ul>
-                <li>Username: demoUser2</li>
-                <li>Password: demoUser2</li>
-              </ul>
-              <ul>
-                <li>Username: demoUser3</li>
-                <li>Password: demoUser3</li>
-              </ul>
-            </div>
-          </div>
-
         </div>
       </BaseContainer>
       </React.Fragment>

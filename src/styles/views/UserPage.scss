@@ -77,6 +77,12 @@
     margin-bottom: -15px;
   }
 
+  &.bigTitle {
+    color: $background;
+    font-size: $fontSizeMedium;
+    top: -20px;
+  }
+
   .react-select {
     width: 380px;
   }

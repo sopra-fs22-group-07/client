@@ -37,7 +37,7 @@ const Matches = () => {
                     // Do as if empty chat is an unread message from the other person
                     fromUserId: match.user.id,
                     read: false,
-                    creationDate: match.matchCreationDate, // todo get match creation date
+                    creationDate: match.matchCreationDate,
                 }
             } else {
                 return {
@@ -88,7 +88,6 @@ const Matches = () => {
 
 
 
-    // for styling: animationDelay={index + 1}
     return (
         <React.Fragment>
             <div className="containerMatchList">
@@ -121,7 +120,6 @@ const Matches = () => {
                                         key={user.otherUserId}
                                         otherUserId={user.otherUserId}
                                         status={user.status}
-                                        image={user.image} //todo
                                         content={content}
                                         time={time}
                                         read={user.read}

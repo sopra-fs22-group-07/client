@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import BaseContainer from "../ui/BaseContainer";
 import {Button} from "../ui/Button";
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import {api, handleError} from "../../helpers/api";
 import 'styles/views/LoginRegistration.scss'
 import Slider from "@mui/material/Slider";
@@ -18,6 +18,12 @@ Edit User Preferences Page
  */
 const EditUserPreferencePage = () =>{
     const id = localStorage.getItem("id")
+
+    const location = useLocation()
+    let origin = `/users/${id}`
+    if (location.state !== undefined){
+        origin = location.state.origin
+    }
 
     const history = useHistory();
 
@@ -75,18 +81,19 @@ const EditUserPreferencePage = () =>{
         else{setMaxRange(scale(newValue))}
     };
 
-    const convertMaxRangeToDistance = (maxRange) =>{
-        if(maxRange <= 10){
-            return maxRange
+    const convertMaxRangeToDistance = (mR) => {
+        if(mR <= 10){
+            return mR
         }
-        if(maxRange <= 100){
-            return ((maxRange-10)/9) + 9
+
+        if(mR <= 100){
+            return ((mR-10)/9) + 9
         }
-        if(maxRange <= 1000){
-            return ((maxRange-100)/90) + 18
+        if(mR <= 1000){
+            return ((mR-100)/90) + 18
         }
         else{
-            return ((maxRange-1000)/2210) + 27
+            return ((mR-1000)/2210) + 27
         }
     }
 
@@ -118,10 +125,10 @@ const EditUserPreferencePage = () =>{
         }
     ];
 
-    const scale = (distance) => {
-        const previousMarkIndex = Math.floor(distance / 9);
+    const scale = (dist) => {
+        const previousMarkIndex = Math.floor(dist / 9);
         const previousMark = distanceMarks[previousMarkIndex];
-        const remainder = distance % 9;
+        const remainder = dist % 9;
         if (remainder === 0) {
             return previousMark.scaledValue;
         }
@@ -135,7 +142,6 @@ const EditUserPreferencePage = () =>{
             return Math.floor((num/1000))*1000 + " km"
         }
         return num.toFixed(0) + " km"; // if value < 1000, nothing to do
-
     }
 
     //Method to handle changes for the checkboxes gender
@@ -263,14 +269,14 @@ const EditUserPreferencePage = () =>{
             await api.put(`/users/${id}/preferences`, requestBody);
 
             // Editing users preferences successfully worked --> navigate to the route /userprofile in the router
-            history.push(`/users/${id}`);
+            history.push(origin);
         } catch (error) {
             alert(`Something went wrong while changing the User Preferences: \n${handleError(error)}`);
         }
     }
 
     function doCancel() {
-        history.push(`/users/${id}`)
+        history.push(origin)
     }
 
 
