@@ -179,7 +179,9 @@ const UserPage = () =>{
 
     const goToEditPreferences = async () =>{
         try {
-            history.push(`/users/${id}/edit/preferences`)
+            history.push(`/users/${id}/edit/preferences`, {
+                origin: `/users/${id}`
+            })
         }catch (error) {
             alert(`Something went wrong while navigating to the game menu: \n${handleError(error)}`);
         }

@@ -119,7 +119,9 @@ const PlayWhites = () => {
     // If the black card has not been played yet, black card needs to be played
     if (!blackCardPlayed) {
       blackCardContent = <CardButton className="card blackCard"
-                                     onClick={() => {history.push('/game/select/blackCard')}}>
+                                     onClick={() => {history.push('/game/select/blackCard', {
+                                         origin: "/game/playWhites"
+                                     })}}>
         No black Card set, In order to play you need to choose a black Card
       </CardButton>
     }
@@ -127,7 +129,9 @@ const PlayWhites = () => {
     // If no game is left to play on (return value of blackCard is null), this is shown:
     if (blackCardPlayed && !blackCard) {
       blackCardContent = <CardButton className={"card blackCard"}
-                                     onClick={() => {history.push(`/users/${userId}/edit/preferences`)}}>
+                                     onClick={() => {history.push(`/users/${userId}/edit/preferences`, {
+                                         origin: "/game/playWhites"
+                                     })}}>
         No black card available would you like to change your preferences?
       </CardButton>
     }
