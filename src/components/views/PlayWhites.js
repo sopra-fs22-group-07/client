@@ -163,7 +163,7 @@ const PlayWhites = () => {
   return (
     <React.Fragment>
       <ViewTitle>
-        Use a White Card to fill in the Blank
+        Play a White Card to fill in the Blank
       </ViewTitle>
       <div className="hand main-container">
         <div className={"hand card-container"}>

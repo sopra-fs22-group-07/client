@@ -191,12 +191,12 @@ const UserPage = () =>{
         <React.Fragment>
             <BaseContainer className="userPage main-container">
                 <div className="userPage main-container">
-                    <div className="userPage bigTitle"> Profile </div>
+                    <div className="userPage bigTitle"> Personal Profile </div>
                     {profile}
                 </div>
 
                 <div className="userPage main-container">
-                    <div className="userPage bigTitle">Preferences</div>
+                    <div className="userPage bigTitle">Matching Preferences</div>
                     {userPreferences}
                 </div>
                 {map}

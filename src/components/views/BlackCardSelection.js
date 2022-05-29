@@ -130,7 +130,7 @@ const BlackCardSelection = () => {
     if(blackCard!==null){
         textContent =
             <ViewTitle>
-                You can choose a new black card in {msToHHMMSS(timeLeft)}
+                You can select a new black card in {msToHHMMSS(timeLeft)}
             </ViewTitle>
         cardContent=
             <CardButton className={"card blackCard"} disabled={true}>
@@ -140,7 +140,7 @@ const BlackCardSelection = () => {
     }else if(cards){
         textContent=
             <ViewTitle>
-                Choose a Black Card of the Day
+                Select a Black Card of the Day
             </ViewTitle>
         cardContent =
             <ul>

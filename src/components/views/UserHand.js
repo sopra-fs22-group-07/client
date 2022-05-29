@@ -5,6 +5,7 @@ import {api, handleError} from "../../helpers/api";
 import CardButton from "../ui/CardButton";
 import "styles/ui/CardButton.scss";
 import "styles/views/UserHand.scss";
+import ViewTitle from "components/ui/ViewTitle";
 
 const UserHand = () => {
   const [blackCard, setBlackCard] = useState(null)
@@ -100,6 +101,9 @@ const UserHand = () => {
 
   return (
     <React.Fragment>
+      <ViewTitle>
+        Your Current Hand
+      </ViewTitle>
       <div className="hand main-container">
         <div className={"hand card-container"}>
           <div className="hand text">
