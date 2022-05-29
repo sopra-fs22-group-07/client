@@ -20,7 +20,7 @@ Users can set preferences such as gender, age or a maximum distance which restri
 
 ## Client
 For the client, React and JSX as well as the package manager npm are used.
-- Geolocation API: In order to retrieve the geolocation of the user, the built-in geolocation API is used (LAURIN!)
+- Geolocation API: In order to retrieve location data about users we used `navigator.geolocation` [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API) in order to access the browser geolocation information. This API uses the best available information to the browser in order to determine the location.
 - DiceBear API: For the Match Overview and the Chat, the Avatar Generator from https://avatars.dicebear.com/ is used 
 to create custom Avatar for every user
 - React Leaflet API: As map service react leaflet is used. It provides building between React and Leaflet. 
@@ -178,12 +178,12 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 # Illustrations
 
 When logging into the Application, the user gets directed to the game menu.
-![img.png](img.png)
+![game_menu.png](game_menu.png)
 In this menu, the user has an overview of the most important parts of our application, in the form
 of Cards Against Humanity Cards. For a first-time user, the 'Rules' tab offers explanations and tips of how to use the application.
 A user can also go look at their hand and see their current Black Card, White Cards and how many White Cards are left to draw.
 Furthermore, a user can play and rate White Cards in the corresponding tabs.
-![img_1.png](img_1.png)
+![hand.png](hand.png)
 For easy and intuitive navigation there is a sidebar with symbols which can be extended to also read what the symbols
 mean if a user struggles to understand the symbols. There is a match overview which also includes the chats. 
 By clicking on a match, a user can start chatting with another user.
