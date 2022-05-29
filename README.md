@@ -24,10 +24,10 @@ For the client we used React and JSX as well as the package manager npm.
 ## Server
 For the server we created a springboot application with java. We also used the build automation tool Gradle.
 
-- Database: Andy
+- Database: As Database a PostgreSQL database fully managed from HEROKU is used. At the moment, the connections are limited to 20, but it is possible to upgrade when needed.
 - Geolocation API: Laurin
 - Little Faces API: (only maybe) David
-- Open Maps API: (only maybe) Andy
+- React Leaflet API: As map service react leaflet is used. It provides building between React and Leaflet. Leaflet is an open-source JavaScript library for interactive maps. As source for the maps Openstreetmap is used. 
 
 # High level components
 
@@ -81,7 +81,7 @@ Main Classes Chat:
 ## Server
 ### Building with Gradle
 
-You can use the local Gradle Wrapper to build the application.
+You can use the local Gradle Wrapper to build the application. If you don't have a local PotgreSQL database, and you use H2 in memory instead, you have to work with the local branch that the SQL queries work.
 -   macOS: `./gradlew`
 -   Linux: `./gradlew`
 -   Windows: `./gradlew.bat`
